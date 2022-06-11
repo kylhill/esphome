@@ -36,6 +36,8 @@ wifi:
 
 captive_portal:
 
+# Basic Configuration - https://www.esphome-devices.com/devices/Sonoff-S31
+
 uart:
   rx_pin: RX
   baud_rate: 4800

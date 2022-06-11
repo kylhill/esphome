@@ -1,0 +1,85 @@
+# Shelly S1 Configuration
+esphome:
+  name: shelly-s1-3
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  password: !secret ota_password
+
+time:
+  - platform: homeassistant
+    id: ha_time
+    timezone: America/Chicago
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  domain: .iot.tacomafia.net
+  power_save_mode: LIGHT
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "shelly-s1-3 Fallback Hotspot"
+    password: !secret ap_password
+
+captive_portal:
+
+# Garage Door Opener - https://savjee.be/2020/06/make-garage-door-opener-smart-shelly-esphome-home-assistant/
+
+# The door contact sensor that is attached to SW on the
+# Shelly 1. Not exposed to HA, instead used to set the
+# state of the cover.
+binary_sensor:
+  - platform: gpio
+    pin: GPIO5
+    name: "Garage Door Contact Sensor"
+    id: contact_sensor
+    internal: true
+    filters:
+      - invert:
+      # Debounce the contact sensor to prevent rapid on/off/on events
+      - delayed_on_off: 500ms
+
+# The relay in the Shelly 1 that will deliver the pulse to
+# the garage door opener (not exposed to HA)
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Garage Door Relay"
+    id: relay
+    internal: true
+
+# This creates the actual garage door in HA. The state is based
+# on the contact sensor. Opening/closing the garage door simply
+# turns the relay on/off with a 0.5s delay in between.
+cover:
+  - platform: template
+    device_class: garage
+    name: "Garage Door - Third Car"
+    id: template_cov
+    lambda: |-
+      if (id(contact_sensor).state) {
+        return COVER_OPEN;
+      } else {
+        return COVER_CLOSED;
+      }
+    open_action:
+      - switch.turn_on: relay
+      - delay: 0.5s
+      - switch.turn_off: relay
+    close_action:
+      - switch.turn_on: relay
+      - delay: 0.5s
+      - switch.turn_off: relay
+    # TODO: stop_action? - https://www.home-assistant.io/integrations/cover/
