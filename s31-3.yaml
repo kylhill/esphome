@@ -27,7 +27,7 @@ wifi:
   password: !secret wifi_password
 
   domain: .iot.tacomafia.net
-  #power_save_mode: LIGHT
+  power_save_mode: LIGHT
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
