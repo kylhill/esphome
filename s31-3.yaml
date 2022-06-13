@@ -1,73 +1,9 @@
-# Sonoff S31 Configuration
-esphome:
-  name: s31-3
+substitutions:
+  device_name: s31-3
+  friendly_name: "Light 3"
 
-esp8266:
-  board: esp8285
+# Common config
+<<: !include common/common.yaml
 
-# Enable logging
-logger:
-  baud_rate: 0 # (UART logging interferes with cse7766)
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api_key
-
-ota:
-  password: "e2a016b8e048c98d495318e88c773fb3"
-
-time:
-  - platform: homeassistant
-    id: ha_time
-    timezone: America/Chicago
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-
-  domain: .iot.tacomafia.net
-  power_save_mode: LIGHT
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "S31-3 Fallback Hotspot"
-    password: !secret ap_password
-
-captive_portal:
-
-# Basic Configuration - https://www.esphome-devices.com/devices/Sonoff-S31
-
-uart:
-  rx_pin: RX
-  baud_rate: 4800
-
-binary_sensor:
-  - platform: gpio
-    pin:
-      number: GPIO0
-      mode:
-        input: true
-        pullup: true
-      inverted: true
-    name: "Light 3 Button"
-    on_press:
-      - switch.toggle: relay
-
-switch:
-  - platform: gpio
-    name: "Light 3 Switch"
-    pin: GPIO12
-    id: relay
-
-status_led:
-  pin:
-    number: GPIO13
-    inverted: true
-
-sensor:
-  - platform: cse7766
-    power:
-      name: "Light 3 Power"
-    energy:
-      name: "Light 3 Energy"
+# Device-specific config
+<<: !include devices/s31.yaml

@@ -1,61 +1,9 @@
-# Sonoff S31Lite Configuration
-esphome:
-  name: s31-4
+substitutions:
+  device_name: s31-4
+  friendly_name: "Light 4"
 
-esp8266:
-  board: esp8285
+# Common config
+<<: !include common/common.yaml
 
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api_key
-
-ota:
-  password: "3a1bc4d6555e1dbb752f7024550e7ab6"
-
-time:
-  - platform: homeassistant
-    id: ha_time
-    timezone: America/Chicago
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-
-  domain: .iot.tacomafia.net
-  power_save_mode: LIGHT
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "S31-4 Fallback Hotspot"
-    password: !secret ap_password
-
-captive_portal:
-
-# Basic Configuration - https://www.esphome-devices.com/devices/Sonoff-S31
-
-binary_sensor:
-  - platform: gpio
-    pin:
-      number: GPIO0
-      mode:
-        input: true
-        pullup: true
-      inverted: true
-    name: "Light 4 Button"
-    on_press:
-      - switch.toggle: relay
-
-switch:
-  - platform: gpio
-    name: "Light 4 Switch"
-    pin: GPIO12
-    id: relay
-
-status_led:
-  pin:
-    number: GPIO13
-    inverted: true
+# Device-specific config
+<<: !include devices/s31-lite.yaml

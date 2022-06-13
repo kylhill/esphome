@@ -1,0 +1,17 @@
+# Sonoff S31 - https://www.esphome-devices.com/devices/Sonoff-S31
+<<: !include s31-lite.yaml
+
+# Disable UART logging, interferes with cse7766
+logger:
+  baud_rate: 0 # (UART logging interferes with cse7766)
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+
+sensor:
+  - platform: cse7766
+    power:
+      name: $friendly_name Power
+    energy:
+      name: $friendly_name Energy

@@ -1,0 +1,53 @@
+# Garage Door Opener - https://savjee.be/2020/06/make-garage-door-opener-smart-shelly-esphome-home-assistant/
+esp8266:
+  board: esp01_1m
+
+# The door contact sensor that is attached to SW on the
+# Shelly 1. Not exposed to HA, instead used to set the
+# state of the cover.
+binary_sensor:
+  - platform: gpio
+    pin: GPIO5
+    name: "Garage Door Contact Sensor"
+    id: contact_sensor
+    internal: true
+    filters:
+      - invert:
+      # Debounce the contact sensor to prevent rapid on/off/on events
+      - delayed_on_off: 500ms
+
+# The relay in the Shelly 1 that will deliver the pulse to
+# the garage door opener (not exposed to HA)
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Garage Door Relay"
+    id: relay
+    internal: true
+
+# This creates the actual garage door in HA. The state is based
+# on the contact sensor. Opening/closing the garage door simply
+# turns the relay on/off with a 0.5s delay in between.
+cover:
+  - platform: template
+    device_class: garage
+    name: $friendly_name
+    id: template_cov
+    lambda: |-
+      if (id(contact_sensor).state) {
+        return COVER_OPEN;
+      } else {
+        return COVER_CLOSED;
+      }
+    open_action:
+      - switch.turn_on: relay
+      - delay: 0.5s
+      - switch.turn_off: relay
+    close_action:
+      - switch.turn_on: relay
+      - delay: 0.5s
+      - switch.turn_off: relay
+    stop_action:
+      - switch.turn_on: relay
+      - delay: 0.5s
+      - switch.turn_off: relay
