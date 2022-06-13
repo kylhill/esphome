@@ -6,8 +6,6 @@ uart:
   baud_rate: 4800
 
 sensor:
-  - platform: wifi_signal
-    name: $friendly_name WiFi Signal
   - platform: cse7766
     current:
       name: $friendly_name Current
@@ -15,7 +13,7 @@ sensor:
       name: $friendly_name Voltage
     power:
       name: $friendly_name Power
-      id: my_power
+      id: power
   - platform: total_daily_energy
     name: $friendly_name Energy
-    power_id: my_power
+    power_id: power

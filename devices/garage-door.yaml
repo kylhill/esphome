@@ -5,10 +5,6 @@ esp8266:
 # Enable UART logger
 logger:
 
-sensor:
-  - platform: wifi_signal
-    name: $friendly_name WiFi Signal
-
 # The door contact sensor that is attached to SW on the Shelly 1. Used to set the state of the cover.
 binary_sensor:
   - platform: gpio
@@ -18,8 +14,6 @@ binary_sensor:
       - invert:
       # Debounce the contact sensor to prevent rapid on/off/on events
       - delayed_on_off: 500ms
-  - platform: status
-    name: $friendly_name Status
 
 # The relay in the Shelly 1 that will deliver the pulse to the garage door opener
 switch:
