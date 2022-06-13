@@ -1,17 +1,21 @@
 # Sonoff S31 - https://www.esphome-devices.com/devices/Sonoff-S31
 <<: !include s31-lite.yaml
 
-# Disable UART logging, interferes with cse7766
-logger:
-  baud_rate: 0 # (UART logging interferes with cse7766)
-
 uart:
   rx_pin: RX
   baud_rate: 4800
 
 sensor:
+  - platform: wifi_signal
+    name: $friendly_name WiFi Signal
   - platform: cse7766
+    current:
+      name: $friendly_name Current
+    voltage:
+      name: $friendly_name Voltage
     power:
       name: $friendly_name Power
-    energy:
-      name: $friendly_name Energy
+      id: my_power
+  - platform: total_daily_energy
+    name: $friendly_name Energy
+    power_id: my_power
