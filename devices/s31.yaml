@@ -2,6 +2,10 @@
 packages:
   parent: !include s31-lite.yaml
 
+logger:
+  # Disable UART logging, interferes with cse7766
+  baud_rate: 0
+
 uart:
   rx_pin: RX
   baud_rate: 4800

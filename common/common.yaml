@@ -3,7 +3,10 @@ esphome:
   name: $device_name
   comment: $friendly_name
 
-# Enable Home Assistant API
+# Enable logging
+logger:
+
+# Enable HA API
 api:
   password: !secret api_password
   encryption:
@@ -13,7 +16,7 @@ api:
 ota:
   password: !secret api_password
 
-# Sync RTC with Home Assistant
+# Sync RTC with HA
 time:
   - platform: homeassistant
     id: homeassistant_time
@@ -27,7 +30,7 @@ wifi:
   domain: .iot.tacomafia.net
   power_save_mode: LIGHT
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  # Enable fallback hotspot (captive portal) in case Wi-Fi connection fails
   ap:
     ssid: $device_name AP
     password: !secret ap_password
@@ -35,7 +38,7 @@ wifi:
 
 captive_portal:
 
-# Generic sensor to report Wi-Fi signal
+# Generic sensor to report Wi-Fi signal to HA
 sensor:
   - platform: wifi_signal
     name: $friendly_name WiFi Signal
@@ -45,7 +48,7 @@ binary_sensor:
   - platform: status
     name: $friendly_name Status
 
-# Generic button to remotely restart device
+# Generic button to remotely restart device from HA
 button:
   - platform: restart
     name: $friendly_name Restart
