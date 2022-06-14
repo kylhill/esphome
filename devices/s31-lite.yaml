@@ -16,8 +16,8 @@ binary_sensor:
 
 switch:
   - platform: gpio
-    name: $friendly_name Switch
     pin: GPIO12
+    name: $friendly_name Switch
     id: relay
 
 status_led:
