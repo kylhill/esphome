@@ -35,19 +35,22 @@ sensor:
     active_power_a:
       name: $friendly_name Phase 1 Power
       id: power_phase_1
-      filters:
-        # TODO: How to tell if calibration value is correct?
-      - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+      #filters:
+      #  # https://community.home-assistant.io/t/anyone-using-shelly-em/149867
+      #- lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     active_power_b:
       name: $friendly_name Phase 2 Power
       id: power_phase_2
-      filters:
-      - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+      #filters:
+      #  # https://community.home-assistant.io/t/anyone-using-shelly-em/149867
+      #- lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     update_interval: 5s
 
   - platform: template
     name: $friendly_name Total Power
     id: total_power
+    state_class: measurement
+    device_class: power
     lambda: return id(power_phase_1).state + id(power_phase_2).state;
     update_interval: 5s
     unit_of_measurement: W
@@ -72,49 +75,83 @@ sensor:
 
   - platform: template
     name: $friendly_name Total Energy
+    id: total_energy
+    state_class: total_increasing
+    device_class: energy
     lambda: return id(energy_phase_1).state + id(energy_phase_2).state;
     unit_of_measurement: kWh
 
   - platform: template
     name: $friendly_name Total Current
     id: total_current
+    state_class: measurement
+    device_class: current
     lambda: return id(current_phase_1).state + id(current_phase_2).state;
     update_interval: 5s
     unit_of_measurement: A
 
   - platform: template
     name: $friendly_name Phase 1 Apparent Power
+    id: apparent_power_phase_1
+    state_class: measurement
+    device_class: power
+    #device_class: apparent_power
     lambda: return id(current_phase_1).state * id(voltage).state;
     update_interval: 5s
-    unit_of_measurement: VA
+    unit_of_measurement: W
+    #unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Phase 2 Apparent Power
+    id: apparent_power_phase_2
+    state_class: measurement
+    device_class: power
+    #device_class: apparent_power
     lambda: return id(current_phase_2).state * id(voltage).state;
     update_interval: 5s
-    unit_of_measurement: VA
+    unit_of_measurement: W
+    #unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Total Apparent Power
-    lambda: return id(total_current).state * id(voltage).state;
+    id: apparent_total_power
+    state_class: measurement
+    device_class: power
+    #device_class: apparent_power
+    lambda: return id(apparent_power_phase_1).state + id(apparent_power_phase_2).state;
     update_interval: 5s
-    unit_of_measurement: VA
+    unit_of_measurement: W
+    #unit_of_measurement: VA
 
-# TODO: Figure out how to calculate Power Factor
-#  - platform: template
-#    name: $friendly_name Phase 1 Power Factor
-#    lambda: return id(power_phase_1).state / id(voltage).state / id(current_phase_1).state;
-#    unit_of_measurement: "%"
-#
-#  - platform: template
-#    name: $friendly_name Phase 2 Power Factor
-#    lambda: return id(power_phase_2).state / id(voltage).state / id(current_phase_2).state;
-#    unit_of_measurement: "%"
-#
-#  - platform: template
-#    name: $friendly_name Total Power Factor
-#    lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
-#    unit_of_measurement: "%"
+  - platform: template
+    name: $friendly_name Phase 1 Power Factor
+    id: power_factor_phase_1
+    state_class: measurement
+    device_class: power_factor
+    lambda: return id(power_phase_1).state / id(apparent_power_phase_1).state;
+    accuracy_decimals: 3
+    update_interval: 5s
+    unit_of_measurement: "%"
+
+  - platform: template
+    name: $friendly_name Phase 2 Power Factor
+    id: power_factor_phase_2
+    state_class: measurement
+    device_class: power_factor
+    lambda: return id(power_phase_2).state / id(apparent_power_phase_2).state;
+    accuracy_decimals: 3
+    update_interval: 5s
+    unit_of_measurement: "%"
+
+  - platform: template
+    name: $friendly_name Total Power Factor
+    id: total_power_factor
+    state_class: measurement
+    device_class: power_factor
+    lambda: return id(total_power).state / id(apparent_total_power).state;
+    accuracy_decimals: 3
+    update_interval: 5s
+    unit_of_measurement: "%"
 
 status_led:
   pin:
