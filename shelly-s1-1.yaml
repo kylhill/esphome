@@ -2,8 +2,6 @@ substitutions:
   device_name: shelly-s1-1
   friendly_name: "Kim's Garage Door"
 
-# Common config
-<<: !include common/common.yaml
-
-# Device-specific config
-<<: !include devices/garage-door.yaml
+packages:
+  common: !include common/common.yaml
+  device: !include devices/garage-door.yaml

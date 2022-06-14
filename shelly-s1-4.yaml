@@ -2,8 +2,8 @@ substitutions:
   device_name: shelly-s1-4
   friendly_name: "shelly-s1-4"
 
-# Common config
-<<: !include common/common.yaml
+packages:
+  common: !include common/common.yaml
 
 # Device-specific config
 esp8266:

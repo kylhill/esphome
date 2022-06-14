@@ -1,5 +1,6 @@
 # Sonoff S31 - https://www.esphome-devices.com/devices/Sonoff-S31
-<<: !include s31-lite.yaml
+packages:
+  parent: !include s31-lite.yaml
 
 uart:
   rx_pin: RX

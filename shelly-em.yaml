@@ -2,8 +2,8 @@ substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
 
-# Common config
-<<: !include common/common.yaml
+packages:
+  common: !include common/common.yaml
 
 # Device-specific config
 # - https://www.esphome-devices.com/devices/Shelly-25
@@ -36,6 +36,7 @@ sensor:
       name: $friendly_name Phase 1 Power
       id: power_phase_1
       filters:
+        # TODO: How to tell if calibration value is correct?
       - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     active_power_b:
       name: $friendly_name Phase 2 Power
@@ -43,6 +44,13 @@ sensor:
       filters:
       - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     update_interval: 5s
+
+  - platform: template
+    name: $friendly_name Total Power
+    id: total_power
+    lambda: return id(power_phase_1).state + id(power_phase_2).state;
+    update_interval: 5s
+    unit_of_measurement: W
 
   - platform: total_daily_energy
     name: $friendly_name Phase 1 Energy
@@ -63,13 +71,6 @@ sensor:
     unit_of_measurement: kWh
 
   - platform: template
-    name: $friendly_name Total Power
-    id: total_power
-    lambda: return id(power_phase_1).state + id(power_phase_2).state;
-    update_interval: 5s
-    unit_of_measurement: W
-
-  - platform: template
     name: $friendly_name Total Energy
     lambda: return id(energy_phase_1).state + id(energy_phase_2).state;
     unit_of_measurement: kWh
@@ -78,40 +79,42 @@ sensor:
     name: $friendly_name Total Current
     id: total_current
     lambda: return id(current_phase_1).state + id(current_phase_2).state;
+    update_interval: 5s
     unit_of_measurement: A
-
-  - platform: template
-    name: $friendly_name Phase 1 Power Factor
-    lambda: return id(power_phase_1).state / id(voltage).state / id(current_phase_1).state;
-    unit_of_measurement: "%"
-
-  - platform: template
-    name: $friendly_name Phase 2 Power Factor
-    lambda: return id(power_phase_2).state / id(voltage).state / id(current_phase_2).state;
-    unit_of_measurement: "%"
-
-  - platform: template
-    name: $friendly_name Total Power Factor
-    lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
-    unit_of_measurement: "%"
 
   - platform: template
     name: $friendly_name Phase 1 Apparent Power
     lambda: return id(current_phase_1).state * id(voltage).state;
     update_interval: 5s
-    unit_of_measurement: W
+    unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Phase 2 Apparent Power
     lambda: return id(current_phase_2).state * id(voltage).state;
     update_interval: 5s
-    unit_of_measurement: W
+    unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Total Apparent Power
     lambda: return id(total_current).state * id(voltage).state;
     update_interval: 5s
-    unit_of_measurement: W
+    unit_of_measurement: VA
+
+# TODO: Figure out how to calculate Power Factor
+#  - platform: template
+#    name: $friendly_name Phase 1 Power Factor
+#    lambda: return id(power_phase_1).state / id(voltage).state / id(current_phase_1).state;
+#    unit_of_measurement: "%"
+#
+#  - platform: template
+#    name: $friendly_name Phase 2 Power Factor
+#    lambda: return id(power_phase_2).state / id(voltage).state / id(current_phase_2).state;
+#    unit_of_measurement: "%"
+#
+#  - platform: template
+#    name: $friendly_name Total Power Factor
+#    lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
+#    unit_of_measurement: "%"
 
 status_led:
   pin:

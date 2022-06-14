@@ -2,8 +2,6 @@ substitutions:
   device_name: s31-7
   friendly_name: "Light 7"
 
-# Common config
-<<: !include common/common.yaml
-
-# Device-specific config
-<<: !include devices/s31-lite.yaml
+packages:
+  common: !include common/common.yaml
+  device: !include devices/s31-lite.yaml
