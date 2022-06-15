@@ -3,5 +3,5 @@ substitutions:
   friendly_name: "Kim's Garage Door"
 
 packages:
-  common: !include common/common.yaml
-  device: !include devices/garage-door.yaml
+  common: !include templates/common.yaml
+  device: !include templates/garage-door.yaml

@@ -3,5 +3,5 @@ substitutions:
   friendly_name: "Light 3"
 
 packages:
-  common: !include common/common.yaml
-  device: !include devices/s31.yaml
+  common: !include templates/common.yaml
+  device: !include templates/s31.yaml

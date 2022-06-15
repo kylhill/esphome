@@ -3,7 +3,7 @@ substitutions:
   friendly_name: "Shelly EM"
 
 packages:
-  common: !include common/common.yaml
+  common: !include templates/common.yaml
 
 # Device-specific config
 # - https://www.esphome-devices.com/devices/Shelly-25
@@ -11,9 +11,6 @@ packages:
 
 esp8266:
   board: esp01_1m
-
-# Enable logging
-logger:
 
 i2c:
   sda: GPIO12

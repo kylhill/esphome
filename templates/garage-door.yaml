@@ -37,5 +37,5 @@ script:
   - id: toggle_cover
     then:
       - switch.turn_on: relay
-      - delay: 0.5s
+      - delay: 250ms
       - switch.turn_off: relay
