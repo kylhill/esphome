@@ -19,7 +19,6 @@ ota:
 # Sync RTC with HA
 time:
   - platform: homeassistant
-    id: homeassistant_time
     timezone: America/Chicago
 
 # Wi-Fi Setup
