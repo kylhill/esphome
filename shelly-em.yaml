@@ -6,6 +6,7 @@ packages:
   common: !include templates/common.yaml
 
 # Device-specific config
+# - https://www.esphome-devices.com/devices/Shelly-EM
 # - https://www.esphome-devices.com/devices/Shelly-25
 # - https://templates.blakadder.com/shelly_EM.html
 
@@ -32,16 +33,16 @@ sensor:
     active_power_a:
       name: $friendly_name Phase 1 Power
       id: power_phase_1
+      # Consider calibrating CT clamps, measurements were closer to the stock Shelly EM firmware for me without calibration
+      # See: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
       #filters:
-      #  # https://community.home-assistant.io/t/anyone-using-shelly-em/149867
       #- lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     active_power_b:
       name: $friendly_name Phase 2 Power
       id: power_phase_2
       #filters:
-      #  # https://community.home-assistant.io/t/anyone-using-shelly-em/149867
       #- lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
-    update_interval: 5s
+    update_interval: 15s
 
   - platform: template
     name: $friendly_name Total Power
@@ -49,7 +50,7 @@ sensor:
     state_class: measurement
     device_class: power
     lambda: return id(power_phase_1).state + id(power_phase_2).state;
-    update_interval: 5s
+    update_interval: 15s
     unit_of_measurement: W
 
   - platform: total_daily_energy
@@ -84,7 +85,7 @@ sensor:
     state_class: measurement
     device_class: current
     lambda: return id(current_phase_1).state + id(current_phase_2).state;
-    update_interval: 5s
+    update_interval: 15s
     unit_of_measurement: A
 
   - platform: template
@@ -92,33 +93,27 @@ sensor:
     id: apparent_power_phase_1
     state_class: measurement
     device_class: power
-    #device_class: apparent_power
     lambda: return id(current_phase_1).state * id(voltage).state;
-    update_interval: 5s
-    unit_of_measurement: W
-    #unit_of_measurement: VA
+    update_interval: 15s
+    unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Phase 2 Apparent Power
     id: apparent_power_phase_2
     state_class: measurement
     device_class: power
-    #device_class: apparent_power
     lambda: return id(current_phase_2).state * id(voltage).state;
-    update_interval: 5s
-    unit_of_measurement: W
-    #unit_of_measurement: VA
+    update_interval: 15s
+    unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Total Apparent Power
     id: apparent_total_power
     state_class: measurement
     device_class: power
-    #device_class: apparent_power
     lambda: return id(apparent_power_phase_1).state + id(apparent_power_phase_2).state;
-    update_interval: 5s
-    unit_of_measurement: W
-    #unit_of_measurement: VA
+    update_interval: 15s
+    unit_of_measurement: VA
 
   - platform: template
     name: $friendly_name Phase 1 Power Factor
@@ -127,7 +122,7 @@ sensor:
     device_class: power_factor
     lambda: return id(power_phase_1).state / id(apparent_power_phase_1).state;
     accuracy_decimals: 3
-    update_interval: 5s
+    update_interval: 15s
     unit_of_measurement: "%"
 
   - platform: template
@@ -137,7 +132,7 @@ sensor:
     device_class: power_factor
     lambda: return id(power_phase_2).state / id(apparent_power_phase_2).state;
     accuracy_decimals: 3
-    update_interval: 5s
+    update_interval: 15s
     unit_of_measurement: "%"
 
   - platform: template
@@ -147,7 +142,7 @@ sensor:
     device_class: power_factor
     lambda: return id(total_power).state / id(apparent_total_power).state;
     accuracy_decimals: 3
-    update_interval: 5s
+    update_interval: 15s
     unit_of_measurement: "%"
 
 status_led:

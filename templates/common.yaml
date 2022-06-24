@@ -38,16 +38,16 @@ wifi:
 captive_portal:
 
 # Generic sensors to report status to HA
-sensor:
-  - platform: wifi_signal
-    name: $friendly_name WiFi Signal
-  - platform: uptime
-    name: $friendly_name Uptime
+#sensor:
+#  - platform: wifi_signal
+#    name: $friendly_name WiFi Signal
+#  - platform: uptime
+#    name: $friendly_name Uptime
 
 # Generic sensor to report HA connection status
-binary_sensor:
-  - platform: status
-    name: $friendly_name Status
+#binary_sensor:
+#  - platform: status
+#    name: $friendly_name Status
 
 # Generic button to remotely restart device from HA
 button:
