@@ -33,15 +33,14 @@ sensor:
     active_power_a:
       name: $friendly_name Phase 1 Power
       id: power_phase_1
-      # Consider calibrating CT clamps, measurements were closer to the stock Shelly EM firmware for me without calibration
-      # See: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
-      #filters:
-      #- lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+      # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
+      filters:
+      - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     active_power_b:
       name: $friendly_name Phase 2 Power
       id: power_phase_2
-      #filters:
-      #- lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+      filters:
+      - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
     update_interval: 15s
 
   - platform: template
@@ -95,7 +94,7 @@ sensor:
     device_class: power
     lambda: return id(current_phase_1).state * id(voltage).state;
     update_interval: 15s
-    unit_of_measurement: VA
+    unit_of_measurement: W
 
   - platform: template
     name: $friendly_name Phase 2 Apparent Power
@@ -104,7 +103,7 @@ sensor:
     device_class: power
     lambda: return id(current_phase_2).state * id(voltage).state;
     update_interval: 15s
-    unit_of_measurement: VA
+    unit_of_measurement: W
 
   - platform: template
     name: $friendly_name Total Apparent Power
@@ -113,7 +112,7 @@ sensor:
     device_class: power
     lambda: return id(apparent_power_phase_1).state + id(apparent_power_phase_2).state;
     update_interval: 15s
-    unit_of_measurement: VA
+    unit_of_measurement: W
 
   - platform: template
     name: $friendly_name Phase 1 Power Factor
