@@ -12,7 +12,8 @@ binary_sensor:
       inverted: true
     name: $friendly_name Button
     on_press:
-      - switch.toggle: relay
+      then:
+        - switch.toggle: relay
 
 switch:
   - platform: gpio

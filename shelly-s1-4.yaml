@@ -1,6 +1,6 @@
 substitutions:
   device_name: shelly-s1-4
-  friendly_name: "shelly-s1-4"
+  friendly_name: "Porch Outlet"
 
 packages:
   common: !include templates/common.yaml
@@ -14,14 +14,10 @@ binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
-      #mode:
-        #input: true
-        #pullup: true
-      #inverted: true
+    name: $friendly_name Button
     on_state:
       then:
         - switch.toggle: relay
-    id: sw_input
 
 switch:
   - platform: gpio
