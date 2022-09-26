@@ -88,61 +88,31 @@ sensor:
     unit_of_measurement: A
 
   - platform: template
-    name: $friendly_name Phase 1 Apparent Power
-    id: apparent_power_phase_1
-    state_class: measurement
-    device_class: power
-    lambda: return id(current_phase_1).state * id(voltage).state;
-    update_interval: 15s
-    unit_of_measurement: W
-
-  - platform: template
-    name: $friendly_name Phase 2 Apparent Power
-    id: apparent_power_phase_2
-    state_class: measurement
-    device_class: power
-    lambda: return id(current_phase_2).state * id(voltage).state;
-    update_interval: 15s
-    unit_of_measurement: W
-
-  - platform: template
-    name: $friendly_name Total Apparent Power
-    id: apparent_total_power
-    state_class: measurement
-    device_class: power
-    lambda: return id(apparent_power_phase_1).state + id(apparent_power_phase_2).state;
-    update_interval: 15s
-    unit_of_measurement: W
-
-  - platform: template
     name: $friendly_name Phase 1 Power Factor
     id: power_factor_phase_1
     state_class: measurement
     device_class: power_factor
-    lambda: return id(power_phase_1).state / id(apparent_power_phase_1).state;
+    lambda: return id(power_phase_1).state / id(voltage).state / id(current_phase_1).state;
     accuracy_decimals: 3
     update_interval: 15s
-    unit_of_measurement: "%"
 
   - platform: template
     name: $friendly_name Phase 2 Power Factor
     id: power_factor_phase_2
     state_class: measurement
     device_class: power_factor
-    lambda: return id(power_phase_2).state / id(apparent_power_phase_2).state;
+    lambda: return id(power_phase_2).state / id(voltage).state / id(current_phase_2).state;
     accuracy_decimals: 3
     update_interval: 15s
-    unit_of_measurement: "%"
 
   - platform: template
     name: $friendly_name Total Power Factor
     id: total_power_factor
     state_class: measurement
     device_class: power_factor
-    lambda: return id(total_power).state / id(apparent_total_power).state;
+    lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
     accuracy_decimals: 3
     update_interval: 15s
-    unit_of_measurement: "%"
 
 status_led:
   pin:

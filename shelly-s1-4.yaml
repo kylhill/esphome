@@ -14,10 +14,25 @@ binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
+      mode:
+        input: true
+        pullup: true
     name: $friendly_name Button
     on_state:
       then:
         - switch.toggle: relay
+    on_multi_click:
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+        then:
+          - button.press: restart_button
 
 switch:
   - platform: gpio

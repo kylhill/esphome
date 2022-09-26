@@ -43,8 +43,6 @@ captive_portal:
 #    name: $friendly_name WiFi Signal
 #  - platform: uptime
 #    name: $friendly_name Uptime
-
-# Generic sensor to report HA connection status
 #binary_sensor:
 #  - platform: status
 #    name: $friendly_name Status
@@ -52,4 +50,5 @@ captive_portal:
 # Generic button to remotely restart device from HA
 button:
   - platform: restart
+    id: restart_button
     name: $friendly_name Restart
