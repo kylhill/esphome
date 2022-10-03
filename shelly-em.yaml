@@ -53,7 +53,7 @@ sensor:
     unit_of_measurement: W
 
   - platform: total_daily_energy
-    name: $friendly_name Phase 1 Energy
+    name: $friendly_name Phase 1 Total Daily Energy
     id: energy_phase_1
     power_id: power_phase_1
     filters:
@@ -62,7 +62,7 @@ sensor:
     unit_of_measurement: kWh
 
   - platform: total_daily_energy
-    name: $friendly_name Phase 2 Energy
+    name: $friendly_name Phase 2 Total Daily Energy
     id: energy_phase_2
     power_id: power_phase_2
     filters:
@@ -71,7 +71,7 @@ sensor:
     unit_of_measurement: kWh
 
   - platform: template
-    name: $friendly_name Total Energy
+    name: $friendly_name Total Daily Energy
     id: total_energy
     state_class: total_increasing
     device_class: energy

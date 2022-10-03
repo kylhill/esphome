@@ -23,7 +23,7 @@ sensor:
       name: $friendly_name Power
       id: power
   - platform: total_daily_energy
-    name: $friendly_name Energy
+    name: $friendly_name Total Daily Energy
     power_id: power
     unit_of_measurement: kWh
     accuracy_decimals: 3
