@@ -1,0 +1,7 @@
+substitutions:
+  device_name: s31-9
+  friendly_name: "Light 9"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/s31-lite.yaml
