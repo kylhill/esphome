@@ -12,7 +12,7 @@ uart:
 
 sensor:
   - platform: cse7766
-    update_interval: 15s
+    update_interval: 30s
     current:
       name: $friendly_name Current
       id: current
@@ -35,4 +35,4 @@ sensor:
     id: power_factor
     lambda: return id(power).state / id(voltage).state / id(current).state;
     accuracy_decimals: 3
-    update_interval: 15s
+    update_interval: 30s

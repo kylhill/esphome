@@ -41,7 +41,7 @@ sensor:
       id: power_phase_2
       filters:
       - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
-    update_interval: 15s
+    update_interval: 30s
 
   - platform: template
     name: $friendly_name Total Power
@@ -49,7 +49,7 @@ sensor:
     state_class: measurement
     device_class: power
     lambda: return id(power_phase_1).state + id(power_phase_2).state;
-    update_interval: 15s
+    update_interval: 30s
     unit_of_measurement: W
 
   - platform: total_daily_energy
@@ -84,7 +84,6 @@ sensor:
     state_class: measurement
     device_class: current
     lambda: return id(current_phase_1).state + id(current_phase_2).state;
-    update_interval: 15s
     unit_of_measurement: A
 
   - platform: template
@@ -94,7 +93,6 @@ sensor:
     device_class: power_factor
     lambda: return id(power_phase_1).state / id(voltage).state / id(current_phase_1).state;
     accuracy_decimals: 3
-    update_interval: 15s
 
   - platform: template
     name: $friendly_name Phase 2 Power Factor
@@ -103,7 +101,6 @@ sensor:
     device_class: power_factor
     lambda: return id(power_phase_2).state / id(voltage).state / id(current_phase_2).state;
     accuracy_decimals: 3
-    update_interval: 15s
 
   - platform: template
     name: $friendly_name Total Power Factor
@@ -112,7 +109,6 @@ sensor:
     device_class: power_factor
     lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
     accuracy_decimals: 3
-    update_interval: 15s
 
 status_led:
   pin:
