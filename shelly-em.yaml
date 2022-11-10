@@ -1,6 +1,9 @@
 substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
+  sample_rate: "5s"
+  update_interval_fast: "15s"
+  update_interval_slow: "60s"
 
 packages:
   common: !include templates/common.yaml
@@ -13,6 +16,15 @@ packages:
 esp8266:
   board: esp01_1m
 
+web_server:
+  include_internal: true
+  auth:
+    username: kyleh
+    password: !secret ap_password
+
+logger:
+  level: INFO
+
 i2c:
   sda: GPIO12
   scl: GPIO14
@@ -24,24 +36,41 @@ sensor:
     voltage:
       name: $friendly_name Voltage
       id: voltage
-    current_a:
-      name: $friendly_name Phase 1 Current
-      id: current_phase_1
-    current_b:
-      name: $friendly_name Phase 2 Current
-      id: current_phase_2
-    active_power_a:
-      name: $friendly_name Phase 1 Power
-      id: power_phase_1
-      # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
       filters:
-      - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+        - throttle_average: $update_interval_slow
+    current_a:
+      name: _Phase 1 Current
+      id: current_phase_1
+      internal: true
+    current_b:
+      name: _Phase 2 Current
+      id: current_phase_2
+      internal: true
+    active_power_a:
+      name: _Phase 1 Power
+      id: power_phase_1
+      filters:
+        # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
+        - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+      internal: true
     active_power_b:
-      name: $friendly_name Phase 2 Power
+      name: _Phase 2 Power
       id: power_phase_2
       filters:
-      - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
-    update_interval: 30s
+        # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
+        - lambda: if (x <= 0.0) return 0; else return x * 1.143207411;
+      internal: true
+    update_interval: $sample_rate
+
+  - platform: template
+    name: _Total Power
+    id: total_power_internal
+    state_class: measurement
+    device_class: power
+    lambda: return id(power_phase_1).state + id(power_phase_2).state;
+    unit_of_measurement: W
+    internal: true
+    update_interval: $sample_rate
 
   - platform: template
     name: $friendly_name Total Power
@@ -49,26 +78,30 @@ sensor:
     state_class: measurement
     device_class: power
     lambda: return id(power_phase_1).state + id(power_phase_2).state;
-    update_interval: 30s
     unit_of_measurement: W
+    filters:
+      - throttle_average: $update_interval_fast
+    update_interval: $sample_rate
 
   - platform: total_daily_energy
-    name: $friendly_name Phase 1 Total Daily Energy
+    name: _Phase 1 Total Daily Energy
     id: energy_phase_1
     power_id: power_phase_1
     filters:
       # Multiplication factor from W to kWh is 0.001
       - multiply: 0.001
     unit_of_measurement: kWh
+    internal: true
 
   - platform: total_daily_energy
-    name: $friendly_name Phase 2 Total Daily Energy
+    name: _Phase 2 Total Daily Energy
     id: energy_phase_2
     power_id: power_phase_2
     filters:
       # Multiplication factor from W to kWh is 0.001
       - multiply: 0.001
     unit_of_measurement: kWh
+    internal: true
 
   - platform: template
     name: $friendly_name Total Daily Energy
@@ -77,6 +110,7 @@ sensor:
     device_class: energy
     lambda: return id(energy_phase_1).state + id(energy_phase_2).state;
     unit_of_measurement: kWh
+    update_interval: $update_interval_slow
 
   - platform: template
     name: $friendly_name Total Current
@@ -85,22 +119,9 @@ sensor:
     device_class: current
     lambda: return id(current_phase_1).state + id(current_phase_2).state;
     unit_of_measurement: A
-
-  - platform: template
-    name: $friendly_name Phase 1 Power Factor
-    id: power_factor_phase_1
-    state_class: measurement
-    device_class: power_factor
-    lambda: return id(power_phase_1).state / id(voltage).state / id(current_phase_1).state;
-    accuracy_decimals: 3
-
-  - platform: template
-    name: $friendly_name Phase 2 Power Factor
-    id: power_factor_phase_2
-    state_class: measurement
-    device_class: power_factor
-    lambda: return id(power_phase_2).state / id(voltage).state / id(current_phase_2).state;
-    accuracy_decimals: 3
+    filters:
+      - throttle_average: $update_interval_slow
+    update_interval: $sample_rate
 
   - platform: template
     name: $friendly_name Total Power Factor
@@ -109,6 +130,9 @@ sensor:
     device_class: power_factor
     lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
     accuracy_decimals: 3
+    filters:
+      - throttle_average: $update_interval_slow
+    update_interval: $sample_rate
 
 status_led:
   pin:
