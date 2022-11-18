@@ -1,7 +1,7 @@
 substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
-  sample_rate: "5s"
+  sample_rate: "2s"
   update_interval_fast: "15s"
   update_interval_slow: "60s"
 
@@ -19,7 +19,7 @@ esp8266:
 web_server:
   include_internal: true
   auth:
-    username: kyleh
+    username: !secret username
     password: !secret ap_password
 
 logger:
