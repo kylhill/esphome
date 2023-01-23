@@ -16,16 +16,16 @@ uart:
 
 sensor:
   - platform: cse7766
-    current:
-      name: $friendly_name Current
-      id: current
-      filters:
-        - throttle_average: $update_interval
-    voltage:
-      name: $friendly_name Voltage
-      id: voltage
-      filters:
-        - throttle_average: $update_interval
+#    current:
+#      name: $friendly_name Current
+#      id: current
+#      filters:
+#        - throttle_average: $update_interval
+#    voltage:
+#      name: $friendly_name Voltage
+#      id: voltage
+#      filters:
+#        - throttle_average: $update_interval
     power:
       name: $friendly_name Power
       id: power
@@ -40,11 +40,11 @@ sensor:
     filters:
       # Multiplication factor from W to kW is 0.001
       - multiply: 0.001
-  - platform: template
-    name: $friendly_name Power Factor
-    id: power_factor
-    lambda: return id(power).state / id(voltage).state / id(current).state;
-    accuracy_decimals: 3
-    filters:
-      - throttle_average: $update_interval
-    update_interval: $sample_rate
+#  - platform: template
+#    name: $friendly_name Power Factor
+#    id: power_factor
+#    lambda: return id(power).state / id(voltage).state / id(current).state;
+#    accuracy_decimals: 3
+#    filters:
+#      - throttle_average: $update_interval
+#    update_interval: $sample_rate
