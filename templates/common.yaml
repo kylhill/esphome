@@ -8,13 +8,12 @@ logger:
 
 # Enable HA API
 api:
-  password: !secret api_password
   encryption:
     key: !secret api_key
 
 # Enable OTAs
 ota:
-  password: !secret api_password
+  password: !secret ota_password
 
 # Sync RTC with HA
 time:
