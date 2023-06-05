@@ -1,9 +1,9 @@
 substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
-  sample_rate: "2s"
-  update_interval_fast: "15s"
-  update_interval_slow: "60s"
+  sample_rate: "1s"
+  update_interval_fast: "5s"
+  update_interval_slow: "15s"
 
 packages:
   common: !include templates/common.yaml
