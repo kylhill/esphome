@@ -1,7 +1,7 @@
 # Common configuration for all devices
 esphome:
   name: $device_name
-  comment: $friendly_name
+  friendly_name: $friendly_name
 
 # Enable logging
 logger:
@@ -38,15 +38,15 @@ captive_portal:
 # Generic sensors to report status to HA
 #sensor:
 #  - platform: wifi_signal
-#    name: $friendly_name WiFi Signal
+#    name: WiFi Signal
 #  - platform: uptime
-#    name: $friendly_name Uptime
+#    name: Uptime
 #binary_sensor:
 #  - platform: status
-#    name: $friendly_name Status
+#    name: Status
 
 # Generic button to remotely restart device from HA
 button:
   - platform: restart
     id: restart_button
-    name: $friendly_name Restart
+    name: Restart

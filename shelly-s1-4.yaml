@@ -17,7 +17,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: $friendly_name Button
+    name: Button
     on_state:
       then:
         - switch.toggle: relay
@@ -36,6 +36,6 @@ binary_sensor:
 
 switch:
   - platform: gpio
-    name: $friendly_name Switch
+    name: Switch
     pin: GPIO4
     id: relay

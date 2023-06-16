@@ -34,7 +34,7 @@ sensor:
     # WARNING: Prevent overheating by setting this IRQ pin! - https://esphome.io/components/sensor/ade7953.html
     irq_pin: GPIO13
     voltage:
-      name: $friendly_name Voltage
+      name: Voltage
       id: voltage
       filters:
         - throttle_average: $update_interval_slow
@@ -73,7 +73,7 @@ sensor:
     update_interval: $sample_rate
 
   - platform: template
-    name: $friendly_name Total Power
+    name: Total Power
     id: total_power
     state_class: measurement
     device_class: power
@@ -104,7 +104,7 @@ sensor:
     internal: true
 
   - platform: template
-    name: $friendly_name Total Daily Energy
+    name: Total Daily Energy
     id: total_energy
     state_class: total_increasing
     device_class: energy
@@ -113,7 +113,7 @@ sensor:
     update_interval: $update_interval_slow
 
   - platform: template
-    name: $friendly_name Total Current
+    name: Total Current
     id: total_current
     state_class: measurement
     device_class: current
@@ -124,7 +124,7 @@ sensor:
     update_interval: $sample_rate
 
   - platform: template
-    name: $friendly_name Total Power Factor
+    name: Total Power Factor
     id: total_power_factor
     state_class: measurement
     device_class: power_factor
@@ -141,6 +141,6 @@ status_led:
 
 switch:
   - platform: gpio
-    name: $friendly_name Switch
+    name: Switch
     pin: GPIO15
     id: relay
