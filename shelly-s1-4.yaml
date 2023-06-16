@@ -1,6 +1,6 @@
 substitutions:
   device_name: shelly-s1-4
-  friendly_name: "Porch Outlet"
+  friendly_name: "Christmas Lights"
 
 packages:
   common: !include templates/common.yaml

@@ -1,6 +1,6 @@
 substitutions:
   device_name: shelly-s1-1
-  friendly_name: "Kim's Garage Door"
+  friendly_name: "Kim's Garage"
 
 packages:
   common: !include templates/common.yaml

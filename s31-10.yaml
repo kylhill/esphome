@@ -1,6 +1,6 @@
 substitutions:
   device_name: s31-10
-  friendly_name: "Light 10"
+  friendly_name: "Living Room Light 1"
 
 packages:
   common: !include templates/common.yaml
