@@ -143,4 +143,4 @@ switch:
   - platform: gpio
     name: Switch
     pin: GPIO15
-    id: relay
+    id: relay_switch

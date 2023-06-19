@@ -17,10 +17,10 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: Button
+    id: relay_button
     on_state:
       then:
-        - switch.toggle: relay
+        - light.toggle: relay_light
     on_multi_click:
       - timing:
           - ON for at most 0.5s
@@ -34,8 +34,14 @@ binary_sensor:
         then:
           - button.press: restart_button
 
-switch:
+light:
+  - platform: binary
+    name: None
+    icon: "mdi:string-lights"
+    id: relay_light
+    output: relay_output
+
+output:
   - platform: gpio
-    name: Switch
     pin: GPIO4
-    id: relay
+    id: relay_output

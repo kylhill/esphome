@@ -17,19 +17,19 @@ binary_sensor:
 switch:
   - platform: gpio
     pin: GPIO4
-    id: relay
+    id: relay_switch
     on_turn_on:
       - delay: 250ms
-      - switch.turn_off: relay
+      - switch.turn_off: relay_switch
 
 cover:
   - platform: template
     device_class: garage
-    name: Door
+    name: None
     lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
-      - switch.turn_on: relay
+      - switch.turn_on: relay_switch
     close_action:
-      - switch.turn_on: relay
+      - switch.turn_on: relay_switch
     stop_action:
-      - switch.turn_on: relay
+      - switch.turn_on: relay_switch

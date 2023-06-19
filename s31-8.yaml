@@ -1,7 +1,8 @@
 substitutions:
   device_name: s31-8
+  device_icon: "mdi:floor-lamp"
   friendly_name: "Basement Light"
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31-lite.yaml
+  device: !include templates/s31-lite-light.yaml

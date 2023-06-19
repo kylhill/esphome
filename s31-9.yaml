@@ -1,7 +1,8 @@
 substitutions:
   device_name: s31-9
+  device_icon: "mdi:string-lights"
   friendly_name: "Isaac's Lights"
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31-lite.yaml
+  device: !include templates/s31-lite-light.yaml

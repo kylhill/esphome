@@ -16,17 +16,23 @@ binary_sensor:
           - ON for at most 1s
           - OFF for at least 0.05s
         then:
-          - switch.toggle: relay_switch
+          - light.toggle: relay_light
       - timing:
           - ON for at least 4s
         then:
           - button.press: restart_button
 
-switch:
+light:
+  - platform: binary
+    name: None
+    icon: $device_icon
+    id: relay_light
+    output: relay_output
+
+output:
   - platform: gpio
     pin: GPIO12
-    name: None
-    id: relay_switch
+    id: relay_output
 
 status_led:
   pin:
