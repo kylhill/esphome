@@ -16,12 +16,6 @@ packages:
 esp8266:
   board: esp01_1m
 
-web_server:
-  include_internal: true
-  auth:
-    username: !secret username
-    password: !secret ap_password
-
 logger:
   level: INFO
 
@@ -60,16 +54,6 @@ sensor:
         # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
         - lambda: if (x <= 0.0) return 0; else return x * 1.1432;
       internal: true
-    update_interval: $sample_rate
-
-  - platform: template
-    name: _Total Power
-    id: total_power_internal
-    state_class: measurement
-    device_class: power
-    lambda: return id(power_phase_1).state + id(power_phase_2).state;
-    unit_of_measurement: W
-    internal: true
     update_interval: $sample_rate
 
   - platform: template
