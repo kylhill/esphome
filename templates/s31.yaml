@@ -1,7 +1,7 @@
 # Sonoff S31 - https://www.esphome-devices.com/devices/Sonoff-S31
 substitutions:
   sample_rate: "1s"
-  update_interval: "15s"
+  update_interval: "30s"
 
 packages:
   parent: !include s31-lite.yaml
