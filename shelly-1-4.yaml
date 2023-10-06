@@ -1,5 +1,5 @@
 substitutions:
-  device_name: shelly-s1-4
+  device_name: shelly-1-4
   friendly_name: "Christmas Lights"
 
 packages:

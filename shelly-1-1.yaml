@@ -1,5 +1,5 @@
 substitutions:
-  device_name: shelly-s1-1
+  device_name: shelly-1-1
   friendly_name: "Kim's Garage Door"
 
 packages:
