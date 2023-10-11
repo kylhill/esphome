@@ -8,6 +8,8 @@ binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
+      mode:
+        input: true
       inverted: true
     id: contact
     filters:
