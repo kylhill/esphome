@@ -25,7 +25,7 @@ i2c:
   scl: GPIO14
 
 sensor:
-  - platform: ade7953
+  - platform: ade7953_i2c
     # WARNING: Prevent overheating by setting this IRQ pin! - https://esphome.io/components/sensor/ade7953.html
     irq_pin: GPIO13
     voltage:
