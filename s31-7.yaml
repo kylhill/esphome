@@ -2,6 +2,7 @@ substitutions:
   device_name: s31-7
   device_icon: "mdi:string-lights"
   friendly_name: "Carson's Lights"
+  area: "Carson's Room"
 
 packages:
   common: !include templates/common.yaml

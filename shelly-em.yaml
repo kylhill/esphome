@@ -1,6 +1,7 @@
 substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
+  area: "Basement"
   sample_rate: "1s"
   update_interval_fast: "30s"
   update_interval_slow: "60s"

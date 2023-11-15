@@ -1,6 +1,7 @@
 substitutions:
   device_name: shelly-1-3
   friendly_name: "Third Car Garage Door"
+  area: "Garage"
 
 packages:
   common: !include templates/common.yaml

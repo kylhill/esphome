@@ -1,6 +1,7 @@
 substitutions:
   device_name: s31-2
   friendly_name: "Christmas Tree"
+  area: "Living Room"
 
 packages:
   common: !include templates/common.yaml

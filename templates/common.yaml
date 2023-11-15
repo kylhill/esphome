@@ -2,6 +2,7 @@
 esphome:
   name: $device_name
   friendly_name: $friendly_name
+  area: $area
 
 # Enable logging
 logger:

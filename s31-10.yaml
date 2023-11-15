@@ -2,6 +2,7 @@ substitutions:
   device_name: s31-10
   device_icon: "mdi:lamp"
   friendly_name: "Living Room Light 1"
+  area: "Living Room"
 
 packages:
   common: !include templates/common.yaml

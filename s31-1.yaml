@@ -1,6 +1,7 @@
 substitutions:
   device_name: s31-1
   friendly_name: "Carson's Heater"
+  area: "Carson's Room"
 
 packages:
   common: !include templates/common.yaml
