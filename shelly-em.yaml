@@ -6,7 +6,7 @@ substitutions:
   update_interval_fast: "30s"
   update_interval_slow: "60s"
   # Derived from Evergy bill usage
-  cal_factor: 1.102413
+  cal_factor: "1.102413"
 
 packages:
   common: !include templates/common.yaml
