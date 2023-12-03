@@ -1,0 +1,39 @@
+# Gosund SW-5 - https://devices.esphome.io/devices/Gosund-SW5
+esp8266:
+  board: esp01_1m
+
+status_led:
+  pin:
+    number: GPIO16
+    inverted: true
+
+output:
+  - platform: esp8266_pwm
+    id: state_led
+    pin:
+      number: GPIO2
+      inverted: true
+
+light:
+  - platform: monochromatic
+    output: state_led
+    id: led
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO00
+    id: relay_button
+    on_press:
+      then:
+        - switch.toggle: relay_switch
+
+switch:
+  - platform: gpio
+    pin: GPIO14
+    id: relay_switch
+    name: None
+    on_turn_on:
+      - light.turn_on: led
+    on_turn_off:
+      - light.turn_off: led

@@ -1,0 +1,8 @@
+substitutions:
+  device_name: g-sw5-1
+  friendly_name: "Sitting Room Switch"
+  area: "Sitting Room"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/g-sw5.yaml
