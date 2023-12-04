@@ -1,6 +1,6 @@
 substitutions:
   device_name: s31-1
-  friendly_name: "Carson's Heater"
+  friendly_name: "Carson's Lamp"
   area: "Carson's Room"
 
 packages:
