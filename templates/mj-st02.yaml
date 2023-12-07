@@ -30,6 +30,7 @@ switch:
 
   - platform: template
     name: None
+    restore_mode: RESTORE_DEFAULT_OFF
     lambda: "return id(tuya_switch_state).state;"
     turn_on_action:
       - switch.turn_on: tuya_switch
