@@ -1,0 +1,37 @@
+# Martin Jerry MJ-ST02 3-Way Wall Switch
+# - https://esphome.io/components/tuya.html
+# - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota
+#
+# Datapoint 1: switch (value: ON)
+# Datapoint 7: int value (value: 0)
+esp8266:
+  board: esp01_1m
+  restore_from_flash: true
+
+logger:
+  baud_rate: 0
+
+uart:
+  rx_pin: GPIO3
+  tx_pin: GPIO1
+  baud_rate: 9600
+
+tuya:
+
+binary_sensor:
+  - platform: tuya
+    sensor_datapoint: 1
+    id: tuya_switch_state
+
+switch:
+  - platform: tuya
+    switch_datapoint: 1
+    id: tuya_switch
+
+  - platform: template
+    name: None
+    lambda: "return id(tuya_switch_state).state;"
+    turn_on_action:
+      - switch.turn_on: tuya_switch
+    turn_off_action:
+      - switch.turn_off: tuya_switch

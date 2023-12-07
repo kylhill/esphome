@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-st02-1
+  friendly_name: "Test Switch"
+  area: "Basement"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml

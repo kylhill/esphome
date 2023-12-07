@@ -1,0 +1,63 @@
+# Martin Jerry MJ-S01 Wall Switch
+# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
+# - https://devices.esphome.io/devices/MJ-S01
+# - https://templates.blakadder.com/martin-jerry-MJ-S01.html
+esp8266:
+  board: esp01_1m
+  restore_from_flash: true
+
+output:
+  - platform: gpio
+    pin: GPIO12
+    id: relay_output
+
+  - platform: gpio
+    pin:
+      number: GPIO4
+    inverted: true
+    id: red_led_output
+
+light:
+  - platform: binary
+    name: None
+    id: relay_light
+    output: relay_output
+    restore_mode: RESTORE_DEFAULT_OFF
+    on_turn_on:
+      - light.turn_on: red_led
+    on_turn_off:
+      - light.turn_off: red_led
+
+  - platform: binary
+    id: red_led
+    output: red_led_output
+    restore_mode: RESTORE_DEFAULT_OFF
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO13
+      mode:
+        input: true
+        pullup: true
+    id: relay_button
+    on_press:
+      - light.toggle: relay_light
+    on_multi_click:
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+          - ON for at most 0.5s
+          - OFF for at most 0.5s
+        then:
+          - button.press: restart_button
+
+status_led:
+  pin:
+    number: GPIO5
+    inverted: true
+  id: blue_led
