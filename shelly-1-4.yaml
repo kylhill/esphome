@@ -20,7 +20,7 @@ binary_sensor:
         input: true
         pullup: true
     id: relay_button
-    on_state:
+    on_press:
       then:
         - light.toggle: relay_light
     on_multi_click:
