@@ -49,9 +49,20 @@ captive_portal:
 #binary_sensor:
 #  - platform: status
 #    name: Status
+#text_sensor:
+#  - platform: wifi_info
+#    ip_address:
+#      name: IP Address
+#    ssid:
+#      name: Connected SSID
+#    mac_address:
+#      name: Mac Address
 
 # Generic button to remotely restart device from HA
 button:
   - platform: restart
     id: restart_button
     name: Restart
+#  - platform: factory_reset
+#    id: reset_button
+#    name: Factory Reset
