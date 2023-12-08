@@ -43,18 +43,6 @@ binary_sensor:
     id: relay_button
     on_press:
       - light.toggle: relay_light
-    on_multi_click:
-      - timing:
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-        then:
-          - button.press: restart_button
 
 status_led:
   pin:

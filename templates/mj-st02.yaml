@@ -18,21 +18,8 @@ uart:
 
 tuya:
 
-binary_sensor:
+light:
   - platform: tuya
-    sensor_datapoint: 1
-    id: tuya_switch_state
-
-switch:
-  - platform: tuya
-    switch_datapoint: 1
-    id: tuya_switch
-
-  - platform: template
     name: None
+    switch_datapoint: 1
     restore_mode: RESTORE_DEFAULT_OFF
-    lambda: "return id(tuya_switch_state).state;"
-    turn_on_action:
-      - switch.turn_on: tuya_switch
-    turn_off_action:
-      - switch.turn_off: tuya_switch
