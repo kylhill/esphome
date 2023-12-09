@@ -1,7 +1,7 @@
 substitutions:
   device_name: mj-st02-1
-  friendly_name: "Test Switch"
-  area: "Basement"
+  friendly_name: "Mud Room SW 1"
+  area: "Entry"
 
 packages:
   common: !include templates/common.yaml

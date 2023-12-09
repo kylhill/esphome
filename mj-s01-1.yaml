@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-1
+  friendly_name: "Mud Room SW 2"
+  area: "Entry"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01.yaml
