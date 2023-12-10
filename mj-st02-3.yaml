@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-st02-3
+  friendly_name: "Entry SW 2"
+  area: "Entry"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml

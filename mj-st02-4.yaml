@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-st02-4
+  friendly_name: "Upstairs Hall SW 1"
+  area: "Upstairs Hall"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml

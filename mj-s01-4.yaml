@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-4
+  friendly_name: "Sitting Room SW 1"
+  area: "Entry"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01.yaml
