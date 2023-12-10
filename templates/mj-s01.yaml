@@ -4,7 +4,7 @@
 # - https://templates.blakadder.com/martin-jerry-MJ-S01.html
 esp8266:
   board: esp01_1m
-  restore_from_flash: true
+  restore_from_flash: false
 
 output:
   - platform: gpio
@@ -23,10 +23,10 @@ light:
     id: relay_light
     output: relay_output
     restore_mode: RESTORE_DEFAULT_OFF
-    on_turn_on:
-      - light.turn_on: red_led
-    on_turn_off:
-      - light.turn_off: red_led
+#    on_turn_on:
+#      - light.turn_on: red_led
+#    on_turn_off:
+#      - light.turn_off: red_led
 
   - platform: binary
     id: red_led

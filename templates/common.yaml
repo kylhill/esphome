@@ -22,8 +22,8 @@ time:
     timezone: America/Chicago
 
 # Wi-Fi Setup
-network:
-  enable_ipv6: true
+#network:
+#  enable_ipv6: true
 
 wifi:
   ssid: !secret wifi_ssid
