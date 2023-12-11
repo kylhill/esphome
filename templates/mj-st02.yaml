@@ -3,7 +3,7 @@
 # - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota
 #
 # Datapoint 1: switch
-# Datapoint 7: int value66:
+# Datapoint 7: int value:
   board: esp01_1m
 
 logger:
