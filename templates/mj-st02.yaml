@@ -2,11 +2,9 @@
 # - https://esphome.io/components/tuya.html
 # - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota
 #
-# Datapoint 1: switch (value: ON)
-# Datapoint 7: int value (value: 0)
-esp8266:
+# Datapoint 1: switch
+# Datapoint 7: int value66:
   board: esp01_1m
-  restore_from_flash: false
 
 logger:
   baud_rate: 0
@@ -22,4 +20,3 @@ light:
   - platform: tuya
     name: None
     switch_datapoint: 1
-    restore_mode: RESTORE_DEFAULT_OFF

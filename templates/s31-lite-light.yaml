@@ -4,7 +4,6 @@
 esp8266:
   board: esp01_1m
   early_pin_init: false
-  restore_from_flash: false
 
 binary_sensor:
   - platform: gpio
@@ -24,7 +23,6 @@ light:
     icon: $device_icon
     id: relay_light
     output: relay_output
-    restore_mode: RESTORE_DEFAULT_OFF
 
 output:
   - platform: gpio

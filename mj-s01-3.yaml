@@ -5,4 +5,4 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01.yaml
+  device: !include templates/mj-s01-fan.yaml

@@ -4,24 +4,19 @@ esphome:
   friendly_name: $friendly_name
   area: $area
 
-# Enable logging
 logger:
 
-# Enable HA API
 api:
   encryption:
     key: !secret api_key
 
-# Enable OTAs
 ota:
   password: !secret ota_password
 
-# Sync RTC with HA
 time:
   - platform: homeassistant
     timezone: America/Chicago
 
-# Wi-Fi Setup
 #network:
 #  enable_ipv6: true
 
@@ -32,14 +27,12 @@ wifi:
   domain: .iot.tacomafia.net
 #  power_save_mode: LIGHT
 
-  # Enable fallback hotspot (captive portal) in case Wi-Fi connection fails
   ap:
     password: !secret ap_password
     channel: 6
 
 captive_portal:
 
-# Generic sensors to report status to HA
 #sensor:
 #  - platform: wifi_signal
 #    name: WiFi Signal
@@ -58,7 +51,6 @@ captive_portal:
 #    mac_address:
 #      name: Mac Address
 
-# Generic button to remotely restart device from HA
 button:
   - platform: restart
     id: restart_button

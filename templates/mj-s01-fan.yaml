@@ -1,4 +1,4 @@
-# Martin Jerry MJ-S01 Wall Switch
+# Martin Jerry MJ-S01 Wall Switch (Fan)
 # - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 # - https://devices.esphome.io/devices/MJ-S01
 # - https://templates.blakadder.com/martin-jerry-MJ-S01.html
@@ -16,10 +16,10 @@ output:
     inverted: true
     id: blue_led
 
-light:
+fan:
   - platform: binary
     name: None
-    id: relay_light
+    id: relay_fan
     output: relay_output
     on_turn_on:
       - output.turn_on: blue_led
@@ -35,7 +35,7 @@ binary_sensor:
         pullup: true
     id: relay_button
     on_press:
-      - light.toggle: relay_light
+      - fan.toggle: relay_fan
 
 status_led:
   pin:
