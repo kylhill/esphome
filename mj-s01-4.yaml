@@ -1,7 +1,7 @@
 substitutions:
   device_name: mj-s01-4
   friendly_name: "Sitting Room SW 1"
-  area: "Entry"
+  area: "Sitting Room"
 
 packages:
   common: !include templates/common.yaml
