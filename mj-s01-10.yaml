@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-10
+  friendly_name: "Guest Bedroom SW 1"
+  area: "Guest Bedroom"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01.yaml

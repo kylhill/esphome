@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-6
+  friendly_name: "Isaac Room SW 1"
+  area: "Isaac's Room"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01.yaml

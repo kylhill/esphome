@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-14
+  friendly_name: "Master Bedroom SW 2"
+  area: "Master Bedroom"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01-fan.yaml

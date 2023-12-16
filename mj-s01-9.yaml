@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-9
+  friendly_name: "Upstairs Bathroom SW 2"
+  area: "Upstairs Bathroom"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01-fan.yaml

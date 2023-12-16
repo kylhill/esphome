@@ -1,0 +1,8 @@
+substitutions:
+  device_name: mj-s01-19
+  friendly_name: "Master Closet SW 2"
+  area: "Master Closet"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01.yaml
