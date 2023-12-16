@@ -1,0 +1,118 @@
+# Shelly Plus 1 PM
+#  - https://devices.esphome.io/devices/Shelly-Plus-1PM
+substitutions:
+  sample_rate: "1s"
+  update_interval: "30s"
+
+esphome:
+  platformio_options:
+    board_build.f_cpu: 160000000L
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_FREERTOS_UNICORE: y
+      CONFIG_ESP32_DEFAULT_CPU_FREQ_160: y
+      CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ: "160"
+
+output:
+  - platform: gpio
+    pin: GPIO26
+    id: relay_output
+
+fan:
+  - platform: binary
+    name: None
+    id: relay_fan
+    output: relay_output
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO4
+    id: relay_button
+    on_press:
+      then:
+        - fan.turn_on: relay_fan
+    on_release:
+      then:
+        - fan.turn_off: relay_fan
+    filters:
+      - delayed_on_off: 50ms
+
+sensor:
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: Temperature
+    accuracy_decimals: 1
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+    on_value_range:
+      - above: "80.0"
+        then:
+          - fan.turn_off: relay_fan
+
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    resistor: 10kOhm
+
+  - platform: adc
+    id: temp_analog_reading
+    pin: GPIO32
+    attenuation: 11db
+
+#  - platform: adc
+#    name: Supply Voltage
+#    pin: GPIO33
+#    attenuation: 11db
+#    filters:
+#      - multiply: 8
+
+  - platform: hlw8012
+    model: BL0937
+    sel_pin:
+      number: GPIO23
+      inverted: true
+    cf_pin: GPIO5
+    cf1_pin: GPIO18
+    current_resistor: 0.001
+    voltage_divider: 1925
+    change_mode_every: 2
+    update_interval: $sample_rate
+#    current:
+#      name: Current
+#      accuracy_decimals: 3
+#      filters:
+#        - throttle_average: $update_interval
+#    voltage:
+#      name: Voltage
+#      accuracy_decimals: 1
+#      filters:
+#        - throttle_average: $update_interval
+    power:
+      name: Power
+      id: power
+      on_value_range:
+        - above: "3600"
+          then:
+            - fan.turn_off: relay_fan
+      filters:
+        - throttle_average: $update_interval
+
+  - platform: total_daily_energy
+    name: Total Daily Energy
+    power_id: power
+    unit_of_measurement: kWh
+    accuracy_decimals: 3
+    filters:
+        - multiply: 0.001
+
+status_led:
+  pin:
+    number: GPIO0
+    inverted: true

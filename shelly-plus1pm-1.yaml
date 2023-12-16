@@ -1,0 +1,8 @@
+substitutions:
+  device_name: shelly-plus1pm-1
+  friendly_name: "Carson's Fan"
+  area: "Carson's Room"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/shelly-plus1pm-fan.yaml
