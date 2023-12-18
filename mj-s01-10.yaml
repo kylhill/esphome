@@ -5,4 +5,12 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01.yaml
+  device: !include templates/mj-s01-light.yaml
+
+script:
+  - id: !extend on_long
+    then:
+      - homeassistant.service:
+          service: automation.trigger
+          data:
+            entity_id: automation.downstairs_off

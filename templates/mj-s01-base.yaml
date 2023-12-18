@@ -1,0 +1,66 @@
+# Martin Jerry MJ-S01 Wall Switch - Base Config
+# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
+# - https://devices.esphome.io/devices/MJ-S01
+substitutions:
+  click_short: 200ms
+  click_long: 1.25s
+
+script:
+  - id: on_single
+    then:
+      - logger.log: "Single Click"
+
+  - id: on_double
+    then:
+      - logger.log: "Double Click"
+
+  - id: on_long
+    then:
+      - logger.log: "Long Press"
+
+esp8266:
+  board: esp01_1m
+
+output:
+  - platform: gpio
+    id: relay_output
+    pin: GPIO12
+
+  - platform: gpio
+    id: blue_led
+    pin:
+      number: GPIO5
+    inverted: true
+
+binary_sensor:
+  - platform: gpio
+    id: relay_button
+    pin:
+      number: GPIO13
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    on_multi_click:
+      - timing:
+          - ON for at most $click_long
+          - OFF for at least $click_short
+        then:
+          - script.execute: on_single
+      - timing:
+          - ON for at most $click_long
+          - OFF for at most $click_short
+          - ON for at least 50ms
+        then:
+          - script.execute: on_double
+      - timing:
+          - ON for at least $click_long
+        then:
+          - script.execute: on_long
+
+light:
+  - platform: status_led
+    id: red_led
+    pin:
+      number: GPIO4
+      inverted: true

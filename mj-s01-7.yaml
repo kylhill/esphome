@@ -5,4 +5,12 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01.yaml
+  device: !include templates/mj-s01-light.yaml
+
+script:
+  - id: !extend on_double
+    then:
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.carson_s_lights

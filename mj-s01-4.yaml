@@ -5,4 +5,19 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01.yaml
+  device: !include templates/mj-s01-light.yaml
+
+script:
+  - id: !extend on_double
+    then:
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.shelly_1_4_christmas_lights
+
+  - id: !extend on_long
+    then:
+      - homeassistant.service:
+          service: automation.trigger
+          data:
+            entity_id: automation.upstairs_off

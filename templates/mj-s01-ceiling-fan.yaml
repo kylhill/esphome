@@ -1,0 +1,20 @@
+# Martin Jerry MJ-S01 Wall Switch - Ceilng Fan
+# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
+# - https://devices.esphome.io/devices/MJ-S01
+packages:
+  parent: !include mj-s01-base.yaml
+
+script:
+  - id: !extend on_single
+    then:
+      - fan.toggle: relay_fan
+
+fan:
+  - platform: binary
+    id: relay_fan
+    name: None
+    output: relay_output
+    on_turn_on:
+      - output.turn_on: blue_led
+    on_turn_off:
+      - output.turn_off: blue_led
