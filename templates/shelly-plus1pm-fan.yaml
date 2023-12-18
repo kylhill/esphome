@@ -19,20 +19,20 @@ esp32:
 
 output:
   - platform: gpio
-    pin: GPIO26
     id: relay_output
+    pin: GPIO26
 
 fan:
   - platform: binary
-    name: None
     id: relay_fan
+    name: None
     output: relay_output
 
 binary_sensor:
   - platform: gpio
-    pin: GPIO4
     id: relay_button
-    on_press:
+    pin: GPIO4
+    on_click:
       then:
         - fan.turn_on: relay_fan
     on_release:
@@ -95,8 +95,8 @@ sensor:
 #      filters:
 #        - throttle_average: $update_interval
     power:
-      name: Power
       id: power
+      name: Power
       on_value_range:
         - above: "3600"
           then:

@@ -6,28 +6,28 @@ esp8266:
 
 binary_sensor:
   - platform: gpio
+    id: contact
     pin:
       number: GPIO5
       mode:
         input: true
       inverted: true
-    id: contact
     filters:
       # Debounce the contact sensor to prevent rapid on/off/on events
       - delayed_on_off: 250ms
 
 switch:
   - platform: gpio
-    pin: GPIO4
     id: relay_switch
+    pin: GPIO4
     on_turn_on:
       - delay: 250ms
       - switch.turn_off: relay_switch
 
 cover:
   - platform: template
-    device_class: garage
     name: None
+    device_class: garage
     lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
       - switch.turn_on: relay_switch

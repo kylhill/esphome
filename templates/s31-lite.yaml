@@ -7,21 +7,21 @@ esp8266:
 
 binary_sensor:
   - platform: gpio
+    id: relay_button
     pin:
       number: GPIO0
       mode:
         input: true
         pullup: true
       inverted: true
-    id: relay_button
-    on_press:
+    on_click:
       - switch.toggle: relay_switch
 
 switch:
   - platform: gpio
+    id: relay_switch
     pin: GPIO12
     name: None
-    id: relay_switch
 
 status_led:
   pin:
