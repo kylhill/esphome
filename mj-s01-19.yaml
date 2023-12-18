@@ -2,7 +2,35 @@ substitutions:
   device_name: mj-s01-19
   friendly_name: "Master Closet SW 2"
   area: "Master Closet"
+  light_auto_off_time: 20min
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light.yaml
+
+script:
+  - id: light_timer
+    then:
+      - light.turn_on: relay_light
+      - light.turn_on: red_led
+      - delay: $light_auto_off_time
+      - light.turn_off: relay_light
+      - light.turn_off: red_led
+
+  - id: !extend on_single
+    then:
+      - if:
+          condition:
+            light.is_on: relay_light
+          then:
+            - light.turn_off: relay_light
+            - light.turn_off: red_led
+            - script.stop: light_timer
+          else:
+            - script.execute: light_timer
+
+  - id: !extend on_long
+    then:
+      - light.toggle: relay_light
+      - light.turn_off: red_led
+      - script.stop: light_timer

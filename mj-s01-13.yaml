@@ -29,3 +29,4 @@ script:
           service: automation.trigger
           data:
             entity_id: automation.bedtime
+

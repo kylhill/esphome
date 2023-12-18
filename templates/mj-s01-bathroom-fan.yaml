@@ -29,6 +29,7 @@ script:
     then:
       - fan.toggle: relay_fan
       - light.turn_off: red_led
+      - script.stop: fan_timer
 
 fan:
   - platform: binary

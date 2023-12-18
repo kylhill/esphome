@@ -2,15 +2,42 @@ substitutions:
   device_name: mj-s01-10
   friendly_name: "Guest Bedroom SW 1"
   area: "Guest Bedroom"
+  light_auto_off_time: 10s
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light.yaml
 
 script:
+  - id: light_timer
+    then:
+      - light.turn_on: relay_light
+      - light.turn_on: red_led
+      - delay: $light_auto_off_time
+      - light.turn_off: relay_light
+      - light.turn_off: red_led
+
+  - id: !extend on_double
+    then:
+      - if:
+          condition:
+            light.is_on: relay_light
+          then:
+            - light.turn_off: relay_light
+            - light.turn_off: red_led
+            - script.stop: light_timer
+          else:
+            - script.execute: light_timer
+
+  - id: !extend on_single
+    then:
+      - light.turn_off: red_led
+      - script.stop: light_timer
+
   - id: !extend on_long
     then:
       - homeassistant.service:
           service: automation.trigger
           data:
-            entity_id: automation.downstairs_off
+            entity_id: automation.bedtime
+
