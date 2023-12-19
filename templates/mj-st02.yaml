@@ -16,6 +16,7 @@ uart:
   baud_rate: 9600
 
 tuya:
+  time_id: ha_time
 
 light:
   - platform: tuya
