@@ -3,6 +3,7 @@
 # - https://devices.esphome.io/devices/MJ-S01
 substitutions:
   click_short: 200ms
+  click_double: 350ms
   click_long: 1.25s
 
 script:
@@ -49,8 +50,8 @@ binary_sensor:
           - script.execute: on_single
       - timing:
           - ON for at most $click_long
-          - OFF for at most $click_short
-          - ON for at least 50ms
+          - OFF for at most $click_double
+          - ON for at most $click_double
         then:
           - script.execute: on_double
       - timing:
