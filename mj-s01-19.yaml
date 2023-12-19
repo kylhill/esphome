@@ -2,7 +2,7 @@ substitutions:
   device_name: mj-s01-19
   friendly_name: "Master Closet SW 2"
   area: "Master Closet"
-  light_auto_off_time: 20min
+  light_auto_off_time: 15min
 
 packages:
   common: !include templates/common.yaml

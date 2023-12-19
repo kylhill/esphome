@@ -2,7 +2,7 @@ substitutions:
   device_name: mj-s01-3
   friendly_name: "Main Bathroom SW 2"
   area: "Main Bathroom"
-  fan_auto_off_time: 20min
+  fan_auto_off_time: 15min
 
 packages:
   common: !include templates/common.yaml
