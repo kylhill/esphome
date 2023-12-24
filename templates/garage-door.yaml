@@ -14,14 +14,14 @@ binary_sensor:
       inverted: true
     filters:
       # Debounce the contact sensor to prevent rapid on/off/on events
-      - delayed_on_off: 250ms
+      - delayed_on_off: 20ms
 
 switch:
   - platform: gpio
     id: relay_switch
     pin: GPIO4
     on_turn_on:
-      - delay: 250ms
+      - delay: 500ms
       - switch.turn_off: relay_switch
 
 cover:

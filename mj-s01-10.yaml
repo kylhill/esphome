@@ -11,11 +11,11 @@ packages:
 script:
   - id: light_timer
     then:
-      - light.turn_on: relay_light
       - light.turn_on: red_led
+      - light.turn_on: relay_light
       - delay: $light_auto_off_time
-      - light.turn_off: relay_light
       - light.turn_off: red_led
+      - light.turn_off: relay_light
 
   - id: !extend on_double
     then:
@@ -23,16 +23,17 @@ script:
           condition:
             light.is_on: relay_light
           then:
-            - light.turn_off: relay_light
-            - light.turn_off: red_led
             - script.stop: light_timer
+            - light.turn_off: red_led
+            - light.turn_off: relay_light
           else:
+            - script.stop: light_timer
             - script.execute: light_timer
 
   - id: !extend on_single
     then:
-      - light.turn_off: red_led
       - script.stop: light_timer
+      - light.turn_off: red_led
 
   - id: !extend on_long
     then:

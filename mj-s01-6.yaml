@@ -13,4 +13,4 @@ script:
       - homeassistant.service:
           service: light.toggle
           data:
-            entity_id: light.isaac_s_lights
+            entity_id: light.s31_9_isaac_s_lights

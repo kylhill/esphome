@@ -1,7 +1,7 @@
 substitutions:
   device_name: s31-3
-  friendly_name: "Kim's Light"
-  area: "Guest Bedroom"
+  friendly_name: "Garage Power Strip"
+  area: "Garage"
 
 packages:
   common: !include templates/common.yaml
