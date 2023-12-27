@@ -28,4 +28,4 @@ script:
       - homeassistant.service:
           service: automation.trigger
           data:
-            entity_id: automation.downstairs_off
+            entity_id: automation.automatic_bedtime
