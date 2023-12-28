@@ -1,23 +1,28 @@
+---
 substitutions:
   device_name: mj-s01-1
   friendly_name: "Mud Room SW 2"
   area: "Entry"
+  light_auto_off_time: 15min
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01-light.yaml
+  device: !include templates/mj-s01-light-auto.yaml
 
 script:
   - id: !extend on_double
     then:
       - homeassistant.service:
-          service: automation.trigger
+          service: input_boolean.toggle
           data:
-            entity_id: automation.everything_off
+            entity_id: input_boolean.hold_at_home
+      - script.execute: flash_purple
 
-  - id: !extend on_long
+  - id: !remove on_long
+  - id: on_long
     then:
       - homeassistant.service:
           service: automation.trigger
           data:
             entity_id: automation.everything_off
+      - script.execute: flash_purple

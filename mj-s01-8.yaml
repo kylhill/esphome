@@ -1,3 +1,4 @@
+---
 substitutions:
   device_name: mj-s01-8
   friendly_name: "Upstairs Bathroom SW 1"
@@ -18,3 +19,4 @@ script:
           service: light.toggle
           data:
             entity_id: light.s31_9_isaac_s_lights
+      - script.execute: flash_purple

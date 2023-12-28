@@ -1,3 +1,4 @@
+---
 # Martin Jerry MJ-S01 Wall Switch - Light (Auto Off)
 # - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 # - https://devices.esphome.io/devices/MJ-S01
@@ -33,8 +34,8 @@ light:
     name: None
     output: relay_output
     on_turn_on:
-      - output.turn_on: blue_led
+      - light.turn_on: blue_led
     on_turn_off:
-      - output.turn_off: blue_led
+      - light.turn_off: blue_led
       - light.turn_off: red_led
       - script.stop: light_timer

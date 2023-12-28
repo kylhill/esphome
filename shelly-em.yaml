@@ -1,3 +1,9 @@
+---
+# Shelly EM
+# - https://www.esphome-devices.com/devices/Shelly-EM
+# - https://www.esphome-devices.com/devices/Shelly-25
+# - https://templates.blakadder.com/shelly_EM.html
+
 substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
@@ -10,11 +16,6 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-
-# Device-specific config
-# - https://www.esphome-devices.com/devices/Shelly-EM
-# - https://www.esphome-devices.com/devices/Shelly-25
-# - https://templates.blakadder.com/shelly_EM.html
 
 esp8266:
   board: esp01_1m

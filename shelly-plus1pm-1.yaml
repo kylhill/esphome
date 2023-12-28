@@ -1,3 +1,4 @@
+---
 substitutions:
   device_name: shelly-plus1pm-1
   friendly_name: "Carson's Fan"

@@ -1,3 +1,4 @@
+---
 substitutions:
   device_name: s31-3
   friendly_name: "Garage Power Strip"

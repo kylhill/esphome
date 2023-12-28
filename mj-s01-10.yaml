@@ -1,3 +1,4 @@
+---
 substitutions:
   device_name: mj-s01-10
   friendly_name: "Guest Bedroom SW 1"
@@ -6,39 +7,25 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01-light.yaml
+  device: !include templates/mj-s01-light-auto.yaml
 
 script:
-  - id: light_timer
-    then:
-      - light.turn_on: red_led
-      - light.turn_on: relay_light
-      - delay: $light_auto_off_time
-      - light.turn_off: red_led
-      - light.turn_off: relay_light
-
   - id: !extend on_double
     then:
-      - if:
-          condition:
-            light.is_on: relay_light
-          then:
-            - script.stop: light_timer
-            - light.turn_off: red_led
-            - light.turn_off: relay_light
-          else:
-            - script.stop: light_timer
-            - script.execute: light_timer
-
-  - id: !extend on_single
-    then:
       - script.stop: light_timer
-      - light.turn_off: red_led
+      - script.execute: light_timer
+      - script.execute: flash_purple
 
-  - id: !extend on_long
+  - id: !remove on_single
+  - id: on_single
+    then:
+      - light.toggle: relay_light
+
+  - id: !remove on_long
+  - id: on_long
     then:
       - homeassistant.service:
           service: automation.trigger
           data:
             entity_id: automation.automatic_bedtime
-
+      - script.execute: flash_purple

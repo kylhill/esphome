@@ -1,3 +1,4 @@
+---
 # Martin Jerry MJ-S01 Wall Switch - Base Config
 # - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 # - https://devices.esphome.io/devices/MJ-S01
@@ -5,19 +6,57 @@ substitutions:
   click_short: 200ms
   click_double: 350ms
   click_long: 1.25s
+  flash_delay: 333ms
+
+globals:
+  - id: red_on
+    type: bool
+    initial_value: 'false'
+  - id: blue_on
+    type: bool
+    initial_value: 'false'
 
 script:
   - id: on_single
-    then:
-      - logger.log: "Single Click"
+    then: {}
 
   - id: on_double
-    then:
-      - logger.log: "Double Click"
+    then: {}
 
   - id: on_long
+    then: {}
+
+  - id: flash_purple
     then:
-      - logger.log: "Long Press"
+      - lambda: |-
+          id(red_on) = id(red_led).current_values.is_on();
+          id(blue_on) = id(blue_led).current_values.is_on();
+      - light.turn_on: red_led
+      - light.turn_on: blue_led
+      - delay: $flash_delay
+      - light.turn_off: red_led
+      - light.turn_off: blue_led
+      - delay: $flash_delay
+      - light.turn_on: red_led
+      - light.turn_on: blue_led
+      - delay: $flash_delay
+      - light.turn_off: red_led
+      - light.turn_off: blue_led
+      - delay: $flash_delay
+      - if:
+          condition:
+            lambda: 'return id(red_on);'
+          then:
+            - light.turn_on: red_led
+          else:
+            - light.turn_off: red_led
+      - if:
+          condition:
+            lambda: 'return id(blue_on);'
+          then:
+            - light.turn_on: blue_led
+          else:
+            - light.turn_off: blue_led
 
 esp8266:
   board: esp01_1m
@@ -28,7 +67,7 @@ output:
     pin: GPIO12
 
   - platform: gpio
-    id: blue_led
+    id: blue_output
     pin:
       number: GPIO5
     inverted: true
@@ -65,3 +104,7 @@ light:
     pin:
       number: GPIO4
       inverted: true
+
+  - platform: binary
+    id: blue_led
+    output: blue_output
