@@ -1,9 +1,9 @@
 ---
 substitutions:
-  device_name: shelly-plus1pm-1
+  device_name: athom-mini-3
   friendly_name: "Guest Bedroom Fan"
   area: "Guest Bedroom"
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/shelly-plus1pm-fan.yaml
+  device: !include templates/athom-mini.yaml
