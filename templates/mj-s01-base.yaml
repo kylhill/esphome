@@ -1,7 +1,7 @@
 ---
-# Martin Jerry MJ-S01 Wall Switch - Base Config
-# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
+# Martin Jerry MJ-S01
 # - https://devices.esphome.io/devices/MJ-S01
+# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 substitutions:
   click_short: 200ms
   click_double: 350ms

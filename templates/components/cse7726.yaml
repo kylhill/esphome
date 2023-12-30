@@ -1,0 +1,52 @@
+---
+# CSE7766 Power Sensor
+# - https://devices.esphome.io/devices/Sonoff-S31
+# - https://digiblur.com/wiki/devices/plugs/sonoff_s31
+# - https://esphome.io/components/sensor/cse7766.html
+substitutions:
+  sample_rate: 1s
+  update_interval: 30s
+
+logger:
+  # Disable UART logging, interferes with cse7766
+  baud_rate: 0
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+
+sensor:
+  - platform: cse7766
+    update_interval: $sample_rate
+#    current:
+#      id: current
+#      name: Current
+#      filters:
+#        - throttle_average: $update_interval
+#    voltage:
+#      id: voltage
+#      name: Voltage
+#      filters:
+#        - throttle_average: $update_interval
+    power:
+      id: power
+      name: Power
+      filters:
+        - throttle_average: $update_interval
+
+  - platform: total_daily_energy
+    name: Total Daily Energy
+    power_id: power
+    unit_of_measurement: kWh
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+#  - platform: template
+#    id: power_factor
+#    name: Power Factor
+#    lambda: return id(power).state / id(voltage).state / id(current).state;
+#    accuracy_decimals: 3
+#    filters:
+#      - throttle_average: $update_interval
+#    update_interval: $sample_rate

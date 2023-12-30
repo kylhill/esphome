@@ -1,0 +1,5 @@
+---
+# Sonoff S31 (Light)
+packages:
+  parent: !include s31-lite-light.yaml
+  sensor: !include components/cse7726.yaml

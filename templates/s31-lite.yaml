@@ -20,8 +20,8 @@ binary_sensor:
 switch:
   - platform: gpio
     id: relay_switch
-    pin: GPIO12
     name: None
+    pin: GPIO12
 
 status_led:
   pin:

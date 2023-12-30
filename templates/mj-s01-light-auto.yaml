@@ -1,41 +1,21 @@
 ---
-# Martin Jerry MJ-S01 Wall Switch - Light (Auto Off)
-# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
-# - https://devices.esphome.io/devices/MJ-S01
+# Martin Jerry MJ-S01 - Light (Auto Off)
 packages:
   parent: !include mj-s01-base.yaml
+  light: !include components/mj-s01-light.yaml
 
 script:
-  - id: light_timer
-    then:
-      - light.turn_on: red_led
-      - light.turn_on: relay_light
-      - delay: $light_auto_off_time
-      - light.turn_off: relay_light
-
   - id: !extend on_single
     then:
+      - script.stop: light_timer
       - if:
           condition:
             light.is_on: relay_light
           then:
             - light.turn_off: relay_light
           else:
-            - script.stop: light_timer
             - script.execute: light_timer
 
   - id: !extend on_long
     then:
       - light.toggle: relay_light
-
-light:
-  - platform: binary
-    id: relay_light
-    name: None
-    output: relay_output
-    on_turn_on:
-      - light.turn_on: blue_led
-    on_turn_off:
-      - light.turn_off: blue_led
-      - light.turn_off: red_led
-      - script.stop: light_timer

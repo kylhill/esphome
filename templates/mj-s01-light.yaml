@@ -1,21 +1,10 @@
 ---
-# Martin Jerry MJ-S01 Wall Switch - Light
-# - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
-# - https://devices.esphome.io/devices/MJ-S01
+# Martin Jerry MJ-S01 - Light
 packages:
   parent: !include mj-s01-base.yaml
+  light: !include componenets/mj-s01-light.yaml
 
 script:
   - id: !extend on_single
     then:
       - light.toggle: relay_light
-
-light:
-  - platform: binary
-    id: relay_light
-    name: None
-    output: relay_output
-    on_turn_on:
-      - light.turn_on: blue_led
-    on_turn_off:
-      - light.turn_off: blue_led

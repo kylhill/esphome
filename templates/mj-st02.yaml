@@ -1,10 +1,7 @@
 ---
 # Martin Jerry MJ-ST02 3-Way Wall Switch
 # - https://esphome.io/components/tuya.html
-# - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota
-#
-# Datapoint 1: switch
-# Datapoint 7: int value:
+# - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota-switch/536416
 esp8266:
   board: esp01_1m
 
@@ -16,6 +13,8 @@ uart:
   tx_pin: GPIO1
   baud_rate: 9600
 
+# Tuya Datapoint 1: switch
+# Tuya Datapoint 7: int value: 0
 tuya:
   time_id: ha_time
 
