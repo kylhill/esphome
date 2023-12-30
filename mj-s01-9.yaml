@@ -3,7 +3,7 @@ substitutions:
   device_name: mj-s01-9
   friendly_name: "Upstairs Bathroom SW 2"
   area: "Upstairs Bathroom"
-  fan_auto_off_time: 40min
+  fan_auto_off_time: 35min
 
 packages:
   common: !include templates/common.yaml
