@@ -1,9 +1,10 @@
 ---
 substitutions:
   device_name: s31-2
+  device_icon: "mdi:lamp"
   friendly_name: "Isaac's Lamp"
   area: "Isaac's Room"
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31.yaml
+  device: !include templates/s31-light.yaml
