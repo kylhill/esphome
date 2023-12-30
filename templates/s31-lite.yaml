@@ -7,7 +7,7 @@ esp8266:
 
 binary_sensor:
   - platform: gpio
-    id: relay_button
+    id: the_button
     pin:
       number: GPIO0
       mode:

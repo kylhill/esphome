@@ -8,9 +8,14 @@ substitutions:
 esp8266:
   board: esp01_1m
 
+output:
+  - platform: gpio
+    id: relay_output
+    pin: GPIO12
+
 binary_sensor:
   - platform: gpio
-    id: relay_button
+    id: the_button
     pin:
       number: GPIO0
       mode:
@@ -26,11 +31,6 @@ light:
     name: None
     icon: $device_icon
     output: relay_output
-
-output:
-  - platform: gpio
-    id: relay_output
-    pin: GPIO12
 
 status_led:
   pin:

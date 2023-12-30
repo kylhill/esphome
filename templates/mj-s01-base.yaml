@@ -74,7 +74,7 @@ output:
 
 binary_sensor:
   - platform: gpio
-    id: relay_button
+    id: the_switch
     pin:
       number: GPIO13
       mode:

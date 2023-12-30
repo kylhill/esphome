@@ -31,7 +31,7 @@ fan:
 
 binary_sensor:
   - platform: gpio
-    id: relay_button
+    id: the_button
     pin: GPIO4
     on_click:
       then:
