@@ -1,0 +1,24 @@
+---
+# Athom Mini (Fan)
+packages:
+  parent: !include athom-mini-base.yaml
+
+binary_sensor:
+  - id: !extend the_switch
+    on_click:
+      - fan.toggle: relay_fan
+
+script:
+  - id: !extend on_single
+    then:
+      - fan.toggle: relay_fan
+
+fan:
+  - platform: binary
+    id: relay_fan
+    name: None
+    output: relay_output
+    on_turn_on:
+      - light.turn_on: led
+    on_turn_off:
+      - light.turn_off: led

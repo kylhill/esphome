@@ -6,4 +6,4 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/athom-mini.yaml
+  device: !include templates/athom-mini-fan.yaml

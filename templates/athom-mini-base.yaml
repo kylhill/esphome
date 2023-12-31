@@ -4,13 +4,20 @@
 esp8266:
   board: esp8285
 
+script:
+  - id: on_single
+    then: {}
+
+  - id: on_long
+    then:
+      - button.press: restart_button
+
 output:
   - platform: gpio
     id: relay_output
     pin: GPIO13
 
 binary_sensor:
-  # Wired switch
   - platform: gpio
     id: the_switch
     pin:
@@ -18,8 +25,6 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    on_state:
-      - light.toggle: relay_light
     on_multi_click:
       - timing:
           - ON for at most 0.5s
@@ -33,7 +38,6 @@ binary_sensor:
         then:
           - button.press: restart_button
 
-  # Button on mini switch
   - platform: gpio
     id: the_button
     pin:
@@ -47,22 +51,13 @@ binary_sensor:
           - ON for at most 1s
           - OFF for at least 0.2s
         then:
-          - light.toggle: relay_light
+          - script.execute: on_single
       - timing:
           - ON for at least 4s
         then:
-          - button.press: restart_button
+          - script.execute: on_long
 
 light:
-  - platform: binary
-    id: relay_light
-    name: None
-    output: relay_output
-    on_turn_on:
-      - light.turn_on: led
-    on_turn_off:
-      - light.turn_off: led
-
   - platform: status_led
     id: led
     pin:

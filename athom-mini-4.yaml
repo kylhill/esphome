@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: athom-mini-4
+  friendly_name: "Athom Mini Light"
+  area: "Guest Bedroom"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-light.yaml
