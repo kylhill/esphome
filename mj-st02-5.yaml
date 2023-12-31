@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: mj-st02-5
+  friendly_name: "Living Room SW 1"
+  area: "Living Room"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml

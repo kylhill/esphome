@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: mj-st02-6
+  friendly_name: "Kitchen SW 1"
+  area: "Kitchen"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml

@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: mj-st02-7
+  friendly_name: "Basement Stairs SW 1"
+  area: "Basement Stairs"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml
