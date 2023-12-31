@@ -1,0 +1,10 @@
+---
+substitutions:
+  device_name: mj-s01-28
+  friendly_name: "Basement Bathroom SW 2"
+  area: "Basement Bathroom"
+  fan_auto_off_time: 15min
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01-bathroom-fan.yaml

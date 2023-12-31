@@ -2,7 +2,7 @@
 # Martin Jerry MJ-S01 - Light
 packages:
   parent: !include mj-s01-base.yaml
-  light: !include componenets/mj-s01-light.yaml
+  light: !include components/mj-s01-light.yaml
 
 script:
   - id: !extend on_single

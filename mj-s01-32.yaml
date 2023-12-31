@@ -1,0 +1,10 @@
+---
+substitutions:
+  device_name: mj-s01-32
+  friendly_name: "Basement SW 7"
+  area: "Basement"
+  light_auto_off_time: 30min
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01-light-auto.yaml

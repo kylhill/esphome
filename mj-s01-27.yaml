@@ -1,0 +1,10 @@
+---
+substitutions:
+  device_name: mj-s01-27
+  friendly_name: "Basement Bathroom SW 1"
+  area: "Basement Bathroom"
+  light_auto_off_time: 30min
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01-light-auto.yaml
