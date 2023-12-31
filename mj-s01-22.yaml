@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-22
-  friendly_name: "Living Room Switch 4"
+  friendly_name: "Living Room SW 4"
   area: "Living Room"
 
 packages:

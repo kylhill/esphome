@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-23
-  friendly_name: "Living Room Switch 5"
+  friendly_name: "Living Room SW 5"
   area: "Living Room"
   light_auto_off_time: 30min
 
