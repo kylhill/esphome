@@ -7,3 +7,24 @@ substitutions:
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-ceiling-fan.yaml
+
+script:
+  - id: !extend on_double
+    then:
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.living_room_light_1
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.living_room_light_2
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.living_room_light_3
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.wled_2
+      - script.execute: flash_purple

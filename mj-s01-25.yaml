@@ -8,3 +8,12 @@ substitutions:
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light-auto.yaml
+
+script:
+  - id: !extend on_long
+    then:
+      - homeassistant.service:
+          service: automation.trigger
+          data:
+            entity_id: automation.basement_off
+      - script.execute: flash_purple
