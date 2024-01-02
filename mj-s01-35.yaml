@@ -1,0 +1,11 @@
+---
+substitutions:
+  device_name: mj-s01-35
+  friendly_name: "Garage SW 1"
+  area: "Garage"
+  light_auto_off_time: 15min
+  click_short: 0s
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-s01-light-auto.yaml
