@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Master Closet SW 2"
   area: "Master Closet"
   light_auto_off_time: 15min
+  click_short: 0s
 
 packages:
   common: !include templates/common.yaml

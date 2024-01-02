@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Basement SW 5"
   area: "Basement"
   light_auto_off_time: 15min
+  click_short: 0s
 
 packages:
   common: !include templates/common.yaml

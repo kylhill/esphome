@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Master Bathroom SW 1"
   area: "Master Bathroom"
   light_auto_off_time: 30min
+  click_short: 0s
 
 packages:
   common: !include templates/common.yaml

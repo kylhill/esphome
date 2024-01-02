@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Main Bathroom SW 2"
   area: "Main Bathroom"
   fan_auto_off_time: 15min
+  click_short: 0s
 
 packages:
   common: !include templates/common.yaml
