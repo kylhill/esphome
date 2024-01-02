@@ -6,7 +6,7 @@ substitutions:
   click_short: 200ms
   click_double: 350ms
   click_long: 1.25s
-  flash_delay: 333ms
+  flash_delay: 350ms
 
 globals:
   - id: red_on
