@@ -4,9 +4,9 @@
 # - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 substitutions:
   click_short: 200ms
-  click_double: 350ms
+  click_double: 333ms
   click_long: 1.25s
-  flash_delay: 350ms
+  flash_delay: 200ms
 
 globals:
   - id: red_on

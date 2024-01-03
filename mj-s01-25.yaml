@@ -3,18 +3,29 @@ substitutions:
   device_name: mj-s01-25
   friendly_name: "Basement Stairs SW 2"
   area: "Basement Stairs"
-  light_auto_off_time: 15min
   click_short: 0s
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/mj-s01-light-auto.yaml
+  device: !include templates/mj-s01-light.yaml
 
 script:
   - id: !extend on_long
     then:
       - homeassistant.service:
-          service: automation.trigger
+          service: light.turn_off
           data:
-            entity_id: automation.basement_off
+            area_id: basement
+      - homeassistant.service:
+          service: light.turn_off
+          data:
+            area_id: basement_bathroom
+      - homeassistant.service:
+          service: light.turn_off
+          data:
+            area_id: utility_room
+      - homeassistant.service:
+          service: light.turn_off
+          data:
+            entity_id: light.mj_st02_7_basement_stairs_sw_1
       - script.execute: flash_purple
