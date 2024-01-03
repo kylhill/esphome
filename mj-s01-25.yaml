@@ -28,4 +28,8 @@ script:
           service: light.turn_off
           data:
             entity_id: light.mj_st02_7_basement_stairs_sw_1
+      - homeassistant.service:
+          service: fan.turn_off
+          data:
+            area_id: basement_bathroom
       - script.execute: flash_purple
