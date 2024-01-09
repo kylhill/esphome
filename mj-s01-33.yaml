@@ -4,7 +4,6 @@ substitutions:
   friendly_name: "Garage SW 1"
   area: "Garage"
   light_auto_off_time: 15min
-  click_short: 0s
 
 packages:
   common: !include templates/common.yaml
