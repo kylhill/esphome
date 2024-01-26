@@ -16,3 +16,11 @@ script:
           data:
             entity_id: light.s31_9_isaac_s_lights
       - script.execute: flash_purple
+
+  - id: !extend on_long
+    then:
+      - homeassistant.service:
+          service: fan.toggle
+          data:
+            entity_id: fan.athom_mini_2_isaac_s_fan
+      - script.execute: flash_purple

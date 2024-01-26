@@ -25,7 +25,7 @@ script:
   - id: on_long
     then:
       - homeassistant.service:
-          service: automation.trigger
+          service: fan.toggle
           data:
-            entity_id: automation.automatic_bedtime
+            entity_id: fan.athom_mini_3_guest_bedroom_fan
       - script.execute: flash_purple
