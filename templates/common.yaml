@@ -31,7 +31,6 @@ wifi:
 
   ap:
     password: !secret ap_password
-    channel: 6
 
 captive_portal:
 
