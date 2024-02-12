@@ -22,3 +22,4 @@ fan:
       - light.turn_off: blue_led
       - light.turn_off: red_led
       - script.stop: fan_timer
+    restore_mode: RESTORE_DEFAULT_OFF

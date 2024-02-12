@@ -4,6 +4,7 @@
 # - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota-switch/536416
 esp8266:
   board: esp01_1m
+  restore_from_flash: true
 
 logger:
   baud_rate: 0
@@ -22,3 +23,4 @@ light:
   - platform: tuya
     name: None
     switch_datapoint: 1
+    restore_mode: RESTORE_DEFAULT_OFF
