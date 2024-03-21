@@ -19,8 +19,8 @@ time:
     id: ha_time
     timezone: America/Chicago
 
-#network:
-#  enable_ipv6: true
+network:
+  enable_ipv6: true
 
 wifi:
   ssid: !secret wifi_ssid
