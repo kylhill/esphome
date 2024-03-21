@@ -4,7 +4,6 @@
 # - https://digiblur.com/wiki/devices/plugs/sonoff_s31
 # - https://esphome.io/components/sensor/cse7766.html
 substitutions:
-  sample_rate: 1s
   update_interval: 30s
 
 logger:
@@ -17,7 +16,6 @@ uart:
 
 sensor:
   - platform: cse7766
-    update_interval: $sample_rate
 #    current:
 #      id: current
 #      name: Current
@@ -49,4 +47,3 @@ sensor:
 #    accuracy_decimals: 3
 #    filters:
 #      - throttle_average: $update_interval
-#    update_interval: $sample_rate
