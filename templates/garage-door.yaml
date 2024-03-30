@@ -12,7 +12,6 @@ binary_sensor:
       number: GPIO5
       mode:
         input: true
-      inverted: true
     filters:
       # Debounce the contact sensor to prevent rapid on/off/on events
       - delayed_on_off: 20ms
@@ -26,13 +25,20 @@ switch:
       - switch.turn_off: relay_switch
 
 cover:
-  - platform: template
+  - platform: feedback
     name: None
     device_class: garage
-    lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
+    has_built_in_endstop: true
+    assumed_state: false
+
     open_action:
       - switch.turn_on: relay_switch
+    open_duration: 14s
+
     close_action:
       - switch.turn_on: relay_switch
+    close_duration: 14s
+    close_endstop: contact
+
     stop_action:
       - switch.turn_on: relay_switch
