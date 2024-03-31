@@ -6,4 +6,4 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/garage-door.yaml
+  device: !include templates/garage-door-legacy.yaml
