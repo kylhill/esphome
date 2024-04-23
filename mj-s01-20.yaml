@@ -22,9 +22,4 @@ script:
       - homeassistant.service:
           service: light.toggle
           data:
-            entity_id: light.living_room_light_3
-      - homeassistant.service:
-          service: light.toggle
-          data:
             entity_id: light.wled_2
-      - script.execute: flash_purple

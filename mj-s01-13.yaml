@@ -23,12 +23,11 @@ script:
           service: light.toggle
           data:
             entity_id: light.bedroom_light_3
-      - script.execute: flash_purple
 
   - id: !extend on_long
     then:
       - homeassistant.service:
           service: automation.trigger
           data:
-            entity_id: automation.automatic_bedtime
+            entity_id: automation.downstairs_off
       - script.execute: flash_purple

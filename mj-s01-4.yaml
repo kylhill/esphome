@@ -15,7 +15,6 @@ script:
           service: light.toggle
           data:
             entity_id: light.shelly_1_4_christmas_lights
-      - script.execute: flash_purple
 
   - id: !extend on_long
     then:

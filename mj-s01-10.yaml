@@ -28,4 +28,3 @@ script:
           service: fan.toggle
           data:
             entity_id: fan.athom_mini_3_guest_bedroom_fan
-      - script.execute: flash_purple

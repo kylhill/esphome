@@ -16,4 +16,3 @@ script:
           service: light.toggle
           data:
             entity_id: light.mj_st02_1_mud_room_sw_1
-      - script.execute: flash_purple
