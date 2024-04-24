@@ -16,4 +16,3 @@ script:
           service: automation.trigger
           data:
             entity_id: automation.basement_off
-      - script.execute: flash_purple
