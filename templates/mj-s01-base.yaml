@@ -68,6 +68,12 @@ output:
     pin: GPIO12
 
   - platform: gpio
+    id: red_output
+    pin:
+      number: GPIO4
+      inverted: true
+
+  - platform: gpio
     id: blue_output
     pin:
       number: GPIO5
@@ -100,11 +106,9 @@ binary_sensor:
           - script.execute: on_long
 
 light:
-  - platform: status_led
+  - platform: binary
     id: red_led
-    pin:
-      number: GPIO4
-      inverted: true
+    output: red_output
 
   - platform: binary
     id: blue_led

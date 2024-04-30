@@ -34,7 +34,7 @@ light:
     output: relay_output
     restore_mode: RESTORE_DEFAULT_OFF
 
-status_led:
-  pin:
-    number: GPIO13
-    inverted: true
+#status_led:
+#  pin:
+#    number: GPIO13
+#    inverted: true

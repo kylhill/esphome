@@ -8,6 +8,7 @@ esphome:
 logger:
 
 api:
+  reboot_timeout: 30min
   encryption:
     key: !secret api_key
 

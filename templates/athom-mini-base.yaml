@@ -59,7 +59,7 @@ binary_sensor:
           - script.execute: on_long
 
 light:
-  - platform: status_led
+  - platform: binary
     id: led
     pin:
       number: GPIO4
