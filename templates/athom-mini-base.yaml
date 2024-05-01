@@ -18,6 +18,12 @@ output:
     id: relay_output
     pin: GPIO13
 
+  - platform: gpio
+    id: led_output
+    pin:
+      number: GPIO4
+      inverted: true
+
 binary_sensor:
   - platform: gpio
     id: the_switch
@@ -61,6 +67,4 @@ binary_sensor:
 light:
   - platform: binary
     id: led
-    pin:
-      number: GPIO4
-      inverted: true
+    output: led_output
