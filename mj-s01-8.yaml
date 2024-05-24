@@ -16,3 +16,11 @@ script:
           data:
             entity_id: automation.kid_s_bedtime
       - script.execute: flash_purple
+  
+  - id: !extend on_long
+    then:
+      - homeassistant.service:
+          service: automation.trigger
+          data:
+            entity_id: automation.kid_s_bedtime
+      - script.execute: flash_purple

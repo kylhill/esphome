@@ -7,8 +7,7 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  #device: !include templates/mj-s01-light-auto.yaml
-  device: !include templates/mj-s01-light.yaml
+  device: !include templates/mj-s01-light-auto.yaml
 
 script:
   - id: !extend on_double
