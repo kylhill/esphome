@@ -12,10 +12,7 @@ script:
   - id: !extend on_double
     then:
       - homeassistant.service:
-          service: light.toggle
+          service: automation.trigger
           data:
-            entity_id: light.s31_7_carson_s_lights
-      - homeassistant.service:
-          service: light.toggle
-          data:
-            entity_id: light.s31_9_isaac_s_lights
+            entity_id: automation.kid_s_bedtime
+      - script.execute: flash_purple
