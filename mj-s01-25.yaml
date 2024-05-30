@@ -10,6 +10,22 @@ packages:
   device: !include templates/mj-s01-light.yaml
 
 script:
+  - id: !extend on_single
+    then:
+      - if:
+          condition:
+            lambda: 'return id(relay_light).current_values.is_on();'
+          then:
+            - homeassistant.service:
+                service: light.turn_on
+                data:
+                  entity_id: light.mj_s01_34_utility_room_sw_1
+          else:
+            - homeassistant.service:
+                service: light.turn_off
+                data:
+                  entity_id: light.mj_s01_34_utility_room_sw_1
+
   - id: !extend on_long
     then:
       - homeassistant.service:
