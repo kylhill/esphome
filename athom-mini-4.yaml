@@ -1,8 +1,8 @@
 ---
 substitutions:
   device_name: athom-mini-4
-  friendly_name: "Athom Mini Light"
-  area: "Guest Bedroom"
+  friendly_name: "Utility Room SW 2"
+  area: "Utility Room"
 
 packages:
   common: !include templates/common.yaml

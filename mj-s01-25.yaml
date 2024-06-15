@@ -20,11 +20,19 @@ script:
                 service: light.turn_on
                 data:
                   entity_id: light.mj_s01_34_utility_room_sw_1
+            - homeassistant.service:
+                service: light.turn_on
+                data:
+                  entity_id: light.athom_mini_4_utility_room_sw_2
           else:
             - homeassistant.service:
                 service: light.turn_off
                 data:
                   entity_id: light.mj_s01_34_utility_room_sw_1
+            - homeassistant.service:
+                service: light.turn_off
+                data:
+                  entity_id: light.athom_mini_4_utility_room_sw_2
 
   - id: !extend on_long
     then:
