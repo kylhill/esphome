@@ -1,5 +1,5 @@
 ---
-# Athom Mini (Fan)
+# Athom Mini Switch - Fan
 packages:
   parent: !include athom-mini-base.yaml
 

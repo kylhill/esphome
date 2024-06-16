@@ -7,4 +7,4 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/shelly-1.yaml
+  device: !include templates/shelly-1-light.yaml

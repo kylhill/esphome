@@ -1,5 +1,5 @@
 ---
-# Athom Mini Switch (Light)
+# Athom Mini Switch - Light
 packages:
   parent: !include athom-mini-base.yaml
 
