@@ -120,6 +120,19 @@ sensor:
           - throttle_average: $update_interval_fast
     update_interval: $sample_rate
 
+  - platform: template
+    name: Total Power
+    id: total_power
+    state_class: measurement
+    device_class: power
+    lambda: return id(power_phase_1).state + id(power_phase_2).state;
+    unit_of_measurement: W
+    filters:
+      - or:
+        - delta: 10%
+        - throttle_average: $update_interval_fast
+    update_interval: $sample_rate
+
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
     id: energy_phase_1
@@ -137,17 +150,6 @@ sensor:
       - multiply: 0.001
       - throttle: $update_interval_slow
     unit_of_measurement: kWh
-
-  - platform: template
-    name: Total Power
-    id: total_power
-    state_class: measurement
-    device_class: power
-    lambda: return id(power_phase_1).state + id(power_phase_2).state;
-    unit_of_measurement: W
-    filters:
-      - throttle_average: $update_interval_fast
-    update_interval: $sample_rate
 
   - platform: total_daily_energy
     name: Total Daily Energy
