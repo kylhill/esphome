@@ -1,40 +1,10 @@
 ---
-# Sonoff S31 Lite (Light)
-# - https://www.esphome-devices.com/devices/Sonoff-S31
-# - https://digiblur.com/wiki/devices/plugs/sonoff_s31
-substitutions:
-  device_icon: "mdi:lamp"
+# Sonoff S31 Lite - Light
+packages:
+  parent: !include s31-lite-base.yaml
+  light: !include components/s31-light.yaml
 
-esp8266:
-  board: esp01_1m
-  restore_from_flash: true
-
-output:
-  - platform: gpio
-    id: relay_output
-    pin: GPIO12
-
-binary_sensor:
-  - platform: gpio
-    id: the_button
-    pin:
-      number: GPIO0
-      mode:
-        input: true
-        pullup: true
-      inverted: true
-    on_click:
+script:
+  - id: !extend on_single
+    then:
       - light.toggle: relay_light
-
-light:
-  - platform: binary
-    id: relay_light
-    name: None
-    icon: $device_icon
-    output: relay_output
-    restore_mode: RESTORE_DEFAULT_OFF
-
-#status_led:
-#  pin:
-#    number: GPIO13
-#    inverted: true

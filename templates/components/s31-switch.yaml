@@ -1,0 +1,12 @@
+---
+# S31 - Common Switch Config
+substitutions:
+  device_icon: "mdi:power-plug"
+
+switch:
+  - platform: output
+    id: relay_switch
+    name: None
+    icon: $device_icon
+    output: relay_output
+    restore_mode: RESTORE_DEFAULT_OFF

@@ -1,0 +1,10 @@
+---
+# Sonoff S31 Lite - Switch
+packages:
+  parent: !include s31-lite-base.yaml
+  switch: !include components/s31-switch.yaml
+
+script:
+  - id: !extend on_single
+    then:
+      - switch.toggle: relay_switch

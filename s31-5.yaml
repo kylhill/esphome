@@ -1,10 +1,32 @@
 ---
 substitutions:
   device_name: s31-5
-  device_icon: "mdi:lamp"
   friendly_name: "Bedroom Light 2"
   area: "Master Bedroom"
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/s31-lite-light.yaml
+
+script:
+  - id: !extend on_double
+    then:
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.bedroom_light_1
+#      - homeassistant.service:
+#          service: light.toggle
+#          data:
+#            entity_id: light.bedroom_light_2
+      - homeassistant.service:
+          service: light.toggle
+          data:
+            entity_id: light.bedroom_light_3
+
+  - id: !extend on_long
+    then:
+      - homeassistant.service:
+          service: automation.trigger
+          data:
+            entity_id: automation.bedtime

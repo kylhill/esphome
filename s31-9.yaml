@@ -4,6 +4,7 @@ substitutions:
   device_icon: "mdi:string-lights"
   friendly_name: "Isaac's Lights"
   area: "Isaac's Room"
+  click_short: 0s
 
 packages:
   common: !include templates/common.yaml
