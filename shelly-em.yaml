@@ -1,7 +1,6 @@
 ---
 # Shelly EM
 # - https://www.esphome-devices.com/devices/Shelly-EM
-# - https://www.esphome-devices.com/devices/Shelly-25
 # - https://templates.blakadder.com/shelly_EM.html
 
 substitutions:
@@ -9,10 +8,15 @@ substitutions:
   friendly_name: "Shelly EM"
   area: "Utility Room"
   sample_rate: "1s"
-  update_interval_fast: "30s"
+  update_interval_fast: "15s"
   update_interval_slow: "60s"
-  # Derived from Evergy bill usage
-  cal_factor: "1.102413"
+
+  # 120A clamp (3000:1): 1.143207411
+  # 50A clamp (2400:1): 1.156612516
+  # 50A Victron clamp (2000:1): 0.76
+  # Derived from Evergy bill: 1.102413
+  scale_a_power: '1.143207411'
+  scale_b_power: '1.143207411'
 
 packages:
   common: !include templates/common.yaml
@@ -29,36 +33,110 @@ i2c:
 
 sensor:
   - platform: ade7953_i2c
-    # WARNING: Prevent overheating by setting this IRQ pin! - https://esphome.io/components/sensor/ade7953.html
     irq_pin: GPIO13
-    update_interval: $sample_rate
     voltage:
       name: Voltage
       id: voltage
       filters:
-        - throttle_average: $update_interval_slow
+        - or:
+          - delta: 1%
+          - throttle_average: $update_interval_slow
+    frequency:
+      name: Frequency
+      id: frequency
+      filters:
+          - throttle: $update_interval_slow
     current_a:
-      name: _Phase 1 Current
+      name: Phase 1 Current
       id: current_phase_1
-      internal: true
+      filters:
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
     current_b:
-      name: _Phase 2 Current
+      name: Phase 2 Current
       id: current_phase_2
-      internal: true
+      filters:
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
     active_power_a:
-      name: _Phase 1 Power
+      name: Phase 1 Power
       id: power_phase_1
       filters:
-        # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
-        - lambda: if (x <= 0.0) return 0; else return x * $cal_factor;
-      internal: true
+        - multiply: $scale_a_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
     active_power_b:
-      name: _Phase 2 Power
+      name: Phase 2 Power
       id: power_phase_2
       filters:
-        # Calibrate CT clamps, see: https://community.home-assistant.io/t/anyone-using-shelly-em/149867
-        - lambda: if (x <= 0.0) return 0; else return x * $cal_factor;
-      internal: true
+        - multiply: $scale_b_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
+    apparent_power_a:
+      name: Phase 1 Apparent Power
+      id: apparent_power_phase_1
+      filters:
+        - multiply: $scale_a_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
+    apparent_power_b:
+      name: Phase 2 Apparent Power
+      id: apparent_power_phase_2
+      filters:
+        - multiply: $scale_b_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
+    power_factor_a:
+      name: Phase 1 Power Factor
+      id: power_factor_phase_1
+      filters:
+        - throttle_average: $update_interval_fast
+    power_factor_b:
+      name: Phase 2 Power Factor
+      id: power_factor_phase_2
+      filters:
+        - throttle_average: $update_interval_fast
+    reactive_power_a:
+      name: Phase 1 Reactive Power
+      id: reactive_power_phase_1
+      filters:
+        - multiply: $scale_a_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
+    reactive_power_b:
+      name: Phase 2 Reactive Power
+      id: reactive_power_phase_2
+      filters:
+        - multiply: $scale_b_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
+    update_interval: $sample_rate
+
+  - platform: total_daily_energy
+    name: Phase 1 Daily Energy
+    id: energy_phase_1
+    power_id: power_phase_1
+    filters:
+      - multiply: 0.001
+      - throttle: $update_interval_slow
+    unit_of_measurement: kWh
+
+  - platform: total_daily_energy
+    name: Phase 2 Daily Energy
+    id: energy_phase_2
+    power_id: power_phase_2
+    filters:
+      - multiply: 0.001
+      - throttle: $update_interval_slow
+    unit_of_measurement: kWh
 
   - platform: template
     name: Total Power
@@ -72,53 +150,32 @@ sensor:
     update_interval: $sample_rate
 
   - platform: total_daily_energy
-    name: _Phase 1 Total Daily Energy
-    id: energy_phase_1
-    power_id: power_phase_1
-    filters:
-      - multiply: 0.001
-    unit_of_measurement: kWh
-    internal: true
-
-  - platform: total_daily_energy
-    name: _Phase 2 Total Daily Energy
-    id: energy_phase_2
-    power_id: power_phase_2
-    filters:
-      - multiply: 0.001
-    unit_of_measurement: kWh
-    internal: true
-
-  - platform: template
     name: Total Daily Energy
     id: total_energy
-    state_class: total_increasing
-    device_class: energy
-    lambda: return id(energy_phase_1).state + id(energy_phase_2).state;
+    power_id: total_power
+    filters:
+      - multiply: 0.001
+      - throttle: $update_interval_slow
     unit_of_measurement: kWh
-    update_interval: $update_interval_slow
 
-  - platform: template
-    name: Total Current
-    id: total_current
-    state_class: measurement
-    device_class: current
-    lambda: return id(current_phase_1).state + id(current_phase_2).state;
-    unit_of_measurement: A
-    filters:
-      - throttle_average: $update_interval_slow
-    update_interval: $sample_rate
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: "Temperature"
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
 
-  - platform: template
-    name: Total Power Factor
-    id: total_power_factor
-    state_class: measurement
-    device_class: power_factor
-    lambda: return id(total_power).state / id(voltage).state / id(total_current).state;
-    accuracy_decimals: 3
-    filters:
-      - throttle_average: $update_interval_slow
-    update_interval: $sample_rate
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    # This value is a guess, based on the temperature values compared to native Shelly EM devices
+    resistor: 100kOhm
+
+  - platform: adc
+    id: temp_analog_reading
+    pin: A0
 
 status_led:
   pin:

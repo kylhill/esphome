@@ -1,7 +1,5 @@
 ---
 # CSE7766 Power Sensor
-# - https://devices.esphome.io/devices/Sonoff-S31
-# - https://digiblur.com/wiki/devices/plugs/sonoff_s31
 # - https://esphome.io/components/sensor/cse7766.html
 substitutions:
   update_interval: 30s
@@ -16,19 +14,29 @@ uart:
 
 sensor:
   - platform: cse7766
-#    current:
-#      id: current
-#      name: Current
-#      filters:
-#        - throttle_average: $update_interval
-#    voltage:
-#      id: voltage
-#      name: Voltage
-#      filters:
-#        - throttle_average: $update_interval
+    current:
+      id: current
+      name: Current
+      filters:
+        - throttle_average: $update_interval
+    voltage:
+      id: voltage
+      name: Voltage
+      filters:
+        - throttle_average: $update_interval
     power:
       id: power
       name: Power
+      filters:
+        - throttle_average: $update_interval
+    apparent_power:
+      id: apparent_power
+      name: "Apparent Power"
+      filters:
+        - throttle_average: $update_interval
+    power_factor:
+      id: power_factor
+      name: "Power Factor"
       filters:
         - throttle_average: $update_interval
 
@@ -36,14 +44,5 @@ sensor:
     name: Total Daily Energy
     power_id: power
     unit_of_measurement: kWh
-    accuracy_decimals: 3
     filters:
       - multiply: 0.001
-
-#  - platform: template
-#    id: power_factor
-#    name: Power Factor
-#    lambda: return id(power).state / id(voltage).state / id(current).state;
-#    accuracy_decimals: 3
-#    filters:
-#      - throttle_average: $update_interval
