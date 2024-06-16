@@ -18,8 +18,8 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    on_press:
-        - light.toggle: relay_light
+    on_state:
+      - light.toggle: relay_light
     on_multi_click:
       - timing:
           - ON for at most 0.5s

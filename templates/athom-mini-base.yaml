@@ -32,6 +32,8 @@ binary_sensor:
       mode:
         input: true
         pullup: true
+    on_state:
+      - script.execute: on_single
     on_multi_click:
       - timing:
           - ON for at most 0.5s
