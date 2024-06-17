@@ -39,60 +39,46 @@ sensor:
       name: Voltage
       id: voltage
       filters:
-        - or:
-          - delta: 1%
-          - throttle_average: $update_interval_slow
+        - throttle_average: $update_interval_slow
     frequency:
       name: Frequency
       id: frequency
       filters:
-          - throttle: $update_interval_slow
+        - throttle_average: $update_interval_slow
     current_a:
       name: Phase 1 Current
       id: current_phase_1
       filters:
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval_slow
     current_b:
       name: Phase 2 Current
       id: current_phase_2
       filters:
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval_slow
     active_power_a:
       name: Phase 1 Power
       id: power_phase_1
       filters:
         - multiply: $scale_a_power
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval_fast
     active_power_b:
       name: Phase 2 Power
       id: power_phase_2
       filters:
         - multiply: $scale_b_power
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval_fast
 #    apparent_power_a:
 #      name: Phase 1 Apparent Power
 #      id: apparent_power_phase_1
 #      filters:
 #        - multiply: $scale_a_power
-#        - or:
-#          - delta: 10%
-#          - throttle_average: $update_interval_fast
+#        - throttle_average: $update_interval_fast
 #    apparent_power_b:
 #      name: Phase 2 Apparent Power
 #      id: apparent_power_phase_2
 #      filters:
 #        - multiply: $scale_b_power
-#        - or:
-#          - delta: 10%
-#          - throttle_average: $update_interval_fast
+#        - throttle_average: $update_interval_fast
 #    power_factor_a:
 #      name: Phase 1 Power Factor
 #      id: power_factor_phase_1
@@ -108,17 +94,13 @@ sensor:
 #      id: reactive_power_phase_1
 #      filters:
 #        - multiply: $scale_a_power
-#        - or:
-#          - delta: 10%
-#          - throttle_average: $update_interval_fast
+#        - throttle_average: $update_interval_fast
 #    reactive_power_b:
 #      name: Phase 2 Reactive Power
 #      id: reactive_power_phase_2
 #      filters:
 #        - multiply: $scale_b_power
-#        - or:
-#          - delta: 10%
-#          - throttle_average: $update_interval_fast
+#        - throttle_average: $update_interval_fast
 
   - platform: template
     name: Total Power
@@ -127,11 +109,7 @@ sensor:
     device_class: power
     lambda: return id(power_phase_1).state + id(power_phase_2).state;
     unit_of_measurement: W
-    filters:
-      - or:
-        - delta: 10%
-        - throttle_average: $update_interval_fast
-    update_interval: $sample_rate
+    update_interval: $update_interval_fast
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
