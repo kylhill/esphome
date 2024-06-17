@@ -34,6 +34,7 @@ i2c:
 sensor:
   - platform: ade7953_i2c
     irq_pin: GPIO13
+    update_interval: $sample_rate
     voltage:
       name: Voltage
       id: voltage
@@ -76,49 +77,48 @@ sensor:
         - or:
           - delta: 10%
           - throttle_average: $update_interval_fast
-    apparent_power_a:
-      name: Phase 1 Apparent Power
-      id: apparent_power_phase_1
-      filters:
-        - multiply: $scale_a_power
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
-    apparent_power_b:
-      name: Phase 2 Apparent Power
-      id: apparent_power_phase_2
-      filters:
-        - multiply: $scale_b_power
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
-    power_factor_a:
-      name: Phase 1 Power Factor
-      id: power_factor_phase_1
-      filters:
-        - throttle_average: $update_interval_fast
-    power_factor_b:
-      name: Phase 2 Power Factor
-      id: power_factor_phase_2
-      filters:
-        - throttle_average: $update_interval_fast
-    reactive_power_a:
-      name: Phase 1 Reactive Power
-      id: reactive_power_phase_1
-      filters:
-        - multiply: $scale_a_power
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
-    reactive_power_b:
-      name: Phase 2 Reactive Power
-      id: reactive_power_phase_2
-      filters:
-        - multiply: $scale_b_power
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
-    update_interval: $sample_rate
+#    apparent_power_a:
+#      name: Phase 1 Apparent Power
+#      id: apparent_power_phase_1
+#      filters:
+#        - multiply: $scale_a_power
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
+#    apparent_power_b:
+#      name: Phase 2 Apparent Power
+#      id: apparent_power_phase_2
+#      filters:
+#        - multiply: $scale_b_power
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
+#    power_factor_a:
+#      name: Phase 1 Power Factor
+#      id: power_factor_phase_1
+#      filters:
+#        - throttle_average: $update_interval_fast
+#    power_factor_b:
+#      name: Phase 2 Power Factor
+#      id: power_factor_phase_2
+#      filters:
+#        - throttle_average: $update_interval_fast
+#    reactive_power_a:
+#      name: Phase 1 Reactive Power
+#      id: reactive_power_phase_1
+#      filters:
+#        - multiply: $scale_a_power
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
+#    reactive_power_b:
+#      name: Phase 2 Reactive Power
+#      id: reactive_power_phase_2
+#      filters:
+#        - multiply: $scale_b_power
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
 
   - platform: template
     name: Total Power
@@ -160,32 +160,32 @@ sensor:
       - throttle: $update_interval_slow
     unit_of_measurement: kWh
 
-  - platform: ntc
-    sensor: temp_resistance_reading
-    name: "Temperature"
-    calibration:
-      b_constant: 3350
-      reference_resistance: 10kOhm
-      reference_temperature: 298.15K
-
-  - platform: resistance
-    id: temp_resistance_reading
-    sensor: temp_analog_reading
-    configuration: DOWNSTREAM
-    # This value is a guess, based on the temperature values compared to native Shelly EM devices
-    resistor: 100kOhm
-
-  - platform: adc
-    id: temp_analog_reading
-    pin: A0
+#  - platform: ntc
+#    sensor: temp_resistance_reading
+#    name: "Temperature"
+#    calibration:
+#      b_constant: 3350
+#      reference_resistance: 10kOhm
+#      reference_temperature: 298.15K
+#
+#  - platform: resistance
+#    id: temp_resistance_reading
+#    sensor: temp_analog_reading
+#    configuration: DOWNSTREAM
+#    # This value is a guess, based on the temperature values compared to native Shelly EM devices
+#    resistor: 100kOhm
+#
+#  - platform: adc
+#    id: temp_analog_reading
+#    pin: A0
 
 status_led:
   pin:
     number: GPIO0
     inverted: yes
 
-switch:
-  - platform: gpio
-    name: Switch
-    pin: GPIO15
-    id: relay_switch
+#switch:
+#  - platform: gpio
+#    name: Switch
+#    pin: GPIO15
+#    id: relay_switch
