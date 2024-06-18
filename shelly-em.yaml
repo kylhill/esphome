@@ -12,8 +12,6 @@ substitutions:
   update_interval_slow: "60s"
 
   # 120A clamp (3000:1): 1.143207411
-  # 50A clamp (2400:1): 1.156612516
-  # 50A Victron clamp (2000:1): 0.76
   # Derived from Evergy bill: 1.102413
   scale_a_power: '1.143207411'
   scale_b_power: '1.143207411'
@@ -35,6 +33,7 @@ sensor:
   - platform: ade7953_i2c
     irq_pin: GPIO13
     update_interval: $sample_rate
+    use_accumulated_energy_registers: true
     voltage:
       name: Voltage
       id: voltage
@@ -49,24 +48,28 @@ sensor:
       name: Phase 1 Current
       id: current_phase_1
       filters:
-        - throttle_average: $update_interval_slow
+        - throttle_average: $update_interval_fast
     current_b:
       name: Phase 2 Current
       id: current_phase_2
       filters:
-        - throttle_average: $update_interval_slow
+        - throttle_average: $update_interval_fast
     active_power_a:
       name: Phase 1 Power
       id: power_phase_1
       filters:
         - multiply: $scale_a_power
         - throttle_average: $update_interval_fast
+      on_value:
+        - component.update: total_power
     active_power_b:
       name: Phase 2 Power
       id: power_phase_2
       filters:
         - multiply: $scale_b_power
         - throttle_average: $update_interval_fast
+      on_value:
+        - component.update: total_power
 #    apparent_power_a:
 #      name: Phase 1 Apparent Power
 #      id: apparent_power_phase_1
@@ -107,9 +110,9 @@ sensor:
     id: total_power
     state_class: measurement
     device_class: power
-    lambda: return id(power_phase_1).state + id(power_phase_2).state;
     unit_of_measurement: W
-    update_interval: $update_interval_fast
+    lambda: return id(power_phase_1).state + id(power_phase_2).state;
+    update_interval: never
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
