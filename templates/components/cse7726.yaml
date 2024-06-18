@@ -2,7 +2,8 @@
 # CSE7766 Power Sensor
 # - https://esphome.io/components/sensor/cse7766.html
 substitutions:
-  update_interval: 30s
+  update_interval_fast: "30s"
+  update_interval_slow: "60s"
 
 logger:
   # Disable UART logging, interferes with cse7766
@@ -18,31 +19,38 @@ sensor:
       id: current
       name: Current
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: $update_interval_fast
     voltage:
       id: voltage
       name: Voltage
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: $update_interval_slow
     power:
       id: power
       name: Power
       filters:
-        - throttle_average: $update_interval
-    apparent_power:
-      id: apparent_power
-      name: "Apparent Power"
-      filters:
-        - throttle_average: $update_interval
-    power_factor:
-      id: power_factor
-      name: "Power Factor"
-      filters:
-        - throttle_average: $update_interval
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
+#    apparent_power:
+#      id: apparent_power
+#      name: "Apparent Power"
+#      filters:
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
+#    power_factor:
+#      id: power_factor
+#      name: "Power Factor"
+#      filters:
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
 
   - platform: total_daily_energy
     name: Total Daily Energy
     power_id: power
-    unit_of_measurement: kWh
     filters:
       - multiply: 0.001
+      - throttle: $update_interval_slow
+    unit_of_measurement: kWh
