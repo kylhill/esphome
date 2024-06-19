@@ -2,7 +2,7 @@
 substitutions:
   device_name: mj-s01-32
   friendly_name: "Basement SW 7"
-  area: "Basement"
+  area: "Outside"
   light_auto_off_time: 30min
   click_short: 0s
 

@@ -2,7 +2,7 @@
 substitutions:
   device_name: mj-s01-23
   friendly_name: "Living Room SW 5"
-  area: "Living Room"
+  area: "Outside"
   light_auto_off_time: 30min
   click_short: 0s
 

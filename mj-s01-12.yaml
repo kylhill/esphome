@@ -2,7 +2,7 @@
 substitutions:
   device_name: mj-s01-12
   friendly_name: "Laundry Room SW 2"
-  area: "Upstairs Hall"
+  area: "Laundry Room"
   fan_auto_off_time: 15min
   click_short: 0s
 

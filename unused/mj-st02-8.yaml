@@ -2,7 +2,7 @@
 substitutions:
   device_name: mj-st02-8
   friendly_name: "Basement SW 2"
-  area: "Basement"
+  area: "Game Room"
 
 packages:
   common: !include templates/common.yaml

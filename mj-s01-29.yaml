@@ -2,7 +2,7 @@
 substitutions:
   device_name: mj-s01-29
   friendly_name: "Basement SW 4"
-  area: "Basement"
+  area: "Game Room"
   click_short: 0s
 
 packages:

@@ -2,7 +2,7 @@
 substitutions:
   device_name: mj-s01-33
   friendly_name: "Garage SW 1"
-  area: "Garage"
+  area: "Outside"
   light_auto_off_time: 15min
 
 packages:
