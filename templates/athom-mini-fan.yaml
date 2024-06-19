@@ -22,3 +22,4 @@ fan:
       - light.turn_on: led
     on_turn_off:
       - light.turn_off: led
+    restore_mode: RESTORE_DEFAULT_OFF
