@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: athom-mini-6
+  friendly_name: "Basement SW 2"
+  area: "Game Room"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-light.yaml
