@@ -2,9 +2,6 @@
 # Shelly 1 - Garage Door Opener
 # - https://savjee.be/2020/06/make-garage-door-opener-smart-shelly-esphome-home-assistant/
 # - https://github.com/athom-tech/athom-configs/blob/main/athom-garage-door.yaml
-substitutions:
-  switch_delay: 250ms
-
 esp8266:
   board: esp01_1m
 
@@ -18,14 +15,14 @@ binary_sensor:
       inverted: true
     filters:
       # Debounce the contact sensor to prevent rapid on/off/on events
-      - delayed_on_off: $switch_delay
+      - delayed_on_off: 50ms
 
 switch:
   - platform: gpio
     id: relay_switch
     pin: GPIO4
     on_turn_on:
-      - delay: $switch_delay
+      - delay: 250ms
       - switch.turn_off: relay_switch
 
 cover:
@@ -34,8 +31,16 @@ cover:
     device_class: garage
     lambda: "return id(contact_sensor).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
-      - switch.turn_on: relay_switch
+      - if:
+          condition:
+            lambda: 'return !id(contact_sensor).state;'
+          then:
+            - switch.turn_on: relay_switch
     close_action:
-      - switch.turn_on: relay_switch
+      - if:
+          condition:
+            lambda: 'return id(contact_sensor).state;'
+          then:
+            - switch.turn_on: relay_switch
     stop_action:
       - switch.turn_on: relay_switch
