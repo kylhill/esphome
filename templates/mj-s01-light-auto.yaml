@@ -7,7 +7,6 @@ packages:
 script:
   - id: !extend on_single
     then:
-      - script.stop: light_timer
       - if:
           condition:
             light.is_on: relay_light
