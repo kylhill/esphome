@@ -19,7 +19,9 @@ fan:
     name: None
     output: relay_output
     on_turn_on:
-      - light.turn_on: led
+      then:
+        - light.turn_on: led
     on_turn_off:
-      - light.turn_off: led
+      then:
+        - light.turn_off: led
     restore_mode: RESTORE_DEFAULT_OFF

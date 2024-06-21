@@ -22,8 +22,9 @@ switch:
     id: relay_switch
     pin: GPIO4
     on_turn_on:
-      - delay: 250ms
-      - switch.turn_off: relay_switch
+      then:
+        - delay: 250ms
+        - switch.turn_off: relay_switch
 
 cover:
   - platform: template

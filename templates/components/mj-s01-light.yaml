@@ -17,9 +17,11 @@ light:
     name: None
     output: relay_output
     on_turn_on:
-      - light.turn_on: blue_led
+      then:
+        - light.turn_on: blue_led
     on_turn_off:
-      - light.turn_off: blue_led
-      - light.turn_off: red_led
-      - script.stop: light_timer
+      then:
+        - light.turn_off: blue_led
+        - light.turn_off: red_led
+        - script.stop: light_timer
     restore_mode: RESTORE_DEFAULT_OFF
