@@ -15,9 +15,6 @@ binary_sensor:
     id: the_switch
     pin:
       number: GPIO5
-      mode:
-        input: true
-        pullup: true
     filters:
       # Debounce the sensor to prevent rapid on/off/on events
       - delayed_on_off: 50ms
