@@ -3,11 +3,6 @@
 packages:
   parent: !include athom-mini-base.yaml
 
-binary_sensor:
-  - id: !extend the_switch
-    on_click:
-      - light.toggle: relay_light
-
 script:
   - id: !extend on_single
     then:

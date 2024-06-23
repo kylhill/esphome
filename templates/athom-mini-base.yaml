@@ -10,10 +10,6 @@ script:
   - id: on_single
     then: {}
 
-  - id: on_long
-    then:
-      - button.press: restart_button
-
 output:
   - platform: gpio
     id: relay_output
@@ -33,24 +29,9 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    filters:
-      # Debounce the sensor to prevent rapid on/off/on events
-      - delayed_on_off: 50ms
     on_state:
       then:
         - script.execute: on_single
-    on_multi_click:
-      - timing:
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-        then:
-          - button.press: restart_button
 
   - platform: gpio
     id: the_button
@@ -62,14 +43,14 @@ binary_sensor:
       inverted: true
     on_multi_click:
       - timing:
-          - ON for at most 1s
-          - OFF for at least 0.2s
+          - ON for at most 1.25s
+          - OFF for at least 200ms
         then:
           - script.execute: on_single
       - timing:
           - ON for at least 4s
         then:
-          - script.execute: on_long
+          - button.press: restart_button
 
 light:
   - platform: binary

@@ -15,24 +15,9 @@ binary_sensor:
     id: the_switch
     pin:
       number: GPIO5
-    filters:
-      # Debounce the sensor to prevent rapid on/off/on events
-      - delayed_on_off: 50ms
     on_state:
       then:
         - light.toggle: relay_light
-    on_multi_click:
-      - timing:
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-          - ON for at most 0.5s
-          - OFF for at most 0.5s
-        then:
-          - button.press: restart_button
 
 light:
   - platform: binary
