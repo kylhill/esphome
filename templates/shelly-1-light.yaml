@@ -1,9 +1,6 @@
 ---
 # Shelly 1 - Light
 # - https://www.esphome-devices.com/devices/Shelly-1
-substitutions:
-  device_icon: "mdi:lightbulb"
-
 esp8266:
   board: esp01_1m
   restore_from_flash: true
@@ -21,6 +18,9 @@ binary_sensor:
       mode:
         input: true
         pullup: true
+    filters:
+      # Debounce the sensor to prevent rapid on/off/on events
+      - delayed_on_off: 50ms
     on_state:
       then:
         - light.toggle: relay_light
@@ -41,6 +41,5 @@ light:
   - platform: binary
     id: relay_light
     name: None
-    icon: $device_icon
     output: relay_output
     restore_mode: RESTORE_DEFAULT_OFF
