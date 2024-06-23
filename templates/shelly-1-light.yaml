@@ -23,5 +23,6 @@ light:
   - platform: binary
     id: relay_light
     name: None
+    icon: $device_icon
     output: relay_output
     restore_mode: RESTORE_DEFAULT_OFF
