@@ -33,6 +33,9 @@ binary_sensor:
       mode:
         input: true
         pullup: true
+    filters:
+      # Debounce the sensor to prevent rapid on/off/on events
+      - delayed_on_off: 50ms
     on_state:
       then:
         - script.execute: on_single

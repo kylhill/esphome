@@ -1,9 +1,0 @@
----
-substitutions:
-  device_name: athom-mini-8
-  friendly_name: "Attic Fan"
-  area: "Upstairs Hall"
-
-packages:
-  common: !include templates/common.yaml
-  device: !include templates/athom-mini-fan.yaml
