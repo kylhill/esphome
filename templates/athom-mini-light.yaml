@@ -2,21 +2,9 @@
 # Athom Mini Switch - Light
 packages:
   parent: !include athom-mini-base.yaml
+  light: !include components/athom-mini-light.yaml
 
 script:
   - id: !extend on_single
     then:
       - light.toggle: relay_light
-
-light:
-  - platform: binary
-    id: relay_light
-    name: None
-    output: relay_output
-    on_turn_on:
-      then:
-        - light.turn_on: led
-    on_turn_off:
-      then:
-        - light.turn_off: led
-    restore_mode: RESTORE_DEFAULT_OFF

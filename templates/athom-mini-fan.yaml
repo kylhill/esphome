@@ -2,21 +2,9 @@
 # Athom Mini Switch - Fan
 packages:
   parent: !include athom-mini-base.yaml
+  fan: !include components/athom-mini-fan.yaml
 
 script:
   - id: !extend on_single
     then:
       - fan.toggle: relay_fan
-
-fan:
-  - platform: binary
-    id: relay_fan
-    name: None
-    output: relay_output
-    on_turn_on:
-      then:
-        - light.turn_on: led
-    on_turn_off:
-      then:
-        - light.turn_off: led
-    restore_mode: RESTORE_DEFAULT_OFF

@@ -2,6 +2,7 @@
 # Martin Jerry MJ-S01 - Common Light Config
 substitutions:
   light_auto_off_time: 15min
+  device_icon: "mdi:lightbulb"
 
 script:
   - id: light_timer
@@ -16,6 +17,7 @@ light:
   - platform: binary
     id: relay_light
     name: None
+    icon: $device_icon
     output: relay_output
     on_turn_on:
       then:

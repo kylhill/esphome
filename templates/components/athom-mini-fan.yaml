@@ -1,0 +1,18 @@
+---
+# Athom Mini Switch - Common Fan Config
+substitutions:
+  device_icon: "mdi:fan"
+
+fan:
+  - platform: binary
+    id: relay_fan
+    name: None
+    icon: $device_icon
+    output: relay_output
+    on_turn_on:
+      then:
+        - light.turn_on: led
+    on_turn_off:
+      then:
+        - light.turn_off: led
+    restore_mode: RESTORE_DEFAULT_OFF
