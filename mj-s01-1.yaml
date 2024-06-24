@@ -13,9 +13,9 @@ script:
   - id: !extend on_double
     then:
       - homeassistant.service:
-          service: input_boolean.toggle
+          service: light.toggle
           data:
-            entity_id: input_boolean.hold_at_home
+            entity_id: light.shelly_1_4_christmas_lights
       - script.execute: flash_purple
 
   - id: !remove on_long
