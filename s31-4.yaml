@@ -30,3 +30,4 @@ script:
           service: automation.trigger
           data:
             entity_id: automation.bedtime
+      - script.execute: flash_blue

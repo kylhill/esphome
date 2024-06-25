@@ -5,7 +5,7 @@
 substitutions:
   click_short: 200ms
   click_double: 333ms
-  click_long: 1.25s
+  click_long: 850ms
   flash_delay: 200ms
 
 globals:
@@ -98,7 +98,7 @@ binary_sensor:
       - timing:
           - ON for at most $click_long
           - OFF for at most $click_double
-          - ON for at most $click_double
+          - ON for at least 1ms
         then:
           - script.execute: on_double
       - timing:
