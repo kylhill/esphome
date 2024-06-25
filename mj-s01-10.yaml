@@ -12,6 +12,7 @@ packages:
 script:
   - id: !extend on_double
     then:
+      - script.stop: light_timer
       - script.execute: light_timer
       - script.execute: flash_purple
 
