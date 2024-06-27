@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Living Room SW 5"
   area: "Outside"
   light_auto_off_time: 30min
-  click_short: 0s
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml

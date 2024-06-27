@@ -3,7 +3,7 @@ substitutions:
   device_name: s31-10
   friendly_name: "Living Room Light 1"
   area: "Living Room"
-  click_short: 0s
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml

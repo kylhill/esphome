@@ -3,7 +3,7 @@ substitutions:
   device_name: mj-s01-5
   friendly_name: "Dining Room SW 1"
   area: "Dining Room"
-  click_short: 0s
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml

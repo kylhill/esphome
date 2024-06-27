@@ -3,7 +3,7 @@ substitutions:
   device_name: s31-2
   friendly_name: "Isaac's Lamp"
   area: "Isaac's Room"
-  click_short: 0s
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml

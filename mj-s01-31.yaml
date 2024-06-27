@@ -3,7 +3,7 @@ substitutions:
   device_name: mj-s01-31
   friendly_name: "Basement SW 6"
   area: "Game Room"
-  click_short: 0s
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml

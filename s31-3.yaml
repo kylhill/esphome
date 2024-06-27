@@ -3,7 +3,7 @@ substitutions:
   device_name: s31-3
   friendly_name: "Garage Power Strip"
   area: "Garage"
-  click_short: 0s
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml
