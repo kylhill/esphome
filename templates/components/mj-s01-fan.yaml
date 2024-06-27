@@ -6,6 +6,7 @@ substitutions:
 
 script:
   - id: fan_timer
+    mode: restart
     then:
       - light.turn_on: red_led
       - fan.turn_on: relay_fan

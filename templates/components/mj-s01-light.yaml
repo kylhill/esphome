@@ -6,6 +6,7 @@ substitutions:
 
 script:
   - id: light_timer
+    mode: restart
     then:
       - light.turn_on: red_led
       - light.turn_on: relay_light
