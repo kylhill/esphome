@@ -3,8 +3,7 @@
 # - https://www.esphome-devices.com/devices/Sonoff-S31
 # - https://digiblur.com/wiki/devices/plugs/sonoff_s31
 substitutions:
-  click_short: 200ms
-  click_double: 333ms
+  click_short: 225ms
   click_long: 850ms
   flash_delay: 200ms
 
@@ -76,7 +75,7 @@ binary_sensor:
           - script.execute: on_single
       - timing:
           - ON for at most $click_long
-          - OFF for at most $click_double
+          - OFF for at most $click_short
           - ON for at least 1ms
         then:
           - script.execute: on_double
