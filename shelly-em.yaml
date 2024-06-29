@@ -12,9 +12,9 @@ substitutions:
   update_interval_slow: "60s"
 
   # 120A clamp (3000:1): 1.143207411 - https://community.home-assistant.io/t/anyone-using-shelly-em/149867/14
-  # Derived from Evergy bill: 1.102413
-  scale_a_power: '1.102413'
-  scale_b_power: '1.102413'
+  # Derived from Evergy bill: 1.126651223
+  scale_a_power: '1.127186817'
+  scale_b_power: '1.127186817'
 
 packages:
   common: !include templates/common.yaml
