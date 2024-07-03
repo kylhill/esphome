@@ -22,3 +22,4 @@ script:
           service: fan.toggle
           data:
             entity_id: fan.athom_mini_1_carson_s_fan
+      - script.execute: flash_purple
