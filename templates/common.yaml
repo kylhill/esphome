@@ -31,11 +31,11 @@ wifi:
   power_save_mode: LIGHT
   reboot_timeout: 15min
 
-#  ap:
-#    password: !secret ap_password
-#    ap_timeout: 5min
-#
-#captive_portal:
+  ap:
+    password: !secret ap_password
+    ap_timeout: 5min
+
+captive_portal:
 
 button:
   - platform: restart
