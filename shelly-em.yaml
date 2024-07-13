@@ -162,33 +162,33 @@ sensor:
       - throttle: $update_interval_slow
     unit_of_measurement: kWh
 
-#  - platform: ntc
-#    sensor: temp_resistance_reading
-#    name: "Temperature"
-#    calibration:
-#      b_constant: 3350
-#      reference_resistance: 10kOhm
-#      reference_temperature: 298.15K
-#
-#  - platform: resistance
-#    id: temp_resistance_reading
-#    sensor: temp_analog_reading
-#    configuration: DOWNSTREAM
-#    # This value is a guess, based on the temperature values compared to native Shelly EM devices
-#    resistor: 100kOhm
-#
-#  - platform: adc
-#    id: temp_analog_reading
-#    pin: A0
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: "Temperature"
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    # This value is a guess, based on the temperature values compared to native Shelly EM devices
+    resistor: 100kOhm
+
+  - platform: adc
+    id: temp_analog_reading
+    pin: A0
 
 status_led:
   pin:
     number: GPIO0
     inverted: yes
 
-#switch:
-#  - platform: gpio
-#    id: relay_switch
-#    name: Switch
-#    pin: GPIO15
-#    restore_mode: ALWAYS_OFF
+switch:
+  - platform: gpio
+    id: relay_switch
+    name: Switch
+    pin: GPIO15
+    restore_mode: ALWAYS_OFF
