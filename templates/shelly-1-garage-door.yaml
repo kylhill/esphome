@@ -33,16 +33,8 @@ cover:
     device_class: garage
     lambda: "return id(contact_sensor).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
-      - if:
-          condition:
-            lambda: 'return !id(contact_sensor).state;'
-          then:
-            - switch.turn_on: relay_switch
+      - switch.turn_on: relay_switch
     close_action:
-      - if:
-          condition:
-            lambda: 'return id(contact_sensor).state;'
-          then:
-            - switch.turn_on: relay_switch
+      - switch.turn_on: relay_switch
     stop_action:
       - switch.turn_on: relay_switch
