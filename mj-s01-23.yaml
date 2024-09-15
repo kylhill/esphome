@@ -24,8 +24,10 @@ script:
                 service: light.turn_off
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
+
   - id: !extend on_double
     then:
+      - light.toggle: relay_light
       - if:
           condition:
             lambda: 'return id(relay_light).current_values.is_on();'
@@ -47,3 +49,4 @@ script:
                 service: light.turn_off
                 data:
                   entity_id: light.mj_s01_32_basement_sw_7
+      - script.execute: flash_purple
