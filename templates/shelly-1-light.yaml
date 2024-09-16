@@ -22,6 +22,8 @@ binary_sensor:
     on_state:
       then:
         - light.toggle: relay_light
+    filters:
+      - delayed_on_off: 25ms
 
 light:
   - platform: binary

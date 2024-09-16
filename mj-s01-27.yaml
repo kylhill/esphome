@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Basement Bathroom SW 1"
   area: "Basement Bathroom"
   light_auto_off_time: 30min
-  click_short: 1ms
+  click_short: 25ms
 
 packages:
   common: !include templates/common.yaml

@@ -3,7 +3,7 @@ substitutions:
   device_name: mj-s01-16
   friendly_name: "Master Bathroom SW 2"
   area: "Master Bathroom"
-  click_short: 1ms
+  click_short: 25ms
 
 packages:
   common: !include templates/common.yaml

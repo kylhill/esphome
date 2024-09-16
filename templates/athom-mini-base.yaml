@@ -33,6 +33,8 @@ binary_sensor:
     on_state:
       then:
         - script.execute: on_single
+    filters:
+      - delayed_on_off: 25ms
 
   - platform: gpio
     id: the_button

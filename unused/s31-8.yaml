@@ -4,7 +4,7 @@ substitutions:
   device_icon: "mdi:floor-lamp"
   friendly_name: "Basement Light"
   area: "Game Room"
-  click_short: 1ms
+  click_short: 25ms
 
 packages:
   common: !include templates/common.yaml
