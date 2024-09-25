@@ -3,7 +3,6 @@ substitutions:
   device_name: mj-s01-25
   friendly_name: "Basement Stairs SW 2"
   area: "Basement Stairs"
-  click_short: 25ms
 
 packages:
   common: !include templates/common.yaml
@@ -40,4 +39,12 @@ script:
           service: automation.trigger
           data:
             entity_id: automation.basement_off
+      #- script.execute: flash_purple
+
+  - id: !extend on_double
+    then:
+      - homeassistant.service:
+          service: scene.turn_on
+          data:
+            entity_id: scene.game_time
       #- script.execute: flash_purple
