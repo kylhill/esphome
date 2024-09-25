@@ -11,16 +11,16 @@ packages:
 script:
   - id: !extend on_double
     then:
-      - homeassistant.service:
-          service: automation.trigger
+      - homeassistant.action:
+          action: automation.trigger
           data:
             entity_id: automation.kid_s_bedtime
       - script.execute: flash_purple
-  
+
   - id: !extend on_long
     then:
-      - homeassistant.service:
-          service: automation.trigger
+      - homeassistant.action:
+          action: automation.trigger
           data:
             entity_id: automation.kid_s_bedtime
       - script.execute: flash_purple

@@ -12,7 +12,7 @@ packages:
 script:
   - id: !extend on_double
     then:
-      - homeassistant.service:
-          service: light.toggle
+      - homeassistant.action:
+          action: light.toggle
           data:
             entity_id: light.mj_st02_1_mud_room_sw_1

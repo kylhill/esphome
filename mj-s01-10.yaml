@@ -23,8 +23,8 @@ script:
   - id: !remove on_long
   - id: on_long
     then:
-      - homeassistant.service:
-          service: fan.toggle
+      - homeassistant.action:
+          action: fan.toggle
           data:
             entity_id: fan.athom_mini_3_guest_bedroom_fan
       - script.execute: flash_purple

@@ -15,13 +15,13 @@ script:
           condition:
             lambda: 'return id(relay_light).current_values.is_on();'
           then:
-            - homeassistant.service:
-                service: light.turn_on
+            - homeassistant.action:
+                action: light.turn_on
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
           else:
-            - homeassistant.service:
-                service: light.turn_off
+            - homeassistant.action:
+                action: light.turn_off
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
 
@@ -32,21 +32,21 @@ script:
           condition:
             lambda: 'return id(relay_light).current_values.is_on();'
           then:
-            - homeassistant.service:
-                service: light.turn_on
+            - homeassistant.action:
+                action: light.turn_on
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
-            - homeassistant.service:
-                service: light.turn_on
+            - homeassistant.action:
+                action: light.turn_on
                 data:
                   entity_id: light.mj_s01_32_basement_sw_7
           else:
-            - homeassistant.service:
-                service: light.turn_off
+            - homeassistant.action:
+                action: light.turn_off
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
-            - homeassistant.service:
-                service: light.turn_off
+            - homeassistant.action:
+                action: light.turn_off
                 data:
                   entity_id: light.mj_s01_32_basement_sw_7
       - script.execute: flash_purple

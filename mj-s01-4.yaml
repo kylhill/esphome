@@ -11,20 +11,20 @@ packages:
 script:
   - id: !extend on_double
     then:
-      - homeassistant.service:
-          service: automation.trigger
+      - homeassistant.action:
+          action: automation.trigger
           data:
             entity_id: automation.basement_off
-      - homeassistant.service:
-          service: light.turn_off
+      - homeassistant.action:
+          action: light.turn_off
           data:
             entity_id: light.mj_st02_7_basement_stairs_sw_1
       - script.execute: flash_purple
 
   - id: !extend on_long
     then:
-      - homeassistant.service:
-          service: automation.trigger
+      - homeassistant.action:
+          action: automation.trigger
           data:
             entity_id: automation.upstairs_off
       - script.execute: flash_purple

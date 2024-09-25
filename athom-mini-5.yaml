@@ -15,12 +15,12 @@ script:
           condition:
             lambda: 'return id(relay_light).current_values.is_on();'
           then:
-            - homeassistant.service:
-                service: light.turn_on
+            - homeassistant.action:
+                action: light.turn_on
                 data:
                   entity_id: light.mj_s01_29_basement_sw_4
           else:
-            - homeassistant.service:
-                service: light.turn_off
+            - homeassistant.action:
+                action: light.turn_off
                 data:
                   entity_id: light.mj_s01_29_basement_sw_4

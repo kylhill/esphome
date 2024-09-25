@@ -12,8 +12,8 @@ packages:
 script:
   - id: !extend on_double
     then:
-      - homeassistant.service:
-          service: light.toggle
+      - homeassistant.action:
+          action: light.toggle
           data:
             entity_id: light.shelly_1_4_christmas_lights
       - script.execute: flash_purple
@@ -21,8 +21,8 @@ script:
   - id: !remove on_long
   - id: on_long
     then:
-      - homeassistant.service:
-          service: automation.trigger
+      - homeassistant.action:
+          action: automation.trigger
           data:
             entity_id: automation.everything_off
       - script.execute: flash_purple
