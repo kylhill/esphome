@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: athom-mini-11
+  friendly_name: "Athom Mini 11"
+  area: "Outside"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-light.yaml

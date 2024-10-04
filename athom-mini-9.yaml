@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: athom-mini-9
+  friendly_name: "Deck Fan Light"
+  area: "Outside"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-light.yaml

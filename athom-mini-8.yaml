@@ -1,0 +1,9 @@
+---
+substitutions:
+  device_name: athom-mini-8
+  friendly_name: "Deck Fan"
+  area: "Outside"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-fan.yaml

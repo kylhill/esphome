@@ -1,0 +1,10 @@
+---
+substitutions:
+  device_name: athom-mini-10
+  device_icon: "mdi:string-lights"
+  friendly_name: "Deck String Lights"
+  area: "Outside"
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-light.yaml
