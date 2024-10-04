@@ -23,3 +23,7 @@ script:
           action: light.toggle
           data:
             entity_id: light.wled_2
+      - homeassistant.action:
+          action: light.toggle
+          data:
+            entity_id: light.mj_s01_24_kitchen_sw_2
