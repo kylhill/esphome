@@ -1,8 +1,7 @@
 ---
 substitutions:
   device_name: athom-mini-10
-  device_icon: "mdi:string-lights"
-  friendly_name: "Deck String Lights"
+  friendly_name: "Athom Mini 10"
   area: "Outside"
 
 packages:
