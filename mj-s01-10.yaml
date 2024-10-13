@@ -3,7 +3,7 @@ substitutions:
   device_name: mj-s01-10
   friendly_name: "Guest Bedroom SW 1"
   area: "Guest Bedroom"
-  light_auto_off_time: 10s
+  light_auto_off_time: 45s
 
 packages:
   common: !include templates/common.yaml
