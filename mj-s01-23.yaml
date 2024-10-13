@@ -19,34 +19,31 @@ script:
                 action: light.turn_on
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
+            - homeassistant.action:
+                action: light.turn_on
+                data:
+                  entity_id: light.mj_s01_32_basement_sw_7
           else:
             - homeassistant.action:
                 action: light.turn_off
                 data:
                   entity_id: light.mj_s01_33_garage_sw_1
+            - homeassistant.action:
+                action: light.turn_off
+                data:
+                  entity_id: light.mj_s01_32_basement_sw_7
 
   - id: !extend on_double
     then:
-      - light.toggle: relay_light
-      - if:
-          condition:
-            lambda: 'return id(relay_light).current_values.is_on();'
-          then:
-            - homeassistant.action:
-                action: light.turn_on
-                data:
-                  entity_id: light.mj_s01_33_garage_sw_1
-            - homeassistant.action:
-                action: light.turn_on
-                data:
-                  entity_id: light.mj_s01_32_basement_sw_7
-          else:
-            - homeassistant.action:
-                action: light.turn_off
-                data:
-                  entity_id: light.mj_s01_33_garage_sw_1
-            - homeassistant.action:
-                action: light.turn_off
-                data:
-                  entity_id: light.mj_s01_32_basement_sw_7
+      - homeassistant.action:
+          action: light.toggle
+          data:
+            entity_id: light.athom_mini_9_deck_string_lights
+
+  - id: !extend on_long
+    then:
+      - homeassistant.action:
+          action: fan.toggle
+          data:
+            entity_id: fan.athom_mini_8_deck_fan
       - script.execute: flash_purple
