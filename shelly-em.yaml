@@ -38,27 +38,27 @@ sensor:
         - or:
           - delta: 1%
           - throttle_average: $update_interval_slow
-#    frequency:
-#      name: Frequency
-#      id: frequency
-#      filters:
-#        - throttle_average: $update_interval_slow
+    frequency:
+      name: Frequency
+      id: frequency
+      filters:
+        - throttle_average: $update_interval_slow
     current_a:
       name: Phase 1 Current
       id: current_phase_1
       filters:
-        - throttle_average: $update_interval_fast
-#        - or:
-#          - delta: 10%
-#          - throttle_average: $update_interval_fast
+        - multiply: $scale_a_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
     current_b:
       name: Phase 2 Current
       id: current_phase_2
       filters:
-        - throttle_average: $update_interval_fast
-#        - or:
-#          - delta: 10%
-#          - throttle_average: $update_interval_fast
+        - multiply: $scale_b_power
+        - or:
+          - delta: 10%
+          - throttle_average: $update_interval_fast
     active_power_a:
       name: Phase 1 Power
       id: power_phase_1
