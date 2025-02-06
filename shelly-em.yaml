@@ -12,9 +12,9 @@ substitutions:
   update_interval_slow: "60s"
 
   # 120A clamp (3000:1): 1.143207411 - https://community.home-assistant.io/t/anyone-using-shelly-em/149867/14
-  # Phase 2 derived from 10 samples from Shelly 1 Plus PM on Fridge: 1.108132585
-  scale_a_power: '1.108132585'
-  scale_b_power: '1.108132585'
+  # Phase 2 derived from 20 samples from Shelly 1 Plus PM on Fridge: 1.1059
+  scale_a_power: '1.1059'
+  scale_b_power: '1.1059'
 
 packages:
   common: !include templates/common.yaml
