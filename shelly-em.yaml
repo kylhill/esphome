@@ -22,6 +22,13 @@ packages:
 esp8266:
   board: esp01_1m
 
+wifi:
+  manual_ip:
+    static_ip: 192.168.7.19
+    gateway: 192.168.7.1
+    subnet: 255.255.255.0
+    dns1: 192.168.7.1
+
 i2c:
   sda: GPIO12
   scl: GPIO14
