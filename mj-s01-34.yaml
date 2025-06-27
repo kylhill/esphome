@@ -9,12 +9,17 @@ packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light.yaml
 
+api:
+  reboot_timeout: 5min
+
 wifi:
   manual_ip:
     static_ip: 192.168.7.87
     gateway: 192.168.7.1
     subnet: 255.255.255.0
     dns1: 192.168.7.1
+  reboot_timeout: 5min
+  output_power: 20.5dB
 
 script:
   - id: !extend on_single
