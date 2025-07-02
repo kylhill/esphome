@@ -146,6 +146,7 @@ sensor:
     name: Phase 1 Daily Energy
     id: energy_phase_1
     power_id: power_phase_1
+    method: trapezoid
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
@@ -155,6 +156,7 @@ sensor:
     name: Phase 2 Daily Energy
     id: energy_phase_2
     power_id: power_phase_2
+    method: trapezoid
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
@@ -164,6 +166,7 @@ sensor:
     name: Total Daily Energy
     id: total_energy
     power_id: total_power
+    method: trapezoid
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
