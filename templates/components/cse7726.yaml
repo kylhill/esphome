@@ -8,6 +8,7 @@ substitutions:
 logger:
   # Disable UART logging, interferes with cse7766
   baud_rate: 0
+  level: INFO
 
 uart:
   rx_pin: RX
