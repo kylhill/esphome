@@ -59,4 +59,4 @@ script:
           action: scene.turn_on
           data:
             entity_id: scene.game_time
-      #- script.execute: flash_purple
+      - script.execute: flash_purple
