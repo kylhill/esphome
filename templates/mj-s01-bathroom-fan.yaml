@@ -13,7 +13,8 @@ script:
           then:
             - fan.turn_off: relay_fan
           else:
-            - script.execute: fan_timer
+            - fan.turn_on: relay_fan
+            - script.execute: fan_off_timer
 
   - id: !extend on_long
     then:

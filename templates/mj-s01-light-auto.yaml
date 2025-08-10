@@ -13,7 +13,8 @@ script:
           then:
             - light.turn_off: relay_light
           else:
-            - script.execute: light_timer
+            - light.turn_on: relay_light
+            - script.execute: light_off_timer
 
   - id: !extend on_long
     then:

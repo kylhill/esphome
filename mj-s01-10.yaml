@@ -19,8 +19,15 @@ wifi:
 script:
   - id: !extend on_double
     then:
-      - script.execute: light_timer
-      - script.execute: flash_purple
+      - if:
+          condition:
+            light.is_on: relay_light
+          then:
+            - light.turn_off: relay_light
+          else:
+            - light.turn_on: relay_light
+            - script.execute: light_off_timer
+            - script.execute: flash_purple
 
   - id: !remove on_single
   - id: on_single
