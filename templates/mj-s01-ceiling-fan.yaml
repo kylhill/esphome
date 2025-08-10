@@ -2,7 +2,7 @@
 # Martin Jerry MJ-S01 - Ceilng Fan
 packages:
   parent: !include mj-s01-base.yaml
-  fan: !include components/mj-s01-fan.yaml
+  fan: !include components/mj-s01-ceiling-fan.yaml
 
 script:
   - id: !extend on_single

@@ -2,20 +2,9 @@
 # Martin Jerry MJ-S01 - Bathroom Fan
 packages:
   parent: !include mj-s01-base.yaml
-  fan: !include components/mj-s01-fan.yaml
+  fan: !include components/mj-s01-bathroom-fan.yaml
 
 script:
   - id: !extend on_single
-    then:
-      - if:
-          condition:
-            fan.is_on: relay_fan
-          then:
-            - fan.turn_off: relay_fan
-          else:
-            - fan.turn_on: relay_fan
-            - script.execute: fan_off_timer
-
-  - id: !extend on_long
     then:
       - fan.toggle: relay_fan
