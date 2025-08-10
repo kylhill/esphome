@@ -24,12 +24,3 @@ script:
           data:
             entity_id: light.shelly_1_4_christmas_lights
       - script.execute: flash_purple
-
-  - id: !remove on_long
-  - id: on_long
-    then:
-      - homeassistant.action:
-          action: automation.trigger
-          data:
-            entity_id: automation.everything_off
-      - script.execute: flash_purple
