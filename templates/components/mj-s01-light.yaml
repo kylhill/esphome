@@ -1,7 +1,7 @@
 ---
 # Martin Jerry MJ-S01 - Common Light Config
 substitutions:
-  light_auto_off_time: 15min
+  light_auto_off_time: 30min
   device_icon: "mdi:lightbulb"
 
 script:

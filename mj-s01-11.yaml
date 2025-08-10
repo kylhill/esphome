@@ -3,7 +3,6 @@ substitutions:
   device_name: mj-s01-11
   friendly_name: "Laundry Room SW 1"
   area: "Laundry Room"
-  light_auto_off_time: 30min
   click_short: 25ms
 
 packages:

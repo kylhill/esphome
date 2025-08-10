@@ -3,7 +3,6 @@ substitutions:
   device_name: mj-s01-2
   friendly_name: "Main Bathroom SW 1"
   area: "Main Bathroom"
-  light_auto_off_time: 30min
   click_short: 25ms
 
 packages:

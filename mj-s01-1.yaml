@@ -3,7 +3,6 @@ substitutions:
   device_name: mj-s01-1
   friendly_name: "Mud Room SW 2"
   area: "Entry"
-  light_auto_off_time: 15min
 
 packages:
   common: !include templates/common.yaml
