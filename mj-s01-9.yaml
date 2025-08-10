@@ -3,7 +3,7 @@ substitutions:
   device_name: mj-s01-9
   friendly_name: "Upstairs Bathroom SW 2"
   area: "Upstairs Bathroom"
-  fan_auto_off_time: 25min
+  fan_auto_off_time: 30min
   click_short: 25ms
 
 packages:
