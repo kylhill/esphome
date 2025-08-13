@@ -3,6 +3,9 @@
 # - https://esphome.io/components/tuya.html
 # - https://community.home-assistant.io/t/martin-jerry-st02-3-way-tasmota-switch/536416
 # - https://github.com/joshuaboniface/martinjerry-esphome/blob/master/mj-st02/mj-st02.yaml
+substitutions:
+  device_icon: "mdi:lightbulb"
+
 esp8266:
   board: esp01_1m
   restore_from_flash: true
@@ -24,5 +27,6 @@ tuya:
 light:
   - platform: tuya
     name: None
+    icon: $device_icon
     switch_datapoint: 1
     restore_mode: RESTORE_DEFAULT_OFF
