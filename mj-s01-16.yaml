@@ -3,15 +3,9 @@ substitutions:
   device_name: mj-s01-16
   friendly_name: "Master Bathroom SW 2"
   area: "Master Bathroom"
+  static_ip: 192.168.7.57
   click_short: 25ms
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.57
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1

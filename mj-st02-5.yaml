@@ -3,14 +3,8 @@ substitutions:
   device_name: mj-st02-5
   friendly_name: "Living Room SW 1"
   area: "Living Room"
+  static_ip: 192.168.7.64
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-st02.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.64
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1

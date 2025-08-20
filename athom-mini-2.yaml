@@ -3,19 +3,8 @@ substitutions:
   device_name: athom-mini-2
   friendly_name: "Isaac's Fan"
   area: "Isaac's Room"
+  static_ip: 192.168.7.83
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/athom-mini-fan.yaml
-
-api:
-  reboot_timeout: 5min
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.83
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1
-  reboot_timeout: 5min
-  output_power: 20.5dB

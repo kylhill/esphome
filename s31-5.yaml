@@ -3,17 +3,11 @@ substitutions:
   device_name: s31-5
   friendly_name: "Bedroom Light 2"
   area: "Master Bedroom"
+  static_ip: 192.168.7.15
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/s31-lite-light.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.15
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1
 
 script:
   - id: !extend on_double

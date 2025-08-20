@@ -3,14 +3,8 @@ substitutions:
   device_name: shelly-1-1
   friendly_name: "Kim's Garage Door"
   area: "Garage"
+  static_ip: 192.168.7.21
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/shelly-1-garage-door.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.21
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1

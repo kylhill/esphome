@@ -3,15 +3,9 @@ substitutions:
   device_name: mj-s01-19
   friendly_name: "Master Closet SW 2"
   area: "Master Closet"
+  static_ip: 192.168.7.60
   click_short: 25ms
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light-auto.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.60
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1

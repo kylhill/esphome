@@ -3,15 +3,9 @@ substitutions:
   device_name: s31-3
   friendly_name: "Garage Power Strip"
   area: "Garage"
+  static_ip: 192.168.7.13
   click_short: 25ms
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/s31-switch.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.13
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1

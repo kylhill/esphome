@@ -3,14 +3,8 @@ substitutions:
   device_name: mj-st02-1
   friendly_name: "Mud Room SW 1"
   area: "Entry"
+  static_ip: 192.168.7.38
 
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-st02.yaml
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.38
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1

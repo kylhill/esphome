@@ -7,6 +7,7 @@ substitutions:
   device_name: shelly-em
   friendly_name: "Shelly EM"
   area: "Utility Room"
+  static_ip: 192.168.7.19
   sample_rate: "1s"
   update_interval_fast: "15s"
   update_interval_slow: "60s"
@@ -21,13 +22,6 @@ packages:
 
 esp8266:
   board: esp01_1m
-
-wifi:
-  manual_ip:
-    static_ip: 192.168.7.19
-    gateway: 192.168.7.1
-    subnet: 255.255.255.0
-    dns1: 192.168.7.1
 
 i2c:
   sda: GPIO12
