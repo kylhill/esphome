@@ -76,7 +76,7 @@ binary_sensor:
       - timing:
           - ON for at most $click_long
           - OFF for at most $click_short
-          - ON for at least 1ms
+          - ON for at least 25ms
         then:
           - script.execute: on_double
       - timing:
