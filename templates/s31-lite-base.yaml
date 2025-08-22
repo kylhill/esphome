@@ -3,8 +3,8 @@
 # - https://www.esphome-devices.com/devices/Sonoff-S31
 # - https://digiblur.com/wiki/devices/plugs/sonoff_s31
 substitutions:
-  click_short: 225ms
-  click_long: 850ms
+  click_short: 275ms
+  click_long: 750ms
   flash_delay: 200ms
 
 globals:
