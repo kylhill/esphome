@@ -2,7 +2,7 @@
 substitutions:
   device_name: s31-8
   device_icon: "mdi:floor-lamp"
-  friendly_name: "Basement Light"
+  friendly_name: "Basement Lamp"
   area: "Game Room"
   static_ip: 192.168.7.25
   click_short: 25ms
