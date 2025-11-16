@@ -32,6 +32,7 @@ script:
           action: light.toggle
           data:
             entity_id: light.athom_mini_9_deck_string_lights
+      - script.execute: flash_purple
 
   - id: !extend on_long
     then:

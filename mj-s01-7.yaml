@@ -15,7 +15,7 @@ script:
       - homeassistant.action:
           action: light.toggle
           data:
-            entity_id: light.s31_7_carson_s_lights
+            entity_id: light.s31_1
 
   - id: !extend on_long
     then:
