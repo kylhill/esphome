@@ -40,7 +40,7 @@ script:
           action: automation.trigger
           data:
             entity_id: automation.basement_off
-      - script.execute: flash_purple
+      # - script.execute: flash_purple
 
   - id: !extend on_double
     then:
