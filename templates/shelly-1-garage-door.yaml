@@ -4,6 +4,7 @@
 # - https://github.com/athom-tech/athom-configs/blob/main/athom-garage-door.yaml
 esp8266:
   board: esp01_1m
+  early_pin_init: false
 
 binary_sensor:
   - platform: gpio
@@ -24,7 +25,6 @@ switch:
       then:
         - delay: 250ms
         - switch.turn_off: relay_switch
-    restore_mode: ALWAYS_OFF
 
 cover:
   - platform: template
