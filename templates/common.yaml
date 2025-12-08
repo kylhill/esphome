@@ -49,3 +49,12 @@ button:
   - platform: restart
     id: restart_button
     name: Restart
+
+sensor:
+  - platform: uptime
+    name: Uptime
+    entity_category: diagnostic
+
+  - platform: wifi_signal
+    name: WiFi Signal
+    entity_category: diagnostic
