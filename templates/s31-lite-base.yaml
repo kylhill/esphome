@@ -56,7 +56,7 @@ output:
     id: blue_output
     pin:
       number: GPIO13
-    inverted: true
+      inverted: true
 
 binary_sensor:
   - platform: gpio

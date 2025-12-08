@@ -77,7 +77,7 @@ output:
     id: blue_output
     pin:
       number: GPIO5
-    inverted: true
+      inverted: true
 
 # https://github.com/KaufHA/kauf-rgb-switch/blob/main/kauf-rgbs.yaml
 binary_sensor:
