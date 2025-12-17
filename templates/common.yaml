@@ -63,7 +63,3 @@ text_sensor:
   - platform: wifi_info
     bssid:
       name: WiFi BSSID
-    scan_results:
-      name: WiFi Latest Scan Results
-    power_save_mode:
-      name: WiFi Power Save Mode
