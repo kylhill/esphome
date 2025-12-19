@@ -21,7 +21,6 @@ time:
   - platform: homeassistant
     id: ha_time
     timezone: America/Chicago
-    update_interval: 6h
 
 #network:
 #  enable_ipv6: true
@@ -35,7 +34,7 @@ wifi:
 
   ap:
     password: !secret ap_password
-    ap_timeout: 10min
+    ap_timeout: 5min
 
   manual_ip:
     static_ip: $static_ip
