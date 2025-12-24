@@ -15,16 +15,4 @@ script:
       - homeassistant.action:
           action: light.toggle
           data:
-            entity_id: light.living_room_light_1
-      - homeassistant.action:
-          action: light.toggle
-          data:
-            entity_id: light.living_room_light_2
-      - homeassistant.action:
-          action: light.toggle
-          data:
-            entity_id: light.wled_2
-      - homeassistant.action:
-          action: light.toggle
-          data:
-            entity_id: light.mj_s01_24_kitchen_sw_2
+            entity_id: light.accent_lights
