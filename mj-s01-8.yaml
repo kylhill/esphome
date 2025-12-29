@@ -8,20 +8,3 @@ substitutions:
 packages:
   common: !include templates/common.yaml
   device: !include templates/mj-s01-light.yaml
-
-script:
-  - id: !extend on_double
-    then:
-      - homeassistant.action:
-          action: automation.trigger
-          data:
-            entity_id: automation.kid_s_bedtime
-      - script.execute: flash_purple
-
-  - id: !extend on_long
-    then:
-      - homeassistant.action:
-          action: automation.trigger
-          data:
-            entity_id: automation.kid_s_bedtime
-      - script.execute: flash_purple
