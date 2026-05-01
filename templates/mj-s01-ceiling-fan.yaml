@@ -1,5 +1,5 @@
 ---
-# Martin Jerry MJ-S01 - Ceilng Fan
+# Martin Jerry MJ-S01 - Ceiling Fan
 packages:
   parent: !include mj-s01-base.yaml
   fan: !include components/mj-s01-ceiling-fan.yaml
