@@ -17,16 +17,19 @@ sensor:
       name: Current
       filters:
         - throttle_average: $update_interval_fast
+        - delta: 0.1
     voltage:
       id: voltage
       name: Voltage
       filters:
         - throttle_average: $update_interval_slow
+        - delta: 0.1
     power:
       id: power
       name: Power
       filters:
         - throttle_average: $update_interval_fast
+        - delta: 0.5
 #    apparent_power:
 #      id: apparent_power
 #      name: "Apparent Power"
