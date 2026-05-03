@@ -26,9 +26,7 @@ sensor:
       id: power
       name: Power
       filters:
-        - or:
-          - delta: 10%
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval_fast
 #    apparent_power:
 #      id: apparent_power
 #      name: "Apparent Power"

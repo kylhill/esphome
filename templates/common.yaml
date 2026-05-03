@@ -49,16 +49,16 @@ button:
     id: restart_button
     name: Restart
 
-sensor:
-  - platform: uptime
-    name: Uptime
-    entity_category: diagnostic
-
-  - platform: wifi_signal
-    name: Wi-Fi RSSI
-    entity_category: diagnostic
-
-text_sensor:
-  - platform: wifi_info
-    bssid:
-      name: Wi-Fi BSSID
+#sensor:
+#  - platform: uptime
+#    name: Uptime
+#    entity_category: diagnostic
+#
+#  - platform: wifi_signal
+#    name: Wi-Fi RSSI
+#    entity_category: diagnostic
+#
+#text_sensor:
+#  - platform: wifi_info
+#    bssid:
+#      name: Wi-Fi BSSID
