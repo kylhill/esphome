@@ -1,5 +1,8 @@
 ---
 # Martin Jerry MJ-S01 - Common Bathroom Fan Config
+# Auto-off timer starts whenever the fan turns on (including from HA), ensuring
+# the fan always shuts off after the configured delay. Use mj-s01-ceiling-fan.yaml
+# for fans that should stay on until manually turned off.
 substitutions:
   fan_auto_off_time: 15min
   device_icon: "mdi:fan"

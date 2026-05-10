@@ -3,7 +3,7 @@
 # - https://www.esphome-devices.com/devices/Sonoff-S31
 # - https://digiblur.com/wiki/devices/plugs/sonoff_s31
 substitutions:
-  click_short: 275ms
+  click_short: 275ms  # Set to 25ms on devices that don't use double-click, eliminating the inter-click detection delay
   click_long: 750ms
   flash_delay: 200ms
 

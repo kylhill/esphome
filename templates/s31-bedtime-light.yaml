@@ -1,0 +1,15 @@
+---
+# Sonoff S31 Lite - Bedtime Light
+# Extends s31-lite-light with a shared long-press bedtime automation trigger.
+# Double-click behavior is left as a stub for per-device customization.
+packages:
+  parent: !include s31-lite-light.yaml
+
+script:
+  - id: !extend on_long
+    then:
+      - homeassistant.action:
+          action: automation.trigger
+          data:
+            entity_id: automation.bedtime
+      - script.execute: flash_blue

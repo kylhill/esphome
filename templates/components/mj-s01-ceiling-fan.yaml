@@ -1,5 +1,7 @@
 ---
 # Martin Jerry MJ-S01 - Common Ceiling Fan Config
+# No auto-off timer — the fan stays on until manually toggled. Use
+# mj-s01-bathroom-fan.yaml for fans that need automatic shutoff.
 substitutions:
   device_icon: "mdi:fan"
 

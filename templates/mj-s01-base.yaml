@@ -3,7 +3,7 @@
 # - https://devices.esphome.io/devices/MJ-S01
 # - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 substitutions:
-  click_short: 275ms
+  click_short: 275ms  # Set to 25ms on devices that don't use double-click, eliminating the inter-click detection delay
   click_long: 750ms
   flash_delay: 200ms
 

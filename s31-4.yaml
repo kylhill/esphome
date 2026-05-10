@@ -7,15 +7,11 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31-lite-light.yaml
+  device: !include templates/s31-bedtime-light.yaml
 
 script:
   - id: !extend on_double
     then:
-#      - homeassistant.action:
-#          action: light.toggle
-#          data:
-#            entity_id: light.bedroom_light_1
       - homeassistant.action:
           action: light.toggle
           data:
@@ -24,11 +20,3 @@ script:
           action: light.toggle
           data:
             entity_id: light.bedroom_light_3
-
-  - id: !extend on_long
-    then:
-      - homeassistant.action:
-          action: automation.trigger
-          data:
-            entity_id: automation.bedtime
-      - script.execute: flash_blue

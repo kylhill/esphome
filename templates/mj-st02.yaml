@@ -11,10 +11,6 @@ esp8266:
   restore_from_flash: true
   early_pin_init: false
 
-logger:
-  baud_rate: 0
-  level: INFO
-
 uart:
   rx_pin: GPIO3
   tx_pin: GPIO1
