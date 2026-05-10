@@ -16,6 +16,8 @@ script:
             - light.turn_on: relay_light
             - script.execute: light_off_timer
 
+  # Long press is an intentional manual override — it toggles without starting the
+  # auto-off timer so the light stays on until explicitly turned off.
   - id: !extend on_long
     then:
       - light.toggle: relay_light
