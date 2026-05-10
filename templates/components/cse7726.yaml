@@ -16,20 +16,34 @@ sensor:
       id: current
       name: Current
       filters:
-        - throttle: $update_interval_fast
+        - throttle_average: $update_interval_fast
         - delta: 0.1
     voltage:
       id: voltage
       name: Voltage
       filters:
-        - throttle: $update_interval_slow
+        - throttle_average: $update_interval_slow
         - delta: 0.1
     power:
       id: power
       name: Power
       filters:
-        - throttle: $update_interval_fast
+        - throttle_average: $update_interval_fast
         - delta: 0.5
+#    apparent_power:
+#      id: apparent_power
+#      name: "Apparent Power"
+#      filters:
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
+#    power_factor:
+#      id: power_factor
+#      name: "Power Factor"
+#      filters:
+#        - or:
+#          - delta: 10%
+#          - throttle_average: $update_interval_fast
 
   - platform: total_daily_energy
     name: Total Daily Energy
