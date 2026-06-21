@@ -2,7 +2,7 @@
 # CSE7766 Power Sensor
 # - https://esphome.io/components/sensor/cse7766.html
 substitutions:
-  update_interval_fast: "30s"
+  update_interval_fast: "15s"
   update_interval_slow: "60s"
 
 uart:
@@ -18,8 +18,10 @@ sensor:
       device_class: current
       state_class: measurement
       filters:
-        - throttle_average: $update_interval_fast
-        - delta: 0.1
+        - or:
+          - delta: 0.1
+          - throttle_average: $update_interval_fast
+        - delta: 0.05
     voltage:
       id: voltage
       name: Voltage
@@ -27,15 +29,17 @@ sensor:
       state_class: measurement
       filters:
         - throttle_average: $update_interval_slow
-        - delta: 0.1
+        - delta: 0.5
     power:
       id: power
       name: Power
       device_class: power
       state_class: measurement
       filters:
-        - throttle_average: $update_interval_fast
-        - delta: 0.5
+        - or:
+          - delta: 10.0
+          - throttle_average: $update_interval_fast
+        - delta: 3.0
 
   - platform: total_daily_energy
     name: Total Daily Energy
