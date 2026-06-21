@@ -43,7 +43,7 @@ sensor:
       id: current_phase_1
       filters:
         - or:
-          - delta: 0.1
+          - delta: 0.125
           - throttle_average: $update_interval_fast
         - delta: 0.05
     current_b:
@@ -51,7 +51,7 @@ sensor:
       id: current_phase_2
       filters:
         - or:
-          - delta: 0.1
+          - delta: 0.125
           - throttle_average: $update_interval_fast
         - delta: 0.05
     active_power_a:
@@ -60,7 +60,7 @@ sensor:
       filters:
         - multiply: $scale_a_power
         - or:
-          - delta: 10.0
+          - delta: 15.0
           - throttle_average: $update_interval_fast
         - delta: 5.0
       on_value:
@@ -71,7 +71,7 @@ sensor:
       filters:
         - multiply: $scale_b_power
         - or:
-          - delta: 10.0
+          - delta: 15.0
           - throttle_average: $update_interval_fast
         - delta: 5.0
       on_value:
@@ -80,6 +80,11 @@ sensor:
   - platform: template
     name: Total Power
     id: total_power
+    filters:
+      - or:
+        - delta: 15.0
+        - throttle_average: $update_interval_fast
+      - delta: 5.0
     state_class: measurement
     device_class: power
     unit_of_measurement: W
