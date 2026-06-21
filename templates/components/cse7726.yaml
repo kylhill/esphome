@@ -31,22 +31,32 @@ sensor:
         - throttle_average: $update_interval_slow
         - delta: 0.5
     power:
-      id: power
-      name: Power
-      device_class: power
-      state_class: measurement
-      filters:
-        - or:
-          - delta: 10.0
-          - throttle_average: $update_interval_fast
-        - delta: 3.0
+      id: raw_power
+      internal: true
+      on_value:
+        - component.update: power
+
+  - platform: template
+    id: power
+    name: Power
+    state_class: measurement
+    device_class: power
+    unit_of_measurement: W
+    lambda: return id(raw_power).state;
+    update_interval: never
+    filters:
+      - or:
+        - delta: 10.0
+        - throttle_average: $update_interval_fast
+      - delta: 3.0
 
   - platform: total_daily_energy
     name: Total Daily Energy
-    power_id: power
-    device_class: energy
     state_class: total_increasing
+    power_id: raw_power
+    device_class: energy
+    method: trapezoid
+    unit_of_measurement: kWh
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
-    unit_of_measurement: kWh

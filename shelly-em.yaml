@@ -55,77 +55,96 @@ sensor:
           - throttle_average: $update_interval_fast
         - delta: 0.05
     active_power_a:
-      name: Phase 1 Power
-      id: power_phase_1
+      id: raw_power_phase_1
+      internal: true
       filters:
         - multiply: $scale_a_power
-        - or:
-          - delta: 15.0
-          - throttle_average: $update_interval_fast
-        - delta: 5.0
       on_value:
+        - component.update: power_phase_1
         - component.update: total_power
     active_power_b:
-      name: Phase 2 Power
-      id: power_phase_2
+      id: raw_power_phase_2
+      internal: true
       filters:
         - multiply: $scale_b_power
-        - or:
-          - delta: 15.0
-          - throttle_average: $update_interval_fast
-        - delta: 5.0
       on_value:
+        - component.update: power_phase_2
         - component.update: total_power
 
   - platform: template
-    name: Total Power
-    id: total_power
+    name: Phase 1 Power
+    id: power_phase_1
+    state_class: measurement
+    device_class: power
+    unit_of_measurement: W
+    lambda: return id(raw_power_phase_1).state;
+    update_interval: never
     filters:
       - or:
         - delta: 15.0
         - throttle_average: $update_interval_fast
       - delta: 5.0
+
+  - platform: template
+    name: Phase 2 Power
+    id: power_phase_2
     state_class: measurement
     device_class: power
     unit_of_measurement: W
-    lambda: return id(power_phase_1).state + id(power_phase_2).state;
+    lambda: return id(raw_power_phase_2).state;
     update_interval: never
+    filters:
+      - or:
+        - delta: 15.0
+        - throttle_average: $update_interval_fast
+      - delta: 5.0
+
+  - platform: template
+    name: Total Power
+    id: total_power
+    state_class: measurement
+    device_class: power
+    unit_of_measurement: W
+    lambda: return id(raw_power_phase_1).state + id(raw_power_phase_2).state;
+    update_interval: never
+    filters:
+      - or:
+        - delta: 15.0
+        - throttle_average: $update_interval_fast
+      - delta: 5.0
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
     id: energy_phase_1
-    power_id: power_phase_1
-    method: trapezoid
-    device_class: energy
+    power_id: raw_power_phase_1
     state_class: total_increasing
+    device_class: energy
+    unit_of_measurement: kWh
+    method: trapezoid
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
-    unit_of_measurement: kWh
 
   - platform: total_daily_energy
     name: Phase 2 Daily Energy
     id: energy_phase_2
-    power_id: power_phase_2
-    method: trapezoid
-    device_class: energy
+    power_id: raw_power_phase_2
     state_class: total_increasing
+    device_class: energy
+    unit_of_measurement: kWh
+    method: trapezoid
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
-    unit_of_measurement: kWh
 
-  - platform: total_daily_energy
+  - platform: template
     name: Total Daily Energy
     id: total_energy
-    power_id: total_power
-    method: trapezoid
-    device_class: energy
     state_class: total_increasing
-    filters:
-      - multiply: 0.001
-      - throttle: $update_interval_slow
+    device_class: energy
     unit_of_measurement: kWh
+    lambda: return id(energy_phase_1).state + id(energy_phase_2).state;
+    update_interval: $update_interval_slow
 
 status_led:
   pin:
