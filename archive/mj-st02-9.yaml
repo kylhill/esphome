@@ -1,0 +1,10 @@
+---
+substitutions:
+  device_name: mj-st02-9
+  friendly_name: "Basement SW 3"
+  area: "Game Room"
+  static_ip: 192.168.7.68
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/mj-st02.yaml

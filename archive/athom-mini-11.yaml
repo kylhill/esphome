@@ -1,0 +1,10 @@
+---
+substitutions:
+  device_name: athom-mini-11
+  friendly_name: "Athom Mini 11"
+  area: "Outside"
+  static_ip: 192.168.7.97
+
+packages:
+  common: !include templates/common.yaml
+  device: !include templates/athom-mini-light.yaml
