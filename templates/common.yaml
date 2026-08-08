@@ -17,6 +17,10 @@ ota:
   platform: esphome
   password: !secret ota_password
 
+safe_mode:
+
+debug:
+
 time:
   - platform: homeassistant
     id: ha_time
@@ -49,16 +53,31 @@ button:
     id: restart_button
     name: Restart
 
-#sensor:
-#  - platform: uptime
-#    name: Uptime
-#    entity_category: diagnostic
-#
-#  - platform: wifi_signal
-#    name: Wi-Fi RSSI
-#    entity_category: diagnostic
-#
-#text_sensor:
-#  - platform: wifi_info
-#    bssid:
-#      name: Wi-Fi BSSID
+  - platform: safe_mode
+    name: Restart (Safe Mode)
+
+sensor:
+  - platform: uptime
+    name: Uptime
+    entity_category: diagnostic
+    disabled_by_default: true
+    update_interval: 5min
+
+  - platform: wifi_signal
+    name: Wi-Fi RSSI
+    entity_category: diagnostic
+    disabled_by_default: true
+    update_interval: 5min
+
+text_sensor:
+  - platform: version
+    name: ESPHome Version
+    entity_category: diagnostic
+    disabled_by_default: true
+    hide_timestamp: true
+
+  - platform: debug
+    reset_reason:
+      name: Reset Reason
+      entity_category: diagnostic
+      disabled_by_default: true
