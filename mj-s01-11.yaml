@@ -5,7 +5,7 @@ substitutions:
   area: "Laundry Room"
   static_ip: 192.168.7.52
   fallback_ap_channel: "6"
-  click_short: 25ms
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml

@@ -3,7 +3,7 @@
 # - https://www.esphome-devices.com/devices/Sonoff-S31
 # - https://digiblur.com/wiki/devices/plugs/sonoff_s31
 substitutions:
-  click_short: 275ms  # Set to 25ms on devices that don't use double-click, eliminating the inter-click detection delay
+  click_short: 250ms  # Set to 1ms on devices that don't use double-click, eliminating the inter-click detection delay
   click_long: 750ms
   flash_delay: 200ms
   fallback_ap_channel: "11"
@@ -74,16 +74,19 @@ binary_sensor:
       - timing:
           - ON for at most $click_long
           - OFF for at least $click_short
+        invalid_cooldown: 350ms
         then:
           - script.execute: on_single
       - timing:
           - ON for at most $click_long
           - OFF for at most $click_short
-          - ON for at least 25ms
+          - ON for at least 1ms
+        invalid_cooldown: 350ms
         then:
           - script.execute: on_double
       - timing:
           - ON for at least $click_long
+        invalid_cooldown: 350ms
         then:
           - script.execute: on_long
 

@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Garage Power Strip"
   area: "Garage"
   static_ip: 192.168.7.13
-  click_short: 25ms
+  click_short: 1ms
 
 packages:
   common: !include templates/common.yaml
