@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Upstairs Bathroom SW 1"
   area: "Upstairs Bathroom"
   static_ip: 192.168.7.49
+  fallback_ap_channel: "6"
 
 packages:
   common: !include templates/common.yaml

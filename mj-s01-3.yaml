@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Main Bathroom SW 2"
   area: "Main Bathroom"
   static_ip: 192.168.7.41
+  fallback_ap_channel: "11"
   click_short: 25ms
 
 packages:

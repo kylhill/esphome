@@ -1,5 +1,8 @@
 ---
 # Common configuration for all devices
+substitutions:
+  fallback_ap_channel: "1"
+
 esphome:
   name: $device_name
   friendly_name: $friendly_name
@@ -10,6 +13,7 @@ logger:
   level: WARN
 
 api:
+  reboot_timeout: 1h
   encryption:
     key: !secret api_key
 
@@ -30,10 +34,12 @@ wifi:
   domain: .iot.tacomafia.net
   power_save_mode: HIGH
   min_auth_mode: WPA2
+  reboot_timeout: 1h
 
   ap:
     password: !secret ap_password
-    ap_timeout: 5min
+    ap_timeout: 15min
+    channel: $fallback_ap_channel
 
   manual_ip:
     static_ip: $static_ip

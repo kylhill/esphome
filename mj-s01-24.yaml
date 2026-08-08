@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Kitchen SW 2"
   area: "Kitchen"
   static_ip: 192.168.7.73
+  fallback_ap_channel: "11"
   click_short: 25ms
 
 packages:

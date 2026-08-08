@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Garage SW 1"
   area: "Outside"
   static_ip: 192.168.7.86
+  fallback_ap_channel: "11"
 
 packages:
   common: !include templates/common.yaml

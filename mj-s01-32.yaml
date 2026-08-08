@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Basement SW 7"
   area: "Outside"
   static_ip: 192.168.7.81
+  fallback_ap_channel: "6"
   click_short: 25ms
 
 packages:

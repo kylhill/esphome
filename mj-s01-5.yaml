@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Dining Room SW 1"
   area: "Dining Room"
   static_ip: 192.168.7.46
+  fallback_ap_channel: "6"
   click_short: 25ms
 
 packages:

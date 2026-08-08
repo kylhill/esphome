@@ -4,6 +4,7 @@ substitutions:
   friendly_name: "Isaac Room SW 1"
   area: "Isaac's Room"
   static_ip: 192.168.7.47
+  fallback_ap_channel: "11"
 
 packages:
   common: !include templates/common.yaml

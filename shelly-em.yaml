@@ -8,6 +8,7 @@ substitutions:
   friendly_name: "Shelly EM"
   area: "Utility Room"
   static_ip: 192.168.7.19
+  fallback_ap_channel: "6"
   sample_rate: "1s"
   update_interval_fast: "15s"
   update_interval_slow: "60s"
