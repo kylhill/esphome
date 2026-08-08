@@ -1,0 +1,14 @@
+---
+binary_sensor:
+  - id: !extend the_button
+    on_click:
+      - min_length: 1ms
+        max_length: $click_single_max
+        then:
+          - script.execute: on_single
+    on_multi_click:
+      - timing:
+          - ON for at least $click_long
+        invalid_cooldown: 350ms
+        then:
+          - script.execute: on_long

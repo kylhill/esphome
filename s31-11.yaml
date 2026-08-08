@@ -3,7 +3,7 @@ substitutions:
   device_name: s31-11
   friendly_name: "Living Room Light 2"
   area: "Living Room"
-  click_short: 1ms
+  button_template: components/s31-button-single.yaml
   static_ip: 192.168.7.28
 
 packages:

@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Master Bathroom SW 2"
   area: "Master Bathroom"
   static_ip: 192.168.7.57
-  click_short: 1ms
+  button_template: components/mj-s01-button-single.yaml
 
 packages:
   common: !include templates/common.yaml

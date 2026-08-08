@@ -3,9 +3,14 @@
 # - https://devices.esphome.io/devices/MJ-S01
 # - https://digiblur.com/wiki/devices/switches/martin_jerry_mj-s01_single_pole
 substitutions:
-  click_short: 250ms  # Set to 1ms on devices that don't use double-click, eliminating the inter-click detection delay
+  button_template: components/mj-s01-button-multi.yaml
+  click_short: 250ms
+  click_single_max: 749ms
   click_long: 750ms
   flash_delay: 200ms
+
+packages:
+  button: !include ${button_template}
 
 globals:
   - id: red_on
@@ -91,25 +96,6 @@ binary_sensor:
       inverted: true
     filters:
       - delayed_on_off: 25ms
-    on_multi_click:
-      - timing:
-          - ON for at most $click_long
-          - OFF for at least $click_short
-        invalid_cooldown: 350ms
-        then:
-          - script.execute: on_single
-      - timing:
-          - ON for at most $click_long
-          - OFF for at most $click_short
-          - ON for at least 1ms
-        invalid_cooldown: 350ms
-        then:
-          - script.execute: on_double
-      - timing:
-          - ON for at least $click_long
-        invalid_cooldown: 350ms
-        then:
-          - script.execute: on_long
 
 light:
   - platform: binary

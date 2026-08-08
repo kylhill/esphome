@@ -5,7 +5,7 @@ substitutions:
   area: "Basement Bathroom"
   static_ip: 192.168.7.76
   fallback_ap_channel: "11"
-  click_short: 1ms
+  button_template: components/mj-s01-button-single.yaml
 
 packages:
   common: !include templates/common.yaml

@@ -1,0 +1,22 @@
+---
+binary_sensor:
+  - id: !extend the_switch
+    on_multi_click:
+      - timing:
+          - ON for at most $click_long
+          - OFF for at least $click_short
+        invalid_cooldown: 350ms
+        then:
+          - script.execute: on_single
+      - timing:
+          - ON for at most $click_long
+          - OFF for at most $click_short
+          - ON for at least 1ms
+        invalid_cooldown: 350ms
+        then:
+          - script.execute: on_double
+      - timing:
+          - ON for at least $click_long
+        invalid_cooldown: 350ms
+        then:
+          - script.execute: on_long

@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Master Closet SW 2"
   area: "Master Closet"
   static_ip: 192.168.7.60
-  click_short: 1ms
+  button_template: components/mj-s01-button-single.yaml
 
 packages:
   common: !include templates/common.yaml

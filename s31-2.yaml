@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Isaac's Lamp"
   area: "Isaac's Room"
   static_ip: 192.168.7.12
-  click_short: 1ms
+  button_template: components/s31-button-single.yaml
 
 packages:
   common: !include templates/common.yaml

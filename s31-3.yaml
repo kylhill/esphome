@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Garage Power Strip"
   area: "Garage"
   static_ip: 192.168.7.13
-  click_short: 1ms
+  button_template: components/s31-button-single.yaml
 
 packages:
   common: !include templates/common.yaml

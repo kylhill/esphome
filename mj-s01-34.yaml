@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Utility Room SW 1"
   area: "Utility Room"
   static_ip: 192.168.7.87
-  click_short: 1ms
+  button_template: components/mj-s01-button-single.yaml
 
 packages:
   common: !include templates/common.yaml

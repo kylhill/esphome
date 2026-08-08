@@ -4,7 +4,7 @@ substitutions:
   friendly_name: "Living Room Light 1"
   area: "Living Room"
   static_ip: 192.168.7.27
-  click_short: 1ms
+  button_template: components/s31-button-single.yaml
 
 packages:
   common: !include templates/common.yaml
