@@ -59,6 +59,7 @@ sensor:
     power_id: raw_power
     device_class: energy
     method: trapezoid
+    restore: false
     unit_of_measurement: kWh
     filters:
       - multiply: 0.001

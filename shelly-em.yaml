@@ -122,6 +122,7 @@ sensor:
     device_class: energy
     unit_of_measurement: kWh
     method: trapezoid
+    restore: false
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
@@ -134,6 +135,7 @@ sensor:
     device_class: energy
     unit_of_measurement: kWh
     method: trapezoid
+    restore: false
     filters:
       - multiply: 0.001
       - throttle: $update_interval_slow
