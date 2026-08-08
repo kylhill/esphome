@@ -2,4 +2,4 @@
 # Sonoff S31 - Switch
 packages:
   parent: !include s31-lite-switch.yaml
-  sensor: !include components/cse7726.yaml
+  sensor: !include components/cse7766.yaml

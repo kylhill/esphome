@@ -62,6 +62,26 @@ script:
           else:
             - light.turn_off: blue_led
 
+  - id: flash_action_error
+    mode: restart
+    then:
+      - lambda: id(red_on) = id(red_led).current_values.is_on();
+      - if:
+          condition:
+            lambda: return id(red_on);
+          then:
+            - light.turn_off: red_led
+          else:
+            - light.turn_on: red_led
+      - delay: 1s
+      - if:
+          condition:
+            lambda: return id(red_on);
+          then:
+            - light.turn_on: red_led
+          else:
+            - light.turn_off: red_led
+
 esp8266:
   board: esp01_1m
   restore_from_flash: true

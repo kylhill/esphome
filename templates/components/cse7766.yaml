@@ -1,6 +1,8 @@
 ---
 # CSE7766 Power Sensor
 # - https://esphome.io/components/sensor/cse7766.html
+# WARNING: The Sonoff S31 digital ground is connected to mains voltage.
+# Never connect a serial adapter while the device is powered from mains.
 substitutions:
   update_interval_fast: "15s"
   update_interval_slow: "60s"

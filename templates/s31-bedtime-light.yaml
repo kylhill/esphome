@@ -9,7 +9,14 @@ packages:
 script:
   - id: !extend on_long
     then:
-      - event.trigger:
-          id: device_action
-          event_type: long_press
-      - script.execute: flash_blue
+      - if:
+          condition:
+            api.connected:
+              state_subscription_only: true
+          then:
+            - event.trigger:
+                id: device_action
+                event_type: long_press
+            - script.execute: flash_blue
+          else:
+            - script.execute: flash_action_error

@@ -2,6 +2,8 @@
 # Shelly EM
 # - https://www.esphome-devices.com/devices/Shelly-EM
 # - https://templates.blakadder.com/shelly_EM.html
+# WARNING: The digital ground may be connected to mains voltage.
+# Never connect a serial adapter while the device is powered from mains.
 
 substitutions:
   device_name: shelly-em
@@ -107,7 +109,12 @@ sensor:
     state_class: measurement
     device_class: power
     unit_of_measurement: W
-    lambda: return id(raw_power_phase_1).state + id(raw_power_phase_2).state;
+    lambda: |-
+      if (isnan(id(raw_power_phase_1).state) ||
+          isnan(id(raw_power_phase_2).state)) {
+        return {};
+      }
+      return id(raw_power_phase_1).state + id(raw_power_phase_2).state;
     update_interval: never
     filters:
       - or:
@@ -147,7 +154,12 @@ sensor:
     state_class: total_increasing
     device_class: energy
     unit_of_measurement: kWh
-    lambda: return id(energy_phase_1).state + id(energy_phase_2).state;
+    lambda: |-
+      if (isnan(id(energy_phase_1).state) ||
+          isnan(id(energy_phase_2).state)) {
+        return {};
+      }
+      return id(energy_phase_1).state + id(energy_phase_2).state;
     update_interval: $update_interval_slow
 
 status_led:

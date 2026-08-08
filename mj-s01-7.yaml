@@ -19,7 +19,14 @@ script:
 
   - id: !extend on_long
     then:
-      - event.trigger:
-          id: device_action
-          event_type: long_press
-      - script.execute: flash_purple
+      - if:
+          condition:
+            api.connected:
+              state_subscription_only: true
+          then:
+            - event.trigger:
+                id: device_action
+                event_type: long_press
+            - script.execute: flash_purple
+          else:
+            - script.execute: flash_action_error
