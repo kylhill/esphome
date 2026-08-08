@@ -89,6 +89,8 @@ binary_sensor:
         input: true
         pullup: true
       inverted: true
+    filters:
+      - delayed_on_off: 25ms
     on_multi_click:
       - timing:
           - ON for at most $click_long
