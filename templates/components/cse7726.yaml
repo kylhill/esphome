@@ -5,6 +5,9 @@ substitutions:
   update_interval_fast: "15s"
   update_interval_slow: "60s"
 
+packages:
+  time: !include homeassistant-time.yaml
+
 uart:
   rx_pin: RX
   baud_rate: 4800

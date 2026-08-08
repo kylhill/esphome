@@ -21,11 +21,6 @@ safe_mode:
 
 debug:
 
-time:
-  - platform: homeassistant
-    id: ha_time
-    timezone: America/Chicago
-
 #network:
 #  enable_ipv6: true
 
