@@ -7,6 +7,7 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
+  actions: !include templates/components/device-action.yaml
   device: !include templates/mj-s01-light.yaml
 
 script:
@@ -16,28 +17,24 @@ script:
           condition:
             lambda: 'return id(relay_light).current_values.is_on();'
           then:
-            - homeassistant.action:
-                action: light.turn_on
-                data:
-                  entity_id: light.mj_s01_33_garage_sw_1
+            - event.trigger:
+                id: device_action
+                event_type: relay_on
           else:
-            - homeassistant.action:
-                action: light.turn_off
-                data:
-                  entity_id: light.mj_s01_33_garage_sw_1
+            - event.trigger:
+                id: device_action
+                event_type: relay_off
 
   - id: !extend on_double
     then:
-      - homeassistant.action:
-          action: light.toggle
-          data:
-            entity_id: light.athom_mini_9_deck_string_lights
+      - event.trigger:
+          id: device_action
+          event_type: double_click
       - script.execute: flash_purple
 
   - id: !extend on_long
     then:
-      - homeassistant.action:
-          action: fan.toggle
-          data:
-            entity_id: fan.athom_mini_8_deck_fan
+      - event.trigger:
+          id: device_action
+          event_type: long_press
       - script.execute: flash_purple

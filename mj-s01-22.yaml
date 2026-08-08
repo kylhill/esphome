@@ -7,12 +7,12 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
+  actions: !include templates/components/device-action.yaml
   device: !include templates/mj-s01-light.yaml
 
 script:
   - id: !extend on_double
     then:
-      - homeassistant.action:
-          action: light.toggle
-          data:
-            entity_id: light.accent_lights
+      - event.trigger:
+          id: device_action
+          event_type: double_click

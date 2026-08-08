@@ -8,6 +8,7 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
+  actions: !include templates/components/device-action.yaml
   device: !include templates/mj-s01-light-auto.yaml
 
 script:
@@ -31,8 +32,7 @@ script:
   - id: !remove on_long
   - id: on_long
     then:
-      - homeassistant.action:
-          action: fan.toggle
-          data:
-            entity_id: fan.athom_mini_3_guest_bedroom_fan
+      - event.trigger:
+          id: device_action
+          event_type: long_press
       - script.execute: flash_purple

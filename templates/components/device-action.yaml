@@ -1,0 +1,11 @@
+---
+event:
+  - platform: template
+    id: device_action
+    name: Action
+    device_class: button
+    event_types:
+      - double_click
+      - long_press
+      - relay_on
+      - relay_off

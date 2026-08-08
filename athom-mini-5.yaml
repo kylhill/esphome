@@ -7,6 +7,7 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
+  actions: !include templates/components/device-action.yaml
   device: !include templates/athom-mini-light.yaml
 
 script:
@@ -16,12 +17,10 @@ script:
           condition:
             lambda: 'return id(relay_light).current_values.is_on();'
           then:
-            - homeassistant.action:
-                action: light.turn_on
-                data:
-                  entity_id: light.mj_s01_29_basement_sw_4
+            - event.trigger:
+                id: device_action
+                event_type: relay_on
           else:
-            - homeassistant.action:
-                action: light.turn_off
-                data:
-                  entity_id: light.mj_s01_29_basement_sw_4
+            - event.trigger:
+                id: device_action
+                event_type: relay_off

@@ -7,20 +7,19 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
+  actions: !include templates/components/device-action.yaml
   device: !include templates/mj-s01-ceiling-fan.yaml
 
 script:
   - id: !extend on_double
     then:
-      - homeassistant.action:
-          action: light.toggle
-          data:
-            entity_id: light.bedroom_lamps
+      - event.trigger:
+          id: device_action
+          event_type: double_click
 
   - id: !extend on_long
     then:
-      - homeassistant.action:
-          action: automation.trigger
-          data:
-            entity_id: automation.downstairs_off
+      - event.trigger:
+          id: device_action
+          event_type: long_press
       - script.execute: flash_purple
