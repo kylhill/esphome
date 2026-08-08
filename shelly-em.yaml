@@ -37,23 +37,23 @@ sensor:
       id: voltage
       filters:
         - throttle_average: $update_interval_slow
-        - delta: 0.2
+        - delta: 0.5
     current_a:
       name: Phase 1 Current
       id: current_phase_1
       filters:
         - or:
-          - delta: 0.125
+          - delta: 0.25
           - throttle_average: $update_interval_fast
-        - delta: 0.05
+        - delta: 0.10
     current_b:
       name: Phase 2 Current
       id: current_phase_2
       filters:
         - or:
-          - delta: 0.125
+          - delta: 0.25
           - throttle_average: $update_interval_fast
-        - delta: 0.05
+        - delta: 0.10
     active_power_a:
       id: raw_power_phase_1
       internal: true
@@ -81,9 +81,9 @@ sensor:
     update_interval: never
     filters:
       - or:
-        - delta: 15.0
+        - delta: 50.0
         - throttle_average: $update_interval_fast
-      - delta: 5.0
+      - delta: 7.5
 
   - platform: template
     name: Phase 2 Power
@@ -95,9 +95,9 @@ sensor:
     update_interval: never
     filters:
       - or:
-        - delta: 15.0
+        - delta: 50.0
         - throttle_average: $update_interval_fast
-      - delta: 5.0
+      - delta: 7.5
 
   - platform: template
     name: Total Power
@@ -109,9 +109,9 @@ sensor:
     update_interval: never
     filters:
       - or:
-        - delta: 15.0
+        - delta: 50.0
         - throttle_average: $update_interval_fast
-      - delta: 5.0
+      - delta: 7.5
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
