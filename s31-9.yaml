@@ -9,4 +9,4 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31-lite-light.yaml
+  device: !include templates/s31-lite-switch.yaml
