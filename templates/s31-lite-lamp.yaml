@@ -1,8 +1,8 @@
 ---
-# Sonoff S31 Lite - Light
+# Sonoff S31 Lite - Lamp
 packages:
   parent: !include s31-lite-base.yaml
-  light: !include components/s31-light.yaml
+  light: !include components/s31-lamp.yaml
 
 script:
   - id: !extend on_single

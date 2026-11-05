@@ -8,4 +8,4 @@ substitutions:
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31-light.yaml
+  device: !include templates/s31-lamp.yaml

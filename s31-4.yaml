@@ -1,13 +1,13 @@
 ---
 substitutions:
   device_name: s31-4
-  friendly_name: "Bedroom Light 1"
+  friendly_name: "Bedroom Lamp 1"
   area: "Master Bedroom"
   static_ip: 192.168.7.14
 
 packages:
   common: !include templates/common.yaml
-  device: !include templates/s31-bedtime-light.yaml
+  device: !include templates/s31-bedtime-lamp.yaml
 
 script:
   - id: !extend on_double

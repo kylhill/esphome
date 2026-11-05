@@ -1,9 +1,9 @@
 ---
-# Sonoff S31 Lite - Bedtime Light
-# Extends s31-lite-light with a shared long-press bedtime automation trigger.
+# Sonoff S31 Lite - Bedtime Lamp
+# Extends s31-lite-lamp with a shared long-press bedtime automation trigger.
 # Double-click behavior is left as a stub for per-device customization.
 packages:
-  parent: !include s31-lite-light.yaml
+  parent: !include s31-lite-lamp.yaml
   actions: !include components/device-action.yaml
 
 script:
