@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-31
-  friendly_name: "Basement SW 6"
+  friendly_name: "Basement Closet Lights"
   area: "Game Room"
   static_ip: 192.168.7.80
   button_template: components/mj-s01-button-single.yaml

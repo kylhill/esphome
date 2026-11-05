@@ -1,8 +1,8 @@
 ---
 substitutions:
   device_name: mj-s01-33
-  friendly_name: "Garage SW 1"
-  area: "Outside"
+  friendly_name: "Garage Back Door Lights"
+  area: "Deck"
   static_ip: 192.168.7.86
   fallback_ap_channel: "11"
 

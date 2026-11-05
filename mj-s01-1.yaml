@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-1
-  friendly_name: "Mud Room SW 2"
+  friendly_name: "Mud Room Lights"
   area: "Entry"
   static_ip: 192.168.7.39
 

@@ -2,7 +2,7 @@
 substitutions:
   device_name: athom-mini-10
   friendly_name: "Athom Mini 10"
-  area: "Outside"
+  area: "Deck"
   static_ip: 192.168.7.96
 
 packages:

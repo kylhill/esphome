@@ -1,8 +1,8 @@
 ---
 substitutions:
   device_name: mj-st02-1
-  friendly_name: "Mud Room SW 1"
-  area: "Entry"
+  friendly_name: "Garage Lights"
+  area: "Garage"
   static_ip: 192.168.7.38
 
 packages:

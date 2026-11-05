@@ -1,8 +1,8 @@
 ---
 substitutions:
   device_name: mj-s01-32
-  friendly_name: "Basement SW 7"
-  area: "Outside"
+  friendly_name: "Basement Exterior Lights"
+  area: "Deck"
   static_ip: 192.168.7.81
   fallback_ap_channel: "6"
   button_template: components/mj-s01-button-single.yaml

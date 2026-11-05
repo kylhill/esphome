@@ -2,7 +2,7 @@
 substitutions:
   device_name: athom-mini-8
   friendly_name: "Deck Fan"
-  area: "Outside"
+  area: "Deck"
   static_ip: 192.168.7.94
 
 packages:

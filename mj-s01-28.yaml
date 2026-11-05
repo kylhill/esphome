@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-28
-  friendly_name: "Basement Bathroom SW 2"
+  friendly_name: "Basement Bathroom Fan"
   area: "Basement Bathroom"
   static_ip: 192.168.7.77
   button_template: components/mj-s01-button-single.yaml
