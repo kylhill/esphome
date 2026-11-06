@@ -7,7 +7,7 @@
 
 substitutions:
   device_name: shelly-em
-  friendly_name: "Shelly EM"
+  friendly_name: "Power Meter"
   area: "Utility Room"
   static_ip: 192.168.7.19
   fallback_ap_channel: "6"

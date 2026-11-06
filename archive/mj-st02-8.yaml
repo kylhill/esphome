@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-st02-8
-  friendly_name: "Basement SW 2"
+  friendly_name: "Light 2"
   area: "Game Room"
   static_ip: 192.168.7.67
 

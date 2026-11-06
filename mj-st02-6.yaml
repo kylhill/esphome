@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-st02-6
-  friendly_name: "Kitchen Lights"
+  friendly_name: "Lights"
   area: "Kitchen"
   static_ip: 192.168.7.65
 

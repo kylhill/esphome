@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: s31-2
-  friendly_name: "Isaac's Lamp"
+  friendly_name: "Lamp"
   area: "Isaac's Room"
   static_ip: 192.168.7.12
   button_template: components/s31-button-single.yaml

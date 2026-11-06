@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-10
-  friendly_name: "Guest Bedroom Lights"
+  friendly_name: "Lights"
   area: "Guest Bedroom"
   static_ip: 192.168.7.51
   light_auto_off_time: 45s

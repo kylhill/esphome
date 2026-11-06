@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: athom-mini-3
-  friendly_name: "Guest Bedroom Fan"
+  friendly_name: "Fan"
   area: "Guest Bedroom"
   static_ip: 192.168.7.84
 

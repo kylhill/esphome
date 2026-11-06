@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-16
-  friendly_name: "Master Shower Lights"
+  friendly_name: "Shower Lights"
   area: "Master Bathroom"
   static_ip: 192.168.7.57
   button_template: components/mj-s01-button-single.yaml

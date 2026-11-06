@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-35
-  friendly_name: "Utility Room SW 2"
+  friendly_name: "Light 2"
   area: "Utility Room"
   click_short: 25ms
 

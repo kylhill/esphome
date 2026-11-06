@@ -2,7 +2,7 @@
 substitutions:
   device_name: athom-mini-9
   device_icon: "mdi:string-lights"
-  friendly_name: "Deck String Lights"
+  friendly_name: "String Lights"
   area: "Deck"
   static_ip: 192.168.7.95
 

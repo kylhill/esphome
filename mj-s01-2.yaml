@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: mj-s01-2
-  friendly_name: "Main Bathroom Lights"
+  friendly_name: "Lights"
   area: "Main Bathroom"
   static_ip: 192.168.7.40
   fallback_ap_channel: "6"

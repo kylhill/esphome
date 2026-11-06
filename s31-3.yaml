@@ -1,7 +1,7 @@
 ---
 substitutions:
   device_name: s31-3
-  friendly_name: "Garage Power Strip"
+  friendly_name: "Power Strip"
   area: "Garage"
   static_ip: 192.168.7.13
   button_template: components/s31-button-single.yaml
