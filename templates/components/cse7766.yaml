@@ -38,17 +38,14 @@ sensor:
     power:
       id: raw_power
       internal: true
-      on_value:
-        - component.update: power
 
-  - platform: template
+  - platform: copy
+    source_id: raw_power
     id: power
     name: Power
     state_class: measurement
     device_class: power
     unit_of_measurement: W
-    lambda: return id(raw_power).state;
-    update_interval: never
     filters:
       - or:
         - delta: 10.0

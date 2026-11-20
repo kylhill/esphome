@@ -18,8 +18,8 @@ api:
     key: !secret api_key
 
 ota:
-  platform: esphome
-  password: !secret ota_password
+  - platform: esphome
+    encryption:
 
 safe_mode:
 

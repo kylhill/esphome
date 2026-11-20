@@ -64,48 +64,45 @@ sensor:
       filters:
         - multiply: $scale_a_power
       on_value:
-        - component.update: power_phase_1
-        - component.update: total_power
+        - component.update: raw_total_power
     active_power_b:
       id: raw_power_phase_2
       internal: true
       filters:
         - multiply: $scale_b_power
       on_value:
-        - component.update: power_phase_2
-        - component.update: total_power
+        - component.update: raw_total_power
 
-  - platform: template
+  - platform: copy
+    source_id: raw_power_phase_1
     name: Phase 1 Power
     id: power_phase_1
     state_class: measurement
     device_class: power
     unit_of_measurement: W
-    lambda: return id(raw_power_phase_1).state;
-    update_interval: never
     filters:
       - or:
         - delta: 50.0
         - throttle_average: $update_interval_fast
       - delta: 7.5
 
-  - platform: template
+  - platform: copy
+    source_id: raw_power_phase_2
     name: Phase 2 Power
     id: power_phase_2
     state_class: measurement
     device_class: power
     unit_of_measurement: W
-    lambda: return id(raw_power_phase_2).state;
-    update_interval: never
     filters:
       - or:
         - delta: 50.0
         - throttle_average: $update_interval_fast
       - delta: 7.5
 
+  # Integrate the unthrottled sum, independently of phase energy publication.
   - platform: template
-    name: Total Power
-    id: total_power
+    id: raw_total_power
+    internal: true
     state_class: measurement
     device_class: power
     unit_of_measurement: W
@@ -116,6 +113,14 @@ sensor:
       }
       return id(raw_power_phase_1).state + id(raw_power_phase_2).state;
     update_interval: never
+
+  - platform: copy
+    source_id: raw_total_power
+    name: Total Power
+    id: total_power
+    state_class: measurement
+    device_class: power
+    unit_of_measurement: W
     filters:
       - or:
         - delta: 50.0
@@ -148,19 +153,18 @@ sensor:
       - multiply: 0.001
       - throttle: $update_interval_slow
 
-  - platform: template
+  - platform: total_daily_energy
     name: Total Daily Energy
     id: total_energy
+    power_id: raw_total_power
     state_class: total_increasing
     device_class: energy
     unit_of_measurement: kWh
-    lambda: |-
-      if (isnan(id(energy_phase_1).state) ||
-          isnan(id(energy_phase_2).state)) {
-        return {};
-      }
-      return id(energy_phase_1).state + id(energy_phase_2).state;
-    update_interval: $update_interval_slow
+    method: trapezoid
+    restore: false
+    filters:
+      - multiply: 0.001
+      - throttle: $update_interval_slow
 
 status_led:
   pin:
