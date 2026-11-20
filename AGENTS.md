@@ -63,7 +63,7 @@ script:
 
 **`unused/` directory** — retired or spare device configs are moved here rather than deleted. They are not compiled or deployed.
 
-**`secrets.yaml` is gitignored** — it holds `wifi_ssid`, `wifi_password`, `ap_password`, `api_key`, and `ota_password`. Use `templates/secrets.yaml` as a reference for the expected keys. Never commit the real file.
+**`secrets.yaml` is gitignored** — it holds `wifi_ssid`, `wifi_password`, `ap_password`, and `api_key`. Use `templates/secrets.yaml` as a reference for the expected keys. Never commit the real file.
 
 **Sensor filters** — use `delta` + `throttle_average` with `or:` to balance responsiveness vs. MQTT/HA noise. See `shelly-em.yaml` and `templates/components/cse7726.yaml` for examples.
 
