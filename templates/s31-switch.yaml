@@ -1,5 +1,10 @@
 ---
 # Sonoff S31 - Switch
 packages:
-  parent: !include s31-lite-switch.yaml
-  sensor: !include components/cse7766.yaml
+  parent: !include s31-base.yaml
+  switch: !include components/s31-switch.yaml
+
+script:
+  - id: !extend on_single
+    then:
+      - switch.toggle: relay_switch

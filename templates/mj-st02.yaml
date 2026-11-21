@@ -8,7 +8,7 @@ substitutions:
   fallback_ap_channel: "6"
 
 esp8266:
-  board: esp01_1m
+  board: esp12e
   restore_from_flash: true
   early_pin_init: false
 
@@ -17,8 +17,11 @@ uart:
   tx_pin: GPIO1
   baud_rate: 9600
 
-# Tuya Datapoint 1: switch
-# Tuya Datapoint 7: int value: 0
+# https://developer.tuya.com/en/docs/iot/smart-switch-product-function-definition?id=K9r7gh4lbe886
+# Tuya:
+#    Datapoint 1: switch (value: OFF)   - Relay control
+#    Datapoint 7: int value (value: 0)  - Countdown timer
+#    Product: '{"p":"aici5lcchyjapfve","v":"1.1.0","m":2}'
 tuya:
 
 light:

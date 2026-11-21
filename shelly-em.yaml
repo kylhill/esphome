@@ -1,6 +1,6 @@
 ---
 # Shelly EM
-# - https://www.esphome-devices.com/devices/Shelly-EM
+# - https://devices.esphome.io/devices/shelly-em/
 # - https://templates.blakadder.com/shelly_EM.html
 # WARNING: The digital ground may be connected to mains voltage.
 # Never connect a serial adapter while the device is powered from mains.
@@ -25,7 +25,7 @@ packages:
   time: !include templates/components/homeassistant-time.yaml
 
 esp8266:
-  board: esp01_1m
+  board: esp12e
 
 i2c:
   sda: GPIO12

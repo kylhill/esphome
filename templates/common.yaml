@@ -10,7 +10,13 @@ esphome:
 
 logger:
   baud_rate: 0
-  level: WARN
+  level: DEBUG
+  initial_level: WARN
+
+select:
+  - platform: logger
+    name: "Log Level"
+    entity_category: diagnostic
 
 api:
   reboot_timeout: 0s
@@ -49,33 +55,27 @@ captive_portal:
 button:
   - platform: restart
     id: restart_button
-    name: Restart
+    name: "Restart"
 
   - platform: safe_mode
-    name: Restart (Safe Mode)
+    name: "Restart (Safe Mode)"
 
 sensor:
   - platform: uptime
-    name: Uptime
+    name: "Uptime"
     entity_category: diagnostic
     disabled_by_default: true
     update_interval: 5min
 
   - platform: wifi_signal
-    name: Wi-Fi RSSI
+    name: "Wi-Fi RSSI"
     entity_category: diagnostic
     disabled_by_default: true
     update_interval: 5min
 
 text_sensor:
-  - platform: version
-    name: ESPHome Version
-    entity_category: diagnostic
-    disabled_by_default: true
-    hide_timestamp: true
-
   - platform: debug
-    reset_reason:
-      name: Reset Reason
+    device:
+      name: "Device Info"
       entity_category: diagnostic
       disabled_by_default: true

@@ -2,6 +2,11 @@
 # Athom Mini Switch
 # - https://github.com/athom-tech/athom-configs/blob/main/athom-mini-switch.yaml
 # - https://www.espthings.io/index.php/2021/10/30/athom-mini-relay-switch-esphome/
+esphome:
+  platformio_options:
+    board_build.ldscript: eagle.flash.2m.ld
+    board_upload.maximum_size: 2097152
+
 esp8266:
   board: esp8285
   restore_from_flash: true
@@ -49,6 +54,6 @@ binary_sensor:
           - script.execute: on_single
 
 light:
-  - platform: binary
+  - platform: status_led
     id: led
     output: led_output

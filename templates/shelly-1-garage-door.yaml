@@ -2,12 +2,8 @@
 # Shelly 1 - Garage Door Opener
 # - https://savjee.be/2020/06/make-garage-door-opener-smart-shelly-esphome-home-assistant/
 # - https://github.com/athom-tech/athom-configs/blob/main/athom-garage-door.yaml
-substitutions:
-  fallback_ap_channel: "6"
-
-esp8266:
-  board: esp01_1m
-  early_pin_init: false
+packages:
+  parent: !include shelly-1-base.yaml
 
 binary_sensor:
   - platform: gpio

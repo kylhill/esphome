@@ -1,14 +1,10 @@
 ---
 # Shelly 1 - Light
-# - https://www.esphome-devices.com/devices/Shelly-1
+packages:
+  parent: !include shelly-1-base.yaml
+
 substitutions:
   device_icon: "mdi:lightbulb"
-  fallback_ap_channel: "6"
-
-esp8266:
-  board: esp01_1m
-  restore_from_flash: true
-  early_pin_init: false
 
 output:
   - platform: gpio

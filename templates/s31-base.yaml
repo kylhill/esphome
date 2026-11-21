@@ -1,0 +1,8 @@
+---
+# Sonoff S31 with power monitoring
+packages:
+  parent: !include s31-common.yaml
+  sensor: !include components/cse7766.yaml
+
+esp8266:
+  board: esp12e

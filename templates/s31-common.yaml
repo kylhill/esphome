@@ -1,0 +1,101 @@
+---
+# Shared Sonoff S31 and S31 Lite hardware and button behavior
+# - https://devices.esphome.io/devices/sonoff-s31/
+# - https://digiblur.com/wiki/devices/plugs/sonoff_s31
+substitutions:
+  button_template: components/s31-button-multi.yaml
+  click_short: 250ms
+  click_single_max: 749ms
+  click_long: 750ms
+  flash_delay: 200ms
+  fallback_ap_channel: "11"
+
+packages:
+  button: !include ${button_template}
+
+globals:
+  - id: blue_on
+    type: bool
+    initial_value: 'false'
+
+script:
+  - id: on_single
+    then: {}
+
+  - id: on_double
+    then: {}
+
+  - id: on_long
+    then: {}
+
+  - id: flash_blue
+    then:
+      - lambda: |-
+          id(blue_on) = id(blue_led).current_values.is_on();
+      - light.turn_on: blue_led
+      - delay: $flash_delay
+      - light.turn_off: blue_led
+      - delay: $flash_delay
+      - light.turn_on: blue_led
+      - delay: $flash_delay
+      - light.turn_off: blue_led
+      - delay: $flash_delay
+      - if:
+          condition:
+            lambda: 'return id(blue_on);'
+          then:
+            - light.turn_on: blue_led
+          else:
+            - light.turn_off: blue_led
+
+  - id: flash_action_error
+    mode: restart
+    then:
+      - lambda: id(blue_on) = id(blue_led).current_values.is_on();
+      - if:
+          condition:
+            lambda: return id(blue_on);
+          then:
+            - light.turn_off: blue_led
+          else:
+            - light.turn_on: blue_led
+      - delay: 1s
+      - if:
+          condition:
+            lambda: return id(blue_on);
+          then:
+            - light.turn_on: blue_led
+          else:
+            - light.turn_off: blue_led
+
+esp8266:
+  restore_from_flash: true
+  early_pin_init: false
+
+output:
+  - platform: gpio
+    pin: GPIO12
+    id: relay_output
+
+  - platform: gpio
+    id: blue_output
+    pin:
+      number: GPIO13
+      inverted: true
+
+binary_sensor:
+  - platform: gpio
+    id: the_button
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    filters:
+      - delayed_on_off: 25ms
+
+light:
+  - platform: binary
+    id: blue_led
+    output: blue_output
