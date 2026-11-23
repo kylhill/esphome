@@ -12,7 +12,7 @@ substitutions:
   static_ip: 192.168.7.19
   fallback_ap_channel: "6"
   sample_rate: "1s"
-  update_interval_fast: "15s"
+  update_interval_fast: "20s"
   update_interval_slow: "60s"
 
   # 120A clamp (3000:1): 1.143207411 - https://community.home-assistant.io/t/anyone-using-shelly-em/149867/14
@@ -41,22 +41,29 @@ sensor:
       id: voltage
       filters:
         - throttle_average: $update_interval_slow
+        - round_to_multiple_of: 0.1
         - delta: 0.5
     current_a:
       name: Phase 1 Current
       id: current_phase_1
       filters:
         - or:
-          - delta: 0.25
+          - delta:
+              min_value: 0.42
+              baseline: !lambda return id(current_phase_1).state;
           - throttle_average: $update_interval_fast
+        - round_to_multiple_of: 0.01
         - delta: 0.10
     current_b:
       name: Phase 2 Current
       id: current_phase_2
       filters:
         - or:
-          - delta: 0.25
+          - delta:
+              min_value: 0.42
+              baseline: !lambda return id(current_phase_2).state;
           - throttle_average: $update_interval_fast
+        - round_to_multiple_of: 0.01
         - delta: 0.10
     active_power_a:
       id: raw_power_phase_1
@@ -82,9 +89,12 @@ sensor:
     unit_of_measurement: W
     filters:
       - or:
-        - delta: 50.0
+        - delta:
+            min_value: 25.0
+            baseline: !lambda return id(power_phase_1).state;
         - throttle_average: $update_interval_fast
-      - delta: 7.5
+      - round_to_multiple_of: 1.0
+      - delta: 5.0
 
   - platform: copy
     source_id: raw_power_phase_2
@@ -95,9 +105,12 @@ sensor:
     unit_of_measurement: W
     filters:
       - or:
-        - delta: 50.0
+        - delta:
+            min_value: 25.0
+            baseline: !lambda return id(power_phase_2).state;
         - throttle_average: $update_interval_fast
-      - delta: 7.5
+      - round_to_multiple_of: 1.0
+      - delta: 5.0
 
   # Integrate the unthrottled sum, independently of phase energy publication.
   - platform: template
@@ -123,9 +136,12 @@ sensor:
     unit_of_measurement: W
     filters:
       - or:
-        - delta: 50.0
+        - delta:
+            min_value: 25.0
+            baseline: !lambda return id(total_power).state;
         - throttle_average: $update_interval_fast
-      - delta: 7.5
+      - round_to_multiple_of: 1.0
+      - delta: 2.0
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy

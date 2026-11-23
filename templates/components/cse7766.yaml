@@ -4,8 +4,7 @@
 # WARNING: The Sonoff S31 digital ground is connected to mains voltage.
 # Never connect a serial adapter while the device is powered from mains.
 substitutions:
-  update_interval_fast: "15s"
-  update_interval_slow: "60s"
+  update_interval: "60s"
 
 packages:
   time: !include homeassistant-time.yaml
@@ -24,16 +23,20 @@ sensor:
       state_class: measurement
       filters:
         - or:
-          - delta: 0.1
-          - throttle_average: $update_interval_fast
-        - delta: 0.05
+          - delta:
+              min_value: 0.17
+              baseline: !lambda return id(current).state;
+          - throttle_average: $update_interval
+        - round_to_multiple_of: 0.01
+        - delta: 0.0
     voltage:
       id: voltage
       name: Voltage
       device_class: voltage
       state_class: measurement
       filters:
-        - throttle_average: $update_interval_slow
+        - throttle_average: $update_interval
+        - round_to_multiple_of: 0.1
         - delta: 0.5
     power:
       id: raw_power
@@ -48,9 +51,12 @@ sensor:
     unit_of_measurement: W
     filters:
       - or:
-        - delta: 10.0
-        - throttle_average: $update_interval_fast
-      - delta: 3.0
+        - delta:
+            min_value: 5.0
+            baseline: !lambda return id(power).state;
+        - throttle_average: $update_interval
+      - round_to_multiple_of: 0.1
+      - delta: 0.0
 
   - platform: total_daily_energy
     name: Total Daily Energy
@@ -62,4 +68,4 @@ sensor:
     unit_of_measurement: kWh
     filters:
       - multiply: 0.001
-      - throttle: $update_interval_slow
+      - throttle: $update_interval
