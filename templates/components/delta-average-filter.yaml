@@ -1,0 +1,110 @@
+lambda: |-
+  static float last_published_ticks = NAN;
+  static float window_sum = 0.0f;
+  static uint32_t window_count = 0;
+  static uint32_t window_start = 0;
+  static bool pending_zero = false;
+  static float step_sum = 0.0f;
+  static uint32_t step_count = 0;
+  static uint32_t step_start = 0;
+  static int step_direction = 0;
+  static int average_drift_direction = 0;
+  static uint32_t average_drift_start = 0;
+
+  const uint32_t now = millis();
+  constexpr uint32_t delta_average_ms = ${delta_average_seconds} * 1000UL;
+  constexpr uint32_t startup_average_samples = 5;
+  constexpr uint32_t average_ms = ${average_seconds} * 1000UL;
+  constexpr uint32_t average_fallback_ms = ${average_fallback_seconds} * 1000UL;
+  constexpr float rounding_step = ${rounding_step};
+
+  if (!isfinite(x)) {
+    window_count = 0;
+    step_count = 0;
+    pending_zero = false;
+    average_drift_direction = 0;
+    if (isnan(last_published_ticks))
+      return {};
+    last_published_ticks = NAN;
+    return NAN;
+  }
+
+  const float ticks = roundf(x / rounding_step);
+  const float difference = x - last_published_ticks * rounding_step;
+  const bool returning_to_zero = ${delta_on_confirmed_zero} && ticks == 0.0f &&
+                                 !isnan(last_published_ticks) && last_published_ticks != 0.0f;
+  const bool confirmed_zero = returning_to_zero && pending_zero;
+  pending_zero = returning_to_zero;
+
+  const bool initializing = isnan(last_published_ticks);
+  int direction = 0;
+  if (!returning_to_zero && ticks != last_published_ticks &&
+      fabsf(difference) > ${delta_threshold}) {
+    direction = difference > 0.0f ? 1 : -1;
+  }
+
+  if (initializing || direction != 0) {
+    if (direction != step_direction)
+      step_count = 0;
+    if (step_count == 0) {
+      step_sum = 0.0f;
+      step_start = now;
+    }
+    step_sum += x;
+    ++step_count;
+  } else {
+    step_count = 0;
+  }
+  step_direction = direction;
+
+  const bool step_ready = initializing
+      ? step_count >= startup_average_samples
+      : step_count != 0 && now - step_start >= delta_average_ms;
+  if (confirmed_zero || step_ready) {
+    last_published_ticks = confirmed_zero
+        ? 0.0f
+        : roundf(step_sum / step_count / rounding_step);
+    // Start a new long-average window after this report.
+    window_start = now;
+    window_count = 0;
+    step_count = 0;
+    pending_zero = false;
+    average_drift_direction = 0;
+    return last_published_ticks * rounding_step;
+  }
+
+  if (initializing)
+    return {};
+
+  // Unconfirmed steps and isolated zeros still contribute to the long average.
+  if (window_count == 0)
+    window_sum = 0.0f;
+  window_sum += x;
+  ++window_count;
+  if (now - window_start < average_ms)
+    return {};
+
+  const float average_ticks = roundf(window_sum / window_count / rounding_step);
+  window_start = now;
+  window_count = 0;
+  const float change = average_ticks - last_published_ticks;
+  if (change == 0.0f) {
+    average_drift_direction = 0;
+    return {};
+  }
+
+  if (fabsf(change) <= roundf(${average_deadband} / rounding_step)) {
+    const int drift_direction = change > 0.0f ? 1 : -1;
+    if (drift_direction != average_drift_direction) {
+      average_drift_direction = drift_direction;
+      average_drift_start = now;
+      return {};
+    }
+    if (now - average_drift_start < average_fallback_ms)
+      return {};
+  }
+
+  average_drift_direction = 0;
+  step_count = 0;
+  last_published_ticks = average_ticks;
+  return average_ticks * rounding_step;

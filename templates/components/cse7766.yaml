@@ -19,19 +19,17 @@ sensor:
     current:
       id: current
       name: Current
+      accuracy_decimals: 3
       device_class: current
       state_class: measurement
       filters:
-        - or:
-          - delta:
-              min_value: 0.17
-              baseline: !lambda return id(current).state;
-          - throttle_average: $update_interval
-        - round_to_multiple_of: 0.01
-        - delta: 0.0
+        - throttle_average: $update_interval
+        - round_to_multiple_of: 0.001
+        - delta: 0.0025
     voltage:
       id: voltage
       name: Voltage
+      accuracy_decimals: 1
       device_class: voltage
       state_class: measurement
       filters:
@@ -46,17 +44,21 @@ sensor:
     source_id: raw_power
     id: power
     name: Power
+    accuracy_decimals: 1
     state_class: measurement
     device_class: power
     unit_of_measurement: W
     filters:
-      - or:
-        - delta:
-            min_value: 5.0
-            baseline: !lambda return id(power).state;
-        - throttle_average: $update_interval
-      - round_to_multiple_of: 0.1
-      - delta: 0.0
+      - !include
+          file: delta-average-filter.yaml
+          vars:
+            delta_threshold: 5.0
+            delta_average_seconds: 5
+            average_seconds: 60
+            average_fallback_seconds: 180
+            rounding_step: 0.1
+            average_deadband: 0.3
+            delta_on_confirmed_zero: "true"
 
   - platform: total_daily_energy
     name: Total Daily Energy

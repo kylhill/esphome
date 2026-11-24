@@ -12,8 +12,7 @@ substitutions:
   static_ip: 192.168.7.19
   fallback_ap_channel: "6"
   sample_rate: "1s"
-  update_interval_fast: "20s"
-  update_interval_slow: "60s"
+  update_interval: "30s"
 
   # 120A clamp (3000:1): 1.143207411 - https://community.home-assistant.io/t/anyone-using-shelly-em/149867/14
   # Phase 2 derived from 20 samples from Shelly 1 Plus PM on Fridge: 1.1059
@@ -38,33 +37,28 @@ sensor:
     use_accumulated_energy_registers: true
     voltage:
       name: Voltage
+      accuracy_decimals: 1
       id: voltage
       filters:
-        - throttle_average: $update_interval_slow
+        - throttle_average: $update_interval
         - round_to_multiple_of: 0.1
         - delta: 0.5
     current_a:
       name: Phase 1 Current
+      accuracy_decimals: 2
       id: current_phase_1
       filters:
-        - or:
-          - delta:
-              min_value: 0.42
-              baseline: !lambda return id(current_phase_1).state;
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval
         - round_to_multiple_of: 0.01
-        - delta: 0.10
+        - delta: 0.0167
     current_b:
       name: Phase 2 Current
+      accuracy_decimals: 2
       id: current_phase_2
       filters:
-        - or:
-          - delta:
-              min_value: 0.42
-              baseline: !lambda return id(current_phase_2).state;
-          - throttle_average: $update_interval_fast
+        - throttle_average: $update_interval
         - round_to_multiple_of: 0.01
-        - delta: 0.10
+        - delta: 0.0167
     active_power_a:
       id: raw_power_phase_1
       internal: true
@@ -82,34 +76,35 @@ sensor:
   - platform: copy
     source_id: raw_power_phase_1
     name: Phase 1 Power
+    accuracy_decimals: 0
     id: power_phase_1
     state_class: measurement
     device_class: power
     unit_of_measurement: W
     filters:
-      - or:
-        - delta:
-            min_value: 25.0
-            baseline: !lambda return id(power_phase_1).state;
-        - throttle_average: $update_interval_fast
-      - round_to_multiple_of: 1.0
-      - delta: 5.0
+      - !include
+          file: templates/components/delta-average-filter.yaml
+          vars: &power_filter_vars
+            delta_threshold: 25.0
+            delta_average_seconds: 5
+            average_seconds: 30
+            average_fallback_seconds: 180
+            rounding_step: 1.0
+            average_deadband: 2.0
+            delta_on_confirmed_zero: "false"
 
   - platform: copy
     source_id: raw_power_phase_2
     name: Phase 2 Power
+    accuracy_decimals: 0
     id: power_phase_2
     state_class: measurement
     device_class: power
     unit_of_measurement: W
     filters:
-      - or:
-        - delta:
-            min_value: 25.0
-            baseline: !lambda return id(power_phase_2).state;
-        - throttle_average: $update_interval_fast
-      - round_to_multiple_of: 1.0
-      - delta: 5.0
+      - !include
+          file: templates/components/delta-average-filter.yaml
+          vars: *power_filter_vars
 
   # Integrate the unthrottled sum, independently of phase energy publication.
   - platform: template
@@ -129,18 +124,15 @@ sensor:
   - platform: copy
     source_id: raw_total_power
     name: Total Power
+    accuracy_decimals: 0
     id: total_power
     state_class: measurement
     device_class: power
     unit_of_measurement: W
     filters:
-      - or:
-        - delta:
-            min_value: 25.0
-            baseline: !lambda return id(total_power).state;
-        - throttle_average: $update_interval_fast
-      - round_to_multiple_of: 1.0
-      - delta: 2.0
+      - !include
+          file: templates/components/delta-average-filter.yaml
+          vars: *power_filter_vars
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
@@ -154,7 +146,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: $update_interval_slow
+      - throttle: $update_interval
 
   - platform: total_daily_energy
     name: Phase 2 Daily Energy
@@ -167,7 +159,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: $update_interval_slow
+      - throttle: $update_interval
 
   - platform: total_daily_energy
     name: Total Daily Energy
@@ -180,7 +172,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: $update_interval_slow
+      - throttle: $update_interval
 
 status_led:
   pin:

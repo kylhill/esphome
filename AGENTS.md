@@ -65,7 +65,7 @@ script:
 
 **`secrets.yaml` is gitignored** — it holds `wifi_ssid`, `wifi_password`, `ap_password`, and `api_key`. Use `templates/secrets.yaml` as a reference for the expected keys. Never commit the real file.
 
-**Sensor filters** — use `delta` + `throttle_average` with `or:` to balance responsiveness vs. MQTT/HA noise. See `shelly-em.yaml` and `templates/components/cse7726.yaml` for examples.
+**Sensor filters** — for power reporting, see how `shelly-em.yaml` and `templates/components/cse7766.yaml` use `templates/components/delta-average-filter.yaml`. The first report averages five valid samples. Fast updates average consecutive samples that stay beyond the delta threshold on the same side of the last report for the configured confirmation duration. Shorter excursions contribute to the long average, which uses a configurable window duration, deadband, and fallback duration measured from the first window showing a change inside the deadband. Current reporting uses a timed average followed by rounding and a deadband. Enable `delta_on_confirmed_zero` for sensors that should publish zero as soon as two consecutive samples round to zero. Isolated zero readings contribute to the long average. Use raw power for energy integration and apply the reporting filter separately.
 
 **Adding a new device:**
 1. Copy the closest existing root config, set a new `device_name`/`static_ip`.
