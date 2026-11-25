@@ -11,8 +11,6 @@ substitutions:
   area: "Utility Room"
   static_ip: 192.168.7.19
   fallback_ap_channel: "6"
-  sample_rate: "1s"
-  update_interval: "30s"
 
   # 120A clamp (3000:1): 1.143207411 - https://community.home-assistant.io/t/anyone-using-shelly-em/149867/14
   # Phase 2 derived from 20 samples from Shelly 1 Plus PM on Fridge: 1.1059
@@ -33,14 +31,14 @@ i2c:
 sensor:
   - platform: ade7953_i2c
     irq_pin: GPIO13
-    update_interval: $sample_rate
+    update_interval: 1s
     use_accumulated_energy_registers: true
     voltage:
       name: Voltage
       accuracy_decimals: 1
       id: voltage
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: 60s
         - round_to_multiple_of: 0.1
         - delta: 0.5
     current_a:
@@ -48,17 +46,17 @@ sensor:
       accuracy_decimals: 2
       id: current_phase_1
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: 30s
         - round_to_multiple_of: 0.01
-        - delta: 0.0167
+        - delta: 0.05
     current_b:
       name: Phase 2 Current
       accuracy_decimals: 2
       id: current_phase_2
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: 30s
         - round_to_multiple_of: 0.01
-        - delta: 0.0167
+        - delta: 0.05
     active_power_a:
       id: raw_power_phase_1
       internal: true
@@ -86,11 +84,11 @@ sensor:
           file: templates/components/delta-average-filter.yaml
           vars: &power_filter_vars
             delta_threshold: 25.0
-            delta_average_seconds: 5
+            delta_average_seconds: 2
             average_seconds: 30
             average_fallback_seconds: 180
             rounding_step: 1.0
-            average_deadband: 2.0
+            average_deadband: 3.0
             delta_on_confirmed_zero: "false"
 
   - platform: copy
@@ -146,7 +144,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: $update_interval
+      - throttle: 60s
 
   - platform: total_daily_energy
     name: Phase 2 Daily Energy
@@ -159,7 +157,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: $update_interval
+      - throttle: 60s
 
   - platform: total_daily_energy
     name: Total Daily Energy
@@ -172,7 +170,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: $update_interval
+      - throttle: 60s
 
 status_led:
   pin:

@@ -3,9 +3,6 @@
 # - https://esphome.io/components/sensor/cse7766.html
 # WARNING: The Sonoff S31 digital ground is connected to mains voltage.
 # Never connect a serial adapter while the device is powered from mains.
-substitutions:
-  update_interval: "60s"
-
 packages:
   time: !include homeassistant-time.yaml
 
@@ -23,9 +20,9 @@ sensor:
       device_class: current
       state_class: measurement
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: 60s
         - round_to_multiple_of: 0.001
-        - delta: 0.0025
+        - delta: 0.01
     voltage:
       id: voltage
       name: Voltage
@@ -33,7 +30,7 @@ sensor:
       device_class: voltage
       state_class: measurement
       filters:
-        - throttle_average: $update_interval
+        - throttle_average: 60s
         - round_to_multiple_of: 0.1
         - delta: 0.5
     power:
@@ -53,11 +50,11 @@ sensor:
           file: delta-average-filter.yaml
           vars:
             delta_threshold: 5.0
-            delta_average_seconds: 5
+            delta_average_seconds: 2
             average_seconds: 60
             average_fallback_seconds: 180
             rounding_step: 0.1
-            average_deadband: 0.3
+            average_deadband: 0.5
             delta_on_confirmed_zero: "true"
 
   - platform: total_daily_energy
@@ -70,4 +67,4 @@ sensor:
     unit_of_measurement: kWh
     filters:
       - multiply: 0.001
-      - throttle: $update_interval
+      - throttle: 60s

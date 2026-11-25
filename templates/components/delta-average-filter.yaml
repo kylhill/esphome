@@ -81,7 +81,11 @@ lambda: |-
     window_sum = 0.0f;
   window_sum += x;
   ++window_count;
-  if (now - window_start < average_ms)
+  const uint32_t window_elapsed = now - window_start;
+  if (window_elapsed < average_ms)
+    return {};
+  // Bound the wait from the window boundary so a reversal cannot extend it.
+  if (step_count != 0 && window_elapsed - average_ms < delta_average_ms)
     return {};
 
   const float average_ticks = roundf(window_sum / window_count / rounding_step);
