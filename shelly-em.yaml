@@ -12,10 +12,10 @@ substitutions:
   static_ip: 192.168.7.19
   fallback_ap_channel: "6"
 
-  # 120A clamp (3000:1): 1.143207411 - https://community.home-assistant.io/t/anyone-using-shelly-em/149867/14
-  # Phase 2 derived from 20 samples from Shelly 1 Plus PM on Fridge: 1.1059
-  scale_a_power: '1.1059'
-  scale_b_power: '1.1059'
+  # Derived from Shelly 1 Plus PM on the dishwasher.
+  scale_power_a: '1.0800'
+  # Derived Shelly 1 Plus PM on the refrigerator.
+  scale_power_b: '1.1059'
 
 packages:
   common: !include templates/common.yaml
@@ -61,12 +61,12 @@ sensor:
       id: raw_power_phase_1
       internal: true
       filters:
-        - multiply: $scale_a_power
+        - multiply: $scale_power_a
     active_power_b:
       id: raw_power_phase_2
       internal: true
       filters:
-        - multiply: $scale_b_power
+        - multiply: $scale_power_b
       on_value:
         # The ADE7953 publishes phase A before phase B in each poll.
         - component.update: raw_total_power
@@ -134,6 +134,7 @@ sensor:
 
   - platform: total_daily_energy
     name: Phase 1 Daily Energy
+    accuracy_decimals: 3
     id: energy_phase_1
     power_id: raw_power_phase_1
     state_class: total_increasing
@@ -144,10 +145,11 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: 60s
+      - throttle: 180s
 
   - platform: total_daily_energy
     name: Phase 2 Daily Energy
+    accuracy_decimals: 3
     id: energy_phase_2
     power_id: raw_power_phase_2
     state_class: total_increasing
@@ -157,10 +159,11 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: 60s
+      - throttle: 180s
 
   - platform: total_daily_energy
     name: Total Daily Energy
+    accuracy_decimals: 3
     id: total_energy
     power_id: raw_total_power
     state_class: total_increasing
@@ -170,7 +173,7 @@ sensor:
     restore: false
     filters:
       - multiply: 0.001
-      - throttle: 60s
+      - throttle: 180s
 
 status_led:
   pin:

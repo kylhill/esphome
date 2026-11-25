@@ -6,6 +6,24 @@
 packages:
   time: !include homeassistant-time.yaml
 
+esphome:
+  on_boot:
+    priority: -100
+    then:
+      - component.update: daily_energy
+
+time:
+  - id: !extend ha_time
+    on_time:
+      - hours: 0
+        minutes: 0
+        seconds: 0
+        then:
+          - component.update: daily_energy
+    on_time_sync:
+      then:
+        - component.update: daily_energy
+
 uart:
   rx_pin: RX
   baud_rate: 4800
@@ -36,6 +54,11 @@ sensor:
     power:
       id: raw_power
       internal: true
+    energy:
+      id: native_energy_wh
+      internal: true
+      on_value:
+        - component.update: daily_energy
 
   - platform: copy
     source_id: raw_power
@@ -57,14 +80,38 @@ sensor:
             average_deadband: 0.5
             delta_on_confirmed_zero: "true"
 
-  - platform: total_daily_energy
+  - platform: template
+    id: daily_energy
     name: Total Daily Energy
     state_class: total_increasing
-    power_id: raw_power
     device_class: energy
-    method: trapezoid
-    restore: false
     unit_of_measurement: kWh
+    accuracy_decimals: 3
+    update_interval: never
+    lambda: |-
+      static float day_start_wh = 0.0f;
+      static float last_total_wh = 0.0f;
+      static int last_date = 0;
+      const float native_wh = id(native_energy_wh).state;
+      const float total_wh = std::isfinite(native_wh) ? native_wh : last_total_wh;
+      // Preserve the day's accumulated energy if the driver's pulse total wraps.
+      if (total_wh < last_total_wh)
+        day_start_wh -= last_total_wh;
+      last_total_wh = total_wh;
+      const auto now = id(ha_time).now();
+      if (now.is_valid()) {
+        const int date = now.year * 1000 + now.day_of_year;
+        // Keep energy counted before the first time sync, as before.
+        if (last_date != 0 && date != last_date)
+          day_start_wh = total_wh;
+        last_date = date;
+      }
+      return (total_wh - day_start_wh) * 0.001f;
     filters:
-      - multiply: 0.001
-      - throttle: 60s
+      - lambda: |-
+          if (x == 0.0f && id(daily_energy).state == 0.0f)
+            return {};
+          return x;
+      - throttle_with_priority:
+          timeout: 180s
+          value: 0.0
