@@ -4,8 +4,18 @@ This repo contains ESPHome firmware configurations for smart home devices integr
 
 ## ESPHome Commands
 
+Run `direnv allow` once to load the Nix development shell when entering this
+checkout. Launch Codex from that shell and use `esphome` directly. For
+non-interactive validation, use `direnv exec . esphome config <device>.yaml`
+or `nix develop -c esphome config <device>.yaml`.
+
+Run `esphome config` on each affected root device after editing YAML. For
+shared template edits, validate every active root device that includes the
+template, directly or through another package. Use the local ignored
+`secrets.yaml` and keep resolved configuration output out of shared logs.
+
 ```bash
-esphome validate <device>.yaml   # Check config for errors
+esphome config <device>.yaml     # Check config for errors
 esphome compile <device>.yaml    # Build firmware
 esphome upload <device>.yaml     # Flash device OTA
 esphome logs <device>.yaml       # Stream serial/network logs
