@@ -86,7 +86,7 @@ sensor:
     state_class: total_increasing
     device_class: energy
     unit_of_measurement: kWh
-    accuracy_decimals: 3
+    accuracy_decimals: 4
     update_interval: never
     lambda: |-
       static float day_start_wh = 0.0f;
@@ -109,9 +109,26 @@ sensor:
       return (total_wh - day_start_wh) * 0.001f;
     filters:
       - lambda: |-
-          if (x == 0.0f && id(daily_energy).state == 0.0f)
+          static uint32_t last_publish_ms = 0;
+          static bool published = false;
+          const uint32_t now = millis();
+
+          if (!std::isfinite(x))
             return {};
-          return x;
-      - throttle_with_priority:
-          timeout: 180s
-          value: 0.0
+
+          // Detect actual resets before rounding.
+          const bool reset = x == 0.0f;
+
+          // Round published energy to 0.1 Wh.
+          x = roundf(x * 10000.0f) / 10000.0f;
+
+          if (published && x == id(daily_energy).state)
+            return {};
+
+          if (!published || reset || now - last_publish_ms >= 180000UL) {
+            last_publish_ms = now;
+            published = true;
+            return x;
+          }
+
+          return {};
